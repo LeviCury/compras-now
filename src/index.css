@@ -1,0 +1,349 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --bg: #fafafa;
+    --bg-elevated: #ffffff;
+    --bg-subtle: #f4f4f5;
+    --border: #e4e4e7;
+    --border-subtle: #f0f0f0;
+    --text: #09090b;
+    --text-muted: #52525b;
+    --text-faint: #a1a1aa;
+    --accent: #E30613;
+    --accent-soft: rgba(227, 6, 19, 0.06);
+    --accent-medium: rgba(227, 6, 19, 0.14);
+    --shadow-card: 0 1px 0 rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  html.dark {
+    color-scheme: dark;
+    --bg: #09090b;
+    --bg-elevated: #18181b;
+    --bg-subtle: #1f1f24;
+    --border: #27272a;
+    --border-subtle: #1a1a1d;
+    --text: #fafafa;
+    --text-muted: #a1a1aa;
+    --text-faint: #71717a;
+    --accent: #E30613;
+    --accent-soft: rgba(227, 6, 19, 0.10);
+    --accent-medium: rgba(227, 6, 19, 0.22);
+    --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.02), 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    transition: background-color 0.2s, color 0.2s;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 8px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--text-faint);
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border;
+    background: var(--bg-elevated);
+    border-color: var(--border);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-tight {
+    @apply card p-4;
+  }
+
+  .card-padded {
+    @apply card p-6;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors;
+  }
+
+  .btn-primary {
+    @apply btn text-white;
+    background: var(--accent);
+  }
+  .btn-primary:hover {
+    filter: brightness(1.08);
+  }
+
+  .btn-accent {
+    @apply btn text-white;
+    background: var(--accent);
+  }
+  .btn-accent:hover {
+    filter: brightness(1.08);
+  }
+
+  .btn-secondary {
+    @apply btn;
+    background: var(--bg-elevated);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover {
+    background: var(--bg-subtle);
+  }
+
+  .btn-ghost {
+    @apply btn;
+    color: var(--text-muted);
+  }
+  .btn-ghost:hover {
+    background: var(--bg-subtle);
+    color: var(--text);
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-colors cursor-pointer select-none;
+    background: var(--bg-subtle);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+  .chip:hover {
+    color: var(--text);
+    background: var(--bg-elevated);
+  }
+  .chip-active {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .label-muted {
+    color: var(--text-faint);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    width: 100%;
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, var(--bg-subtle) 0%, var(--border-subtle) 50%, var(--bg-subtle) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s linear infinite;
+    border-radius: 0.5rem;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+}
+
+@layer utilities {
+  .text-accent {
+    color: var(--accent);
+  }
+
+  .bg-elevated {
+    background: var(--bg-elevated);
+  }
+
+  .bg-subtle {
+    background: var(--bg-subtle);
+  }
+
+  .border-default {
+    border-color: var(--border);
+  }
+}
+
+/* ============================================================
+   Modo Apresentacao em TV - Big Numbers em 4 colunas
+   ============================================================ */
+
+html.presentation-active {
+  background: #0a0a0a;
+}
+
+html.presentation-active body {
+  background: #0a0a0a;
+  color: #f4f4f5;
+  overflow: hidden;
+}
+
+.presentation-root {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background: #0a0a0a;
+  color: #f4f4f5;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.presentation-bignumber {
+  font-feature-settings: 'tnum' 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.presentation-divider {
+  height: 1px;
+  background: rgba(244, 244, 245, 0.08);
+}
+
+@keyframes pulseLive {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.presentation-live-dot {
+  animation: pulseLive 1.6s ease-in-out infinite;
+}
+
+/* Container query host para cada coluna do modo apresentacao.
+   Define um contexto pra que filhos possam responder a tamanho
+   do container, nao do viewport. */
+.pcol {
+  container-type: inline-size;
+  container-name: pcol;
+}
+
+/* Grid responsivo das tabelas dentro da coluna.
+   Default = mode compact (sem BASE, 4 colunas) */
+.pcol-table-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  column-gap: 0.5rem;
+  align-items: baseline;
+}
+
+.pcol-cell-base,
+.pcol-suffix-kg {
+  display: none;
+}
+
+/* Comfortable mode: aparece o /kg suffix nos numeros */
+@container pcol (min-width: 300px) {
+  .pcol-suffix-kg {
+    display: inline;
+  }
+}
+
+/* Spacious mode: aparece a 5a coluna BASE e o grid expande */
+@container pcol (min-width: 380px) {
+  .pcol-table-row {
+    grid-template-columns: minmax(0, 1.3fr) repeat(4, minmax(0, 1fr));
+  }
+  .pcol-cell-base {
+    display: block;
+  }
+}
+
+/* Font sizes que se adaptam por container query */
+.pcol-bignumber-cab {
+  font-size: 2.2rem;
+}
+.pcol-bignumber-preco {
+  font-size: 1.6rem;
+}
+.pcol-boivaca-value {
+  font-size: 1rem;
+}
+.pcol-origem-code {
+  font-size: 0.75rem;
+}
+.pcol-origem-name {
+  font-size: 0.8rem;
+}
+.pcol-price-value {
+  font-size: 0.9rem;
+}
+.pcol-price-value-base {
+  font-size: 0.8rem;
+}
+
+@container pcol (min-width: 300px) {
+  .pcol-bignumber-cab {
+    font-size: 2.5rem;
+  }
+  .pcol-bignumber-preco {
+    font-size: 1.85rem;
+  }
+  .pcol-boivaca-value {
+    font-size: 1.15rem;
+  }
+  .pcol-origem-code {
+    font-size: 0.8rem;
+  }
+  .pcol-origem-name {
+    font-size: 0.9rem;
+  }
+  .pcol-price-value {
+    font-size: 1rem;
+  }
+  .pcol-price-value-base {
+    font-size: 0.9rem;
+  }
+}
+
+@container pcol (min-width: 380px) {
+  .pcol-bignumber-cab {
+    font-size: 3rem;
+  }
+  .pcol-bignumber-preco {
+    font-size: 2.25rem;
+  }
+  .pcol-boivaca-value {
+    font-size: 1.4rem;
+  }
+  .pcol-origem-code {
+    font-size: 0.85rem;
+  }
+  .pcol-origem-name {
+    font-size: 0.95rem;
+  }
+  .pcol-price-value {
+    font-size: 1.15rem;
+  }
+  .pcol-price-value-base {
+    font-size: 1rem;
+  }
+}
+
+@container pcol (min-width: 460px) {
+  .pcol-bignumber-cab {
+    font-size: 3.5rem;
+  }
+  .pcol-bignumber-preco {
+    font-size: 2.6rem;
+  }
+  .pcol-boivaca-value {
+    font-size: 1.6rem;
+  }
+  .pcol-price-value {
+    font-size: 1.25rem;
+  }
+}

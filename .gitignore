@@ -1,0 +1,45 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+.env
+.env.local
+.env.*.local
+!.env.example
+
+.DS_Store
+Thumbs.db
+
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.vercel
+
+rpa/logs/
+rpa/Processados/
+rpa/downloads/
+rpa/state/
+rpa/workspace/
+rpa/__pycache__/
+*.pyc
+
+# Local sample data
+ExportSintetico_amostra.xls
+sintetico2105_amostra.xls
+
+# TS build cache
+*.tsbuildinfo
+
+# Test fixtures (Playwright)
+test-output/
+
+# Playwright cache
+playwright-report/
+playwright/.cache/
