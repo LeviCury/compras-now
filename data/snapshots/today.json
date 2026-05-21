@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-05-21T00:38:28-03:00",
+  "capturedAt": "2026-05-21T00:42:16-03:00",
   "rows": [
     {
       "origem": "AR",
@@ -83,7 +83,7 @@
   },
   "period": "today",
   "periodFrom": "2026-05-21T00:00:00-03:00",
-  "periodTo": "2026-05-21T00:38:28-03:00",
+  "periodTo": "2026-05-21T00:42:16-03:00",
   "periodLabel": "Hoje (21/05)",
   "screenshotPath": "data/screenshots/today.png"
 }
