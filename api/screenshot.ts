@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getEnv, getFileBuffer, handleCors, sendError } from './_lib/github';
-import { isValidPeriod } from './_lib/periods';
+import { getEnv, getFileBuffer, handleCors, sendError } from './_lib/github.js';
+import { isValidPeriod } from './_lib/periods.js';
 
 const MIME_BY_EXT: Record<string, string> = {
   png: 'image/png',

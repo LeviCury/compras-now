@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getEnv, getFileText, handleCors, sendError } from './_lib/github';
-import { parsePeriodQuery } from './_lib/periods';
+import { getEnv, getFileText, handleCors, sendError } from './_lib/github.js';
+import { parsePeriodQuery } from './_lib/periods.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (handleCors(req, res)) return;

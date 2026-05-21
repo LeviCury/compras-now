@@ -6,7 +6,7 @@ import {
   handleCors,
   sendError,
   type GithubContentItem,
-} from './_lib/github';
+} from './_lib/github.js';
 
 interface IntradayPoint {
   capturedAt: string;

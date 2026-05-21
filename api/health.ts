@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getContents, getEnv, handleCors, sendError } from './_lib/github';
+import { getContents, getEnv, handleCors, sendError } from './_lib/github.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (handleCors(req, res)) return;
