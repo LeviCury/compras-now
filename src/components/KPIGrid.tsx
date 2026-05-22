@@ -1,36 +1,44 @@
 import { ArrowDown, ArrowUp, Beef, DollarSign, Scale, Target, Truck } from 'lucide-react';
-import type { ComprasRow } from '../types';
+import type { ComprasRow, OriginTotals, Totals } from '../types';
 import { computeOverall } from '../utils/analytics';
 import { formatKg, formatNumber, formatUSD, formatUSDPerKg } from '../utils/formatters';
 import KPICard from './KPICard';
 
 interface Props {
   rows: ComprasRow[];
+  snapshotTotals?: Totals;
+  originTotals?: OriginTotals;
 }
 
-export default function KPIGrid({ rows }: Props) {
-  const overall = computeOverall(rows);
+export default function KPIGrid({ rows, snapshotTotals, originTotals }: Props) {
+  const overall = computeOverall(rows, snapshotTotals, originTotals);
 
-  // Spread vs base global: usa base ponderada das origens que tem base configurada.
-  const rowsWithBase = rows.filter(
-    (r) => typeof r.valorKgBaseUSD === 'number' && r.valorKgBaseUSD > 0,
-  );
-  const baseDen = rowsWithBase.reduce((acc, r) => acc + r.qtdCompra * r.pesoMedioKg, 0);
-  const baseNum = rowsWithBase.reduce(
-    (acc, r) => acc + (r.valorKgBaseUSD ?? 0) * r.qtdCompra * r.pesoMedioKg,
-    0,
-  );
-  const globalBase = baseDen > 0 ? baseNum / baseDen : null;
-  // Para o spread global, usa o preco medio das mesmas origens que tem base
-  // (caso contrario compararia ma\u00e7as com bananas).
-  const precoDen = rowsWithBase.reduce((acc, r) => acc + r.qtdCompra * r.pesoMedioKg, 0);
-  const precoNum = rowsWithBase.reduce(
-    (acc, r) => acc + r.precoMedioUSDKg * r.qtdCompra * r.pesoMedioKg,
-    0,
-  );
-  const precoFiltrado = precoDen > 0 ? precoNum / precoDen : null;
-  const spread =
-    globalBase != null && precoFiltrado != null ? precoFiltrado - globalBase : null;
+  // Base/Spread global: prefere o valor que ja veio do DUX (snapshotTotals.valorKgBaseUSD);
+  // se nao tiver, calcula a partir das linhas com base configurada.
+  let globalBase: number | null = null;
+  let spread: number | null = null;
+
+  if (typeof snapshotTotals?.valorKgBaseUSD === 'number') {
+    globalBase = snapshotTotals.valorKgBaseUSD;
+    spread = overall.precoMedioUSDKg - globalBase;
+  } else {
+    const rowsWithBase = rows.filter(
+      (r) => typeof r.valorKgBaseUSD === 'number' && r.valorKgBaseUSD > 0,
+    );
+    const baseDen = rowsWithBase.reduce((acc, r) => acc + r.qtdCompra * r.pesoMedioKg, 0);
+    const baseNum = rowsWithBase.reduce(
+      (acc, r) => acc + (r.valorKgBaseUSD ?? 0) * r.qtdCompra * r.pesoMedioKg,
+      0,
+    );
+    globalBase = baseDen > 0 ? baseNum / baseDen : null;
+    const precoDen = rowsWithBase.reduce((acc, r) => acc + r.qtdCompra * r.pesoMedioKg, 0);
+    const precoNum = rowsWithBase.reduce(
+      (acc, r) => acc + r.precoMedioUSDKg * r.qtdCompra * r.pesoMedioKg,
+      0,
+    );
+    const precoFiltrado = precoDen > 0 ? precoNum / precoDen : null;
+    spread = globalBase != null && precoFiltrado != null ? precoFiltrado - globalBase : null;
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

@@ -1,11 +1,13 @@
 import { ArrowDown, ArrowUp } from 'lucide-react';
-import type { ComprasRow } from '../types';
+import type { ComprasRow, OriginTotals, Totals } from '../types';
 import { SEXO_LABELS } from '../types';
-import { aggregateByOrigem } from '../utils/analytics';
+import { aggregateByOrigem, computeOverall } from '../utils/analytics';
 import { formatKg, formatNumber, formatUSD, formatUSDPerKg } from '../utils/formatters';
 
 interface Props {
   rows: ComprasRow[];
+  snapshotTotals?: Totals;
+  originTotals?: OriginTotals;
 }
 
 interface RowMetrics {
@@ -15,37 +17,34 @@ interface RowMetrics {
   valorKgBaseUSD: number | null;
 }
 
-export default function ComprasTable({ rows }: Props) {
-  const byOrigem = aggregateByOrigem(rows);
+export default function ComprasTable({ rows, snapshotTotals, originTotals }: Props) {
+  const byOrigem = aggregateByOrigem(rows, originTotals);
+  const overall = computeOverall(rows, snapshotTotals, originTotals);
 
-  const totalQtd = rows.reduce((acc, r) => acc + r.qtdCompra, 0);
-  const totalPesoNum = rows.reduce((acc, r) => acc + r.pesoMedioKg * r.qtdCompra, 0);
-  const totalPesoDen = Math.max(totalQtd, 1);
-  const totalPrecoNum = rows.reduce(
-    (acc, r) => acc + r.precoMedioUSDKg * r.qtdCompra * r.pesoMedioKg,
-    0,
-  );
-  const totalPrecoDen = Math.max(
-    rows.reduce((acc, r) => acc + r.qtdCompra * r.pesoMedioKg, 0),
-    1,
-  );
-
-  const baseRows = rows.filter(
-    (r) => typeof r.valorKgBaseUSD === 'number' && r.valorKgBaseUSD > 0,
-  );
-  const totalBaseDen = baseRows.reduce((acc, r) => acc + r.qtdCompra * r.pesoMedioKg, 0);
-  const totalBase =
-    totalBaseDen > 0
-      ? baseRows.reduce(
-          (acc, r) => acc + (r.valorKgBaseUSD ?? 0) * r.qtdCompra * r.pesoMedioKg,
-          0,
-        ) / totalBaseDen
-      : null;
+  // Base ponderada: prefere o valor do DUX, calcula como fallback.
+  let totalBase: number | null;
+  if (typeof snapshotTotals?.valorKgBaseUSD === 'number') {
+    totalBase = snapshotTotals.valorKgBaseUSD;
+  } else if (snapshotTotals) {
+    totalBase = null;
+  } else {
+    const baseRows = rows.filter(
+      (r) => typeof r.valorKgBaseUSD === 'number' && r.valorKgBaseUSD > 0,
+    );
+    const totalBaseDen = baseRows.reduce((acc, r) => acc + r.qtdCompra * r.pesoMedioKg, 0);
+    totalBase =
+      totalBaseDen > 0
+        ? baseRows.reduce(
+            (acc, r) => acc + (r.valorKgBaseUSD ?? 0) * r.qtdCompra * r.pesoMedioKg,
+            0,
+          ) / totalBaseDen
+        : null;
+  }
 
   const grandTotal: RowMetrics = {
-    qtdCompra: totalQtd,
-    pesoMedioKg: totalPesoNum / totalPesoDen,
-    precoMedioUSDKg: totalPrecoNum / totalPrecoDen,
+    qtdCompra: overall.qtdCompra,
+    pesoMedioKg: overall.pesoMedioKg,
+    precoMedioUSDKg: overall.precoMedioUSDKg,
     valorKgBaseUSD: totalBase,
   };
 

@@ -96,9 +96,15 @@ const ExecutiveSummaryPDF = forwardRef<HTMLDivElement, Props>(function Executive
 
   const reportIso = diario?.capturedAt ?? snapshot.capturedAt;
 
-  const diarioOverall = diario ? computeOverall(diario.rows) : null;
-  const semanalOverall = semanal ? computeOverall(semanal.rows) : null;
-  const mensalOverall = mensal ? computeOverall(mensal.rows) : null;
+  const diarioOverall = diario
+    ? computeOverall(diario.rows, diario.totals, diario.originTotals)
+    : null;
+  const semanalOverall = semanal
+    ? computeOverall(semanal.rows, semanal.totals, semanal.originTotals)
+    : null;
+  const mensalOverall = mensal
+    ? computeOverall(mensal.rows, mensal.totals, mensal.originTotals)
+    : null;
 
   return (
     <div ref={ref}>
@@ -435,14 +441,24 @@ function PeriodBlock({
   subtitle: string;
   snapshot: ComprasSnapshot | null;
 }) {
-  const overall = snapshot ? computeOverall(snapshot.rows) : null;
-  const byOrigemArr = snapshot ? aggregateByOrigem(snapshot.rows) : [];
+  const overall = snapshot
+    ? computeOverall(snapshot.rows, snapshot.totals, snapshot.originTotals)
+    : null;
+  const byOrigemArr = snapshot
+    ? aggregateByOrigem(snapshot.rows, snapshot.originTotals)
+    : [];
   const byOrigem: Partial<Record<Origem, OrigemAggregate>> = {};
   for (const agg of byOrigemArr) {
     byOrigem[agg.origem] = agg;
   }
 
-  const totalBase = snapshot ? computeWeightedBase(snapshot) : null;
+  // Base total: prefere o valor do DUX, calcula como fallback.
+  const totalBase =
+    typeof snapshot?.totals.valorKgBaseUSD === 'number'
+      ? snapshot.totals.valorKgBaseUSD
+      : snapshot
+        ? computeWeightedBase(snapshot)
+        : null;
 
   return (
     <section

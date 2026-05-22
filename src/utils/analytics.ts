@@ -4,7 +4,9 @@ import type {
   DashboardFilters,
   IntradayPoint,
   Origem,
+  OriginTotals,
   Sexo,
+  Totals,
 } from '../types';
 import { ORIGEM_LABELS } from '../types';
 
@@ -41,7 +43,20 @@ function weightedAverage(items: Array<{ value: number; weight: number }>): numbe
   return items.reduce((acc, item) => acc + item.value * item.weight, 0) / totalWeight;
 }
 
-export function aggregateByOrigem(rows: ComprasRow[]): OrigemAggregate[] {
+/**
+ * Agrega linhas por origem.
+ *
+ * `originTotals` opcional: quando fornecido (vem do DUX via parse_excel.py),
+ * usamos os totais que o proprio DUX calcula no Excel ("X Total") em vez de
+ * recalcular via media ponderada. Isso garante que o numero no dashboard
+ * bate exatamente com o que o DUX mostra.
+ *
+ * Sem `originTotals` (snapshots antigos), fallback para a media ponderada.
+ */
+export function aggregateByOrigem(
+  rows: ComprasRow[],
+  originTotals?: OriginTotals,
+): OrigemAggregate[] {
   const map = new Map<Origem, ComprasRow[]>();
   for (const row of rows) {
     const existing = map.get(row.origem) ?? [];
@@ -51,23 +66,41 @@ export function aggregateByOrigem(rows: ComprasRow[]): OrigemAggregate[] {
 
   return Array.from(map.entries())
     .map(([origem, rowsForOrigem]) => {
-      const qtdCompra = rowsForOrigem.reduce((acc, r) => acc + r.qtdCompra, 0);
-      const pesoMedioKg = weightedAverage(
-        rowsForOrigem.map((r) => ({ value: r.pesoMedioKg, weight: r.qtdCompra })),
-      );
-      const precoMedioUSDKg = weightedAverage(
-        rowsForOrigem.map((r) => ({ value: r.precoMedioUSDKg, weight: r.qtdCompra * r.pesoMedioKg })),
-      );
-      const baseRows = rowsForOrigem.filter((r) => typeof r.valorKgBaseUSD === 'number' && r.valorKgBaseUSD > 0);
-      const valorKgBaseUSD =
-        baseRows.length === 0
-          ? null
-          : weightedAverage(
-              baseRows.map((r) => ({
-                value: r.valorKgBaseUSD ?? 0,
-                weight: r.qtdCompra * r.pesoMedioKg,
-              })),
-            );
+      const dux = originTotals?.[origem];
+
+      const qtdCompra = dux?.qtdCompra ?? rowsForOrigem.reduce((acc, r) => acc + r.qtdCompra, 0);
+      const pesoMedioKg =
+        dux?.pesoMedioKg ??
+        weightedAverage(rowsForOrigem.map((r) => ({ value: r.pesoMedioKg, weight: r.qtdCompra })));
+      const precoMedioUSDKg =
+        dux?.precoMedioUSDKg ??
+        weightedAverage(
+          rowsForOrigem.map((r) => ({
+            value: r.precoMedioUSDKg,
+            weight: r.qtdCompra * r.pesoMedioKg,
+          })),
+        );
+
+      let valorKgBaseUSD: number | null;
+      if (dux && typeof dux.valorKgBaseUSD === 'number') {
+        valorKgBaseUSD = dux.valorKgBaseUSD;
+      } else if (dux) {
+        valorKgBaseUSD = null;
+      } else {
+        const baseRows = rowsForOrigem.filter(
+          (r) => typeof r.valorKgBaseUSD === 'number' && r.valorKgBaseUSD > 0,
+        );
+        valorKgBaseUSD =
+          baseRows.length === 0
+            ? null
+            : weightedAverage(
+                baseRows.map((r) => ({
+                  value: r.valorKgBaseUSD ?? 0,
+                  weight: r.qtdCompra * r.pesoMedioKg,
+                })),
+              );
+      }
+
       const macho = rowsForOrigem.find((r) => r.sexo === 'MACHO');
       const femea = rowsForOrigem.find((r) => r.sexo === 'FEMEA');
       return {
@@ -102,25 +135,44 @@ export interface OverallTotals {
   qtdCompra: number;
   pesoMedioKg: number;
   precoMedioUSDKg: number;
+  valorKgBaseUSD: number | null;
   origensAtivas: number;
   cheapestOrigem: OrigemAggregate | null;
   priciestOrigem: OrigemAggregate | null;
 }
 
-export function computeOverall(rows: ComprasRow[]): OverallTotals {
-  const qtdCompra = rows.reduce((acc, r) => acc + r.qtdCompra, 0);
-  const pesoMedioKg = weightedAverage(
-    rows.map((r) => ({ value: r.pesoMedioKg, weight: r.qtdCompra })),
-  );
-  const precoMedioUSDKg = weightedAverage(
-    rows.map((r) => ({ value: r.precoMedioUSDKg, weight: r.qtdCompra * r.pesoMedioKg })),
-  );
-  const byOrigem = aggregateByOrigem(rows);
+/**
+ * Calcula os totais gerais.
+ *
+ * `snapshotTotals` e `originTotals` sao opcionais: quando vierem do DUX,
+ * usamos os valores brutos (o DUX e a fonte da verdade). Sem isso, fallback
+ * para o calculo via media ponderada das linhas FEMEA/MACHO.
+ */
+export function computeOverall(
+  rows: ComprasRow[],
+  snapshotTotals?: Totals,
+  originTotals?: OriginTotals,
+): OverallTotals {
+  const qtdCompra =
+    snapshotTotals?.qtdCompra ?? rows.reduce((acc, r) => acc + r.qtdCompra, 0);
+  const pesoMedioKg =
+    snapshotTotals?.pesoMedioKg ??
+    weightedAverage(rows.map((r) => ({ value: r.pesoMedioKg, weight: r.qtdCompra })));
+  const precoMedioUSDKg =
+    snapshotTotals?.precoMedioUSDKg ??
+    weightedAverage(
+      rows.map((r) => ({ value: r.precoMedioUSDKg, weight: r.qtdCompra * r.pesoMedioKg })),
+    );
+  const valorKgBaseUSD =
+    typeof snapshotTotals?.valorKgBaseUSD === 'number' ? snapshotTotals.valorKgBaseUSD : null;
+
+  const byOrigem = aggregateByOrigem(rows, originTotals);
   const sorted = [...byOrigem].sort((a, b) => a.precoMedioUSDKg - b.precoMedioUSDKg);
   return {
     qtdCompra,
     pesoMedioKg,
     precoMedioUSDKg,
+    valorKgBaseUSD,
     origensAtivas: byOrigem.length,
     cheapestOrigem: sorted[0] ?? null,
     priciestOrigem: sorted[sorted.length - 1] ?? null,
@@ -136,8 +188,11 @@ export interface PriceBySexoBar {
   qtdVaca: number;
 }
 
-export function priceBySexoSeries(rows: ComprasRow[]): PriceBySexoBar[] {
-  const byOrigem = aggregateByOrigem(rows);
+export function priceBySexoSeries(
+  rows: ComprasRow[],
+  originTotals?: OriginTotals,
+): PriceBySexoBar[] {
+  const byOrigem = aggregateByOrigem(rows, originTotals);
   return byOrigem.map((agg) => ({
     origem: agg.origem,
     label: agg.label,
@@ -156,8 +211,8 @@ export interface VolumeBar {
   total: number;
 }
 
-export function volumeSeries(rows: ComprasRow[]): VolumeBar[] {
-  const byOrigem = aggregateByOrigem(rows);
+export function volumeSeries(rows: ComprasRow[], originTotals?: OriginTotals): VolumeBar[] {
+  const byOrigem = aggregateByOrigem(rows, originTotals);
   return byOrigem.map((agg) => ({
     origem: agg.origem,
     label: agg.label,

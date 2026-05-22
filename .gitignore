@@ -1,4 +1,5 @@
 node_modules
+.commitmsg.tmp
 dist
 dist-ssr
 *.local

@@ -4,8 +4,10 @@ import type {
   IntradayPoint,
   IntradayResponse,
   Origem,
+  OriginTotals,
   PeriodKey,
   Sexo,
+  Totals,
 } from '../types';
 
 interface MockBaseRow {
@@ -91,6 +93,45 @@ function round2(n: number): number {
   return Math.round(n * 100) / 100;
 }
 
+/**
+ * Em produc\u00e3o, `originTotals` vem direto do DUX (linhas "X Total"). No mock
+ * reproduzimos isso agregando as linhas FEMEA/MACHO pra manter consist\u00eancia.
+ */
+function buildOriginTotalsFromRows(rows: ComprasSnapshot['rows']): OriginTotals {
+  const map = new Map<Origem, ComprasSnapshot['rows']>();
+  for (const row of rows) {
+    const existing = map.get(row.origem) ?? [];
+    existing.push(row);
+    map.set(row.origem, existing);
+  }
+  const out: Partial<Record<Origem, Totals>> = {};
+  for (const [origem, list] of map.entries()) {
+    const qtd = list.reduce((acc, r) => acc + r.qtdCompra, 0);
+    const den = Math.max(list.reduce((acc, r) => acc + r.qtdCompra * r.pesoMedioKg, 0), 1);
+    const totals: Totals = {
+      qtdCompra: qtd,
+      pesoMedioKg: round2(
+        list.reduce((acc, r) => acc + r.pesoMedioKg * r.qtdCompra, 0) / Math.max(qtd, 1),
+      ),
+      precoMedioUSDKg: round2(
+        list.reduce((acc, r) => acc + r.precoMedioUSDKg * r.qtdCompra * r.pesoMedioKg, 0) / den,
+      ),
+    };
+    const withBase = list.filter((r) => typeof r.valorKgBaseUSD === 'number' && r.valorKgBaseUSD > 0);
+    if (withBase.length > 0) {
+      const bDen = withBase.reduce((acc, r) => acc + r.qtdCompra * r.pesoMedioKg, 0);
+      totals.valorKgBaseUSD = round2(
+        withBase.reduce(
+          (acc, r) => acc + (r.valorKgBaseUSD ?? 0) * r.qtdCompra * r.pesoMedioKg,
+          0,
+        ) / Math.max(bDen, 1),
+      );
+    }
+    out[origem] = totals;
+  }
+  return out;
+}
+
 function isMockTodayPopulated(): boolean {
   if (typeof window === 'undefined') return true;
   const flag = (window.localStorage.getItem('compras-now:mock-today') ?? 'on').toLowerCase();
@@ -151,6 +192,7 @@ export function mockSnapshot(period: PeriodKey, now: Date = new Date()): Compras
       precoMedioUSDKg: round2(totalPrecoWeight / Math.max(totalPrecoDen, 1)),
       ...(overallBase !== undefined ? { valorKgBaseUSD: overallBase } : {}),
     },
+    originTotals: buildOriginTotalsFromRows(rows),
     source: {
       module: 'Compras Now',
       breadcrumb: 'DUX > Minerva Reports > Relatorios de Controle > Compras Now',
@@ -192,6 +234,7 @@ export function mockStaleToday(now: Date = new Date()): ComprasSnapshot {
       precoMedioUSDKg: 5.09,
       valorKgBaseUSD: 4.8,
     },
+    originTotals: buildOriginTotalsFromRows(rows),
     source: { module: 'Compras Now', breadcrumb: 'DUX > Minerva Reports > Relatorios de Controle > Compras Now' },
   };
 }

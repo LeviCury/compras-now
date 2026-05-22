@@ -7,8 +7,8 @@ export function buildWhatsappMessage(
   snapshot: ComprasSnapshot,
   allSnapshots?: AllSnapshots,
 ): string {
-  const overall = computeOverall(snapshot.rows);
-  const byOrigem = aggregateByOrigem(snapshot.rows);
+  const overall = computeOverall(snapshot.rows, snapshot.totals, snapshot.originTotals);
+  const byOrigem = aggregateByOrigem(snapshot.rows, snapshot.originTotals);
   const cheapest = overall.cheapestOrigem;
   const priciest = overall.priciestOrigem;
 
@@ -42,7 +42,7 @@ export function buildWhatsappMessage(
         lines.push(`- ${PERIOD_SHORT_LABELS[p]}: sem dados`);
         continue;
       }
-      const o = computeOverall(snap.rows);
+      const o = computeOverall(snap.rows, snap.totals, snap.originTotals);
       lines.push(`- ${PERIOD_SHORT_LABELS[p]}: ${formatUSDPerKg(o.precoMedioUSDKg)}`);
     }
   }

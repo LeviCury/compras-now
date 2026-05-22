@@ -11,7 +11,7 @@ import {
   YAxis,
 } from 'recharts';
 import { TrendingDown } from 'lucide-react';
-import type { ComprasRow } from '../types';
+import type { ComprasRow, OriginTotals, Totals } from '../types';
 import { priceBySexoSeries, computeOverall } from '../utils/analytics';
 import { useTheme } from '../contexts/useTheme';
 import { CHART_COLORS, resolveSexoColor, tooltipStyle } from './charts/chartTheme';
@@ -19,12 +19,14 @@ import { formatNumber, formatUSD, formatUSDPerKg } from '../utils/formatters';
 
 interface Props {
   rows: ComprasRow[];
+  snapshotTotals?: Totals;
+  originTotals?: OriginTotals;
 }
 
-export default function PriceByOriginChart({ rows }: Props) {
+export default function PriceByOriginChart({ rows, snapshotTotals, originTotals }: Props) {
   const { theme } = useTheme();
-  const data = priceBySexoSeries(rows);
-  const overall = computeOverall(rows);
+  const data = priceBySexoSeries(rows, originTotals);
+  const overall = computeOverall(rows, snapshotTotals, originTotals);
   const axisColor = theme === 'dark' ? CHART_COLORS.axisDark : CHART_COLORS.axis;
   const gridColor = theme === 'dark' ? CHART_COLORS.gridDark : CHART_COLORS.grid;
   const boiColor = resolveSexoColor('MACHO', theme);

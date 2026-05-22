@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import type { ComprasRow } from '../types';
+import type { ComprasRow, OriginTotals } from '../types';
 import { volumeSeries } from '../utils/analytics';
 import { useTheme } from '../contexts/useTheme';
 import { CHART_COLORS, resolveSexoColor, tooltipStyle } from './charts/chartTheme';
@@ -16,11 +16,12 @@ import { formatNumber } from '../utils/formatters';
 
 interface Props {
   rows: ComprasRow[];
+  originTotals?: OriginTotals;
 }
 
-export default function VolumeByOriginChart({ rows }: Props) {
+export default function VolumeByOriginChart({ rows, originTotals }: Props) {
   const { theme } = useTheme();
-  const data = volumeSeries(rows);
+  const data = volumeSeries(rows, originTotals);
   const axisColor = theme === 'dark' ? CHART_COLORS.axisDark : CHART_COLORS.axis;
   const gridColor = theme === 'dark' ? CHART_COLORS.gridDark : CHART_COLORS.grid;
   const boiColor = resolveSexoColor('MACHO', theme);

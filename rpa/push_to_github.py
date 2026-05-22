@@ -81,8 +81,11 @@ def data_path() -> str:
 
 def author() -> dict[str, str]:
     return {
-        "name": os.environ.get("GIT_AUTHOR_NAME", "Compras Now RPA"),
-        "email": os.environ.get("GIT_AUTHOR_EMAIL", "[email protected]"),
+        "name": os.environ.get("GIT_AUTHOR_NAME", "Levi Cury"),
+        "email": os.environ.get(
+            "GIT_AUTHOR_EMAIL",
+            "192823885+[email protected]",
+        ),
     }
 
 

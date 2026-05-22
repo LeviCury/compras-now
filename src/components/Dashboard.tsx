@@ -51,6 +51,13 @@ export default function Dashboard() {
     [activeSnapshot, filtersApi.filters],
   );
 
+  // Os totais do DUX (snapshot.totals e snapshot.originTotals) representam TODAS as
+  // origens/sexos. Quando o usuario aplica filtros parciais, esses totais nao batem
+  // mais com a selecao, entao caimos no calculo derivado das filteredRows.
+  const useDuxTotals = filtersApi.isDefault;
+  const duxOriginTotals = useDuxTotals ? activeSnapshot?.originTotals : undefined;
+  const duxSnapshotTotals = useDuxTotals ? activeSnapshot?.totals : undefined;
+
   const isLate = activePeriod === 'today' && activeSnapshot
     ? !todayIsStale && minutesSince(activeSnapshot.capturedAt) > 180
     : false;
@@ -141,11 +148,19 @@ export default function Dashboard() {
           </>
         ) : activeSnapshot ? (
           <>
-            <KPIGrid rows={filteredRows} />
+            <KPIGrid
+              rows={filteredRows}
+              snapshotTotals={duxSnapshotTotals}
+              originTotals={duxOriginTotals}
+            />
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
               <div className="lg:col-span-2 space-y-4 sm:space-y-6">
-                <PriceByOriginChart rows={filteredRows} />
+                <PriceByOriginChart
+                  rows={filteredRows}
+                  snapshotTotals={duxSnapshotTotals}
+                  originTotals={duxOriginTotals}
+                />
                 <PeriodComparisonChart
                   all={allSnapshotsQuery.data}
                   isLoading={allSnapshotsQuery.isLoading}
@@ -162,14 +177,14 @@ export default function Dashboard() {
               </div>
               <div className="space-y-4 sm:space-y-6">
                 <BoiVacaSplitCard rows={filteredRows} />
-                <VolumeByOriginChart rows={filteredRows} />
-                <InsightsBlock rows={filteredRows} />
+                <VolumeByOriginChart rows={filteredRows} originTotals={duxOriginTotals} />
+                <InsightsBlock rows={filteredRows} originTotals={duxOriginTotals} />
               </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
               <div className="lg:col-span-2">
-                <ComprasTable rows={filteredRows} />
+                <ComprasTable rows={filteredRows} originTotals={duxOriginTotals} />
               </div>
               <div>
                 <ProofPanel snapshot={activeSnapshot} />

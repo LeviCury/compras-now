@@ -134,7 +134,18 @@ def _detect_origem_column(df: pd.DataFrame, start_row: int) -> int | None:
     return max(scores.items(), key=lambda kv: kv[1])[0]
 
 
-def extract_rows(xls_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+def extract_rows(
+    xls_path: Path,
+) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, dict[str, Any]]]:
+    """Extrai linhas, totais por origem e grand total do Excel.
+
+    O DUX ja calcula tudo: alem das linhas por sexo (FEMEA/MACHO), o relatorio
+    traz uma linha "X Total" para cada origem (AR Total, BR Total, ...) e uma
+    linha "Grand Total" no final. Capturamos esses valores brutos para que o
+    dashboard nao precise recalcular nada via media ponderada (o que diverge
+    do calculo interno do DUX, especialmente quando o preco medio inclui
+    operacoes que nao estao quebradas por sexo).
+    """
     df = pd.read_excel(xls_path, sheet_name=0, header=None)
 
     header_row = find_header_row(df)
@@ -142,6 +153,7 @@ def extract_rows(xls_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     data_start = header_row + 2
 
     rows: list[dict[str, Any]] = []
+    origin_totals: dict[str, dict[str, Any]] = {}
     current_origem: str | None = None
 
     grand_total = {
@@ -164,6 +176,17 @@ def extract_rows(xls_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
             return None
         return round(value, 4)
 
+    def _build_total_dict(row) -> dict[str, Any]:
+        out: dict[str, Any] = {
+            "qtdCompra": int(round(parse_number(row.iloc[indices["qtd"]]))),
+            "pesoMedioKg": round(parse_number(row.iloc[indices["peso"]]), 2),
+            "precoMedioUSDKg": round(parse_number(row.iloc[indices["preco"]]), 4),
+        }
+        base_rounded = _round_base_or_none(_read_base(row))
+        if base_rounded is not None:
+            out["valorKgBaseUSD"] = base_rounded
+        return out
+
     for i in range(data_start, len(df)):
         row = df.iloc[i]
         first_cell = row.iloc[0] if len(row) > 0 else None
@@ -176,7 +199,10 @@ def extract_rows(xls_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
             grand_total["valorKgBaseUSD"] = _read_base(row)
             continue
 
-        if first_text.endswith("Total") and first_text.split(" ")[0] in ORIGENS_VALIDAS:
+        if first_text.endswith("Total"):
+            origem_token = first_text.split(" ")[0]
+            if origem_token in ORIGENS_VALIDAS:
+                origin_totals[origem_token] = _build_total_dict(row)
             continue
 
         origem_in_row = normalize_origem(row.iloc[indices["origem"]])
@@ -234,7 +260,7 @@ def extract_rows(xls_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     if grand_base is not None:
         totals["valorKgBaseUSD"] = grand_base
 
-    return rows, totals
+    return rows, totals, origin_totals
 
 
 VALID_PERIODS = {"today", "yesterday", "last7", "last30"}
@@ -263,7 +289,7 @@ def build_snapshot(
     period_to: dt.datetime | None = None,
     period_label: str | None = None,
 ) -> dict[str, Any]:
-    rows, totals = extract_rows(xls_path)
+    rows, totals, origin_totals = extract_rows(xls_path)
     captured_at = captured_at or dt.datetime.now(dt.timezone(dt.timedelta(hours=-3)))
 
     snapshot: dict[str, Any] = {
@@ -275,6 +301,9 @@ def build_snapshot(
             "breadcrumb": "DUX > Minerva Reports > Relatorios de Controle > Compras Now",
         },
     }
+
+    if origin_totals:
+        snapshot["originTotals"] = origin_totals
 
     if period:
         if period not in VALID_PERIODS:

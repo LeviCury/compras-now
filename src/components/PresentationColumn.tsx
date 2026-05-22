@@ -27,9 +27,17 @@ export default function PresentationColumn({ periodKey, snapshot, origens, sexos
   }
 
   const rows = applyFilters(snapshot, { origens, sexos, period: periodKey });
-  const overall = computeOverall(rows);
+  // No modo apresentacao a regra de UX e' mostrar sempre os totais do DUX (sem filtro
+  // parcial). Os filtros do dashboard sao reaproveitados, mas em apresentacao o default
+  // e' tudo selecionado, entao usar os totais do snapshot e' equivalente.
+  const allOrigens = origens.length === 5 && sexos.length === 2;
+  const overall = computeOverall(
+    rows,
+    allOrigens ? snapshot.totals : undefined,
+    allOrigens ? snapshot.originTotals : undefined,
+  );
   const split = computeBoiVacaSplit(rows);
-  const byOrigem = aggregateByOrigem(rows);
+  const byOrigem = aggregateByOrigem(rows, allOrigens ? snapshot.originTotals : undefined);
   const validMedias = byOrigem.map((b) => b.precoMedioUSDKg).filter((n) => n > 0);
   const minMediaPrice = validMedias.length > 0 ? Math.min(...validMedias) : 0;
 

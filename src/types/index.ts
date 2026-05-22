@@ -28,6 +28,9 @@ export const TotalsSchema = z.object({
 });
 export type Totals = z.infer<typeof TotalsSchema>;
 
+export const OriginTotalsSchema = z.record(OrigemSchema, TotalsSchema);
+export type OriginTotals = z.infer<typeof OriginTotalsSchema>;
+
 export const ComprasSnapshotSchema = z.object({
   period: PeriodKeySchema,
   periodLabel: z.string(),
@@ -39,6 +42,7 @@ export const ComprasSnapshotSchema = z.object({
   cotacaoUSD: z.record(z.string(), z.number()).optional(),
   rows: z.array(ComprasRowSchema),
   totals: TotalsSchema,
+  originTotals: OriginTotalsSchema.optional(),
   source: z
     .object({
       module: z.string().default('Compras Now'),

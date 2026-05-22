@@ -1,10 +1,12 @@
 import { ArrowDown, ArrowUp, Lightbulb, TrendingDown, TrendingUp, Target } from 'lucide-react';
-import type { ComprasRow } from '../types';
+import type { ComprasRow, OriginTotals, Totals } from '../types';
 import { aggregateByOrigem, computeOverall } from '../utils/analytics';
 import { formatNumber, formatUSD, formatUSDPerKg } from '../utils/formatters';
 
 interface Props {
   rows: ComprasRow[];
+  snapshotTotals?: Totals;
+  originTotals?: OriginTotals;
 }
 
 type Tone = 'accent' | 'muted';
@@ -15,9 +17,9 @@ interface Insight {
   text: React.ReactNode;
 }
 
-export default function InsightsBlock({ rows }: Props) {
-  const overall = computeOverall(rows);
-  const byOrigem = aggregateByOrigem(rows);
+export default function InsightsBlock({ rows, snapshotTotals, originTotals }: Props) {
+  const overall = computeOverall(rows, snapshotTotals, originTotals);
+  const byOrigem = aggregateByOrigem(rows, originTotals);
 
   const cheapest = overall.cheapestOrigem;
   const priciest = overall.priciestOrigem;
