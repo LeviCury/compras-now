@@ -82,19 +82,21 @@ function Header({ now, todayCapturedAt, onExit }: HeaderProps) {
       style={{ borderColor: 'rgba(244,244,245,0.08)' }}
     >
       <div className="flex items-center gap-4">
-        <div
-          className="h-12 w-12 rounded-xl flex items-center justify-center font-bold text-base"
-          style={{ background: '#E30613', color: '#fff', letterSpacing: '-0.04em' }}
-        >
-          CN
-        </div>
+        <img
+          src="/favicon.png"
+          alt="Minerva Foods"
+          width={48}
+          height={48}
+          className="h-12 w-12 rounded-xl object-contain"
+          style={{ background: 'rgba(255,255,255,0.04)', padding: 4 }}
+        />
         <div>
           <div className="flex items-center gap-3">
             <h1
               className="text-2xl font-bold tracking-tight"
               style={{ color: '#fafafa', letterSpacing: '-0.02em' }}
             >
-              Compras Now
+              Compras Now Executivo
             </h1>
             <span
               className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] font-bold px-2 py-0.5 rounded"

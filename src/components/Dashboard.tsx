@@ -92,7 +92,7 @@ export default function Dashboard() {
       <div className="min-h-screen p-6 flex items-center justify-center">
         <div className="card-padded max-w-md text-center">
           <AlertTriangle className="h-10 w-10 text-red-500 mx-auto mb-3" />
-          <h2 className="text-lg font-bold mb-1">Sem dados do Compras Now</h2>
+          <h2 className="text-lg font-bold mb-1">Sem dados do Compras Now Executivo</h2>
           <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
             {activeSnapshotQuery.error instanceof Error
               ? activeSnapshotQuery.error.message
@@ -204,7 +204,7 @@ export default function Dashboard() {
         ) : null}
 
         <footer className="text-center text-xs pt-4" style={{ color: 'var(--text-faint)' }}>
-          Compras Now - Painel Executivo - Minerva Foods | Fonte oficial: DUX/Compras Now
+          Compras Now Executivo - Minerva Foods | Fonte oficial: DUX/Compras Now
         </footer>
       </div>
 

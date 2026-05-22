@@ -7,10 +7,10 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'icons/icon.svg'],
+      includeAssets: ['favicon.png', 'icons/icon.png'],
       manifest: {
-        name: 'Compras Now - Painel Executivo',
-        short_name: 'Compras Now',
+        name: 'Compras Now Executivo',
+        short_name: 'Compras Now Exec',
         description: 'Painel executivo de compras de gado - Minerva Foods',
         theme_color: '#0f172a',
         background_color: '#0f172a',
@@ -20,10 +20,21 @@ export default defineConfig({
         start_url: '/',
         icons: [
           {
-            src: '/icons/icon.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
-            purpose: 'any maskable',
+            src: '/icons/icon.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: '/icons/icon.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+          {
+            src: '/favicon.png',
+            sizes: '64x64',
+            type: 'image/png',
           },
         ],
       },

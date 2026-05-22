@@ -26,16 +26,14 @@ export default function DashboardHeader({
   return (
     <header className="card-padded flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div className="flex items-center gap-4">
-        <div
-          className="h-12 w-12 rounded-xl flex items-center justify-center font-bold text-base"
-          style={{
-            background: 'var(--text)',
-            color: 'var(--bg-elevated)',
-            letterSpacing: '-0.04em',
-          }}
-        >
-          CN
-        </div>
+        <img
+          src="/favicon.png"
+          alt="Minerva Foods"
+          width={48}
+          height={48}
+          className="h-12 w-12 rounded-xl object-contain"
+          style={{ background: 'var(--bg-elevated)', padding: 4 }}
+        />
         <div>
           <div className="flex items-center gap-2 flex-wrap">
             <h1
@@ -48,7 +46,7 @@ export default function DashboardHeader({
               className="hidden sm:inline-block text-[10px] uppercase tracking-[0.12em] font-bold px-2 py-0.5 rounded"
               style={{ background: 'var(--accent-soft)', color: 'var(--accent)' }}
             >
-              Painel Executivo
+              Executivo
             </span>
           </div>
           <div className="flex items-center gap-2 text-sm flex-wrap mt-1" style={{ color: 'var(--text-muted)' }}>

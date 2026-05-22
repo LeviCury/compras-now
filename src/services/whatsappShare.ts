@@ -13,7 +13,7 @@ export function buildWhatsappMessage(
   const priciest = overall.priciestOrigem;
 
   const lines: string[] = [];
-  lines.push('*Compras Now - Resumo Executivo*');
+  lines.push('*Compras Now Executivo*');
   lines.push(`_${snapshot.periodLabel}_`);
   lines.push(`Capturado: ${formatDateTime(snapshot.capturedAt)}`);
   lines.push('');

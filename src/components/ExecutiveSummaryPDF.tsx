@@ -161,24 +161,22 @@ function ReportHeader({ reportIso }: { reportIso: string }) {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
-        <div
+        <img
+          src="/favicon.png"
+          alt="Minerva Foods"
+          width={44}
+          height={44}
           style={{
             width: 44,
             height: 44,
             borderRadius: 9,
-            background: C.brand,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#fff',
-            fontWeight: 800,
-            fontSize: 17,
-            letterSpacing: '-0.04em',
-            boxShadow: '0 4px 12px rgba(227, 6, 19, 0.32)',
+            objectFit: 'contain',
+            background: 'rgba(255, 255, 255, 0.95)',
+            padding: 4,
+            boxSizing: 'border-box',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.18)',
           }}
-        >
-          CN
-        </div>
+        />
         <div>
           <div
             style={{
@@ -189,7 +187,7 @@ function ReportHeader({ reportIso }: { reportIso: string }) {
               marginBottom: 4,
             }}
           >
-            MINERVA FOODS &middot; COMPRAS NOW
+            MINERVA FOODS &middot; COMPRAS NOW EXECUTIVO
           </div>
           <h1
             style={{
@@ -764,7 +762,7 @@ function ReportFooter() {
       }}
     >
       <span style={{ letterSpacing: '0.01em' }}>
-        Gerado automaticamente &middot; Compras Now &middot; DUX
+        Gerado automaticamente &middot; Compras Now Executivo &middot; DUX
       </span>
       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 16 }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, lineHeight: 1 }}>
