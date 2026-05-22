@@ -48,6 +48,10 @@ export default function PeriodComparisonChart({ all, isLoading, filters }: Props
   const data = useMemo(() => {
     if (!all) return [];
     const origens = filters.origens;
+    // Quando os 2 sexos estao selecionados, podemos usar o originTotals do DUX direto
+    // (a linha "X Total" do Excel agrega FEMEA + MACHO da origem).
+    const sexosCompletos = filters.sexos.length === 2;
+
     return origens.map((origem) => {
       const row: Record<string, number | string> = {
         origem,
@@ -59,6 +63,22 @@ export default function PeriodComparisonChart({ all, isLoading, filters }: Props
           row[period] = 0;
           continue;
         }
+
+        const duxTotal = sexosCompletos ? snapshot.originTotals?.[origem] : undefined;
+
+        if (metric === 'preco') {
+          if (duxTotal?.precoMedioUSDKg != null) {
+            row[period] = round2(duxTotal.precoMedioUSDKg);
+            continue;
+          }
+        } else {
+          if (duxTotal?.qtdCompra != null) {
+            row[period] = duxTotal.qtdCompra;
+            continue;
+          }
+        }
+
+        // Fallback: calcula via media ponderada (filtros parciais ou snapshot antigo).
         const rows: ComprasRow[] = snapshot.rows.filter(
           (r) => r.origem === origem && filters.sexos.includes(r.sexo),
         );

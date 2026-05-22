@@ -52,11 +52,13 @@ export default function Dashboard() {
   );
 
   // Os totais do DUX (snapshot.totals e snapshot.originTotals) representam TODAS as
-  // origens/sexos. Quando o usuario aplica filtros parciais, esses totais nao batem
-  // mais com a selecao, entao caimos no calculo derivado das filteredRows.
-  const useDuxTotals = filtersApi.isDefault;
-  const duxOriginTotals = useDuxTotals ? activeSnapshot?.originTotals : undefined;
-  const duxSnapshotTotals = useDuxTotals ? activeSnapshot?.totals : undefined;
+  // origens/sexos. So' nao podemos usa-los quando o usuario aplica filtros parciais
+  // de origem/sexo (o periodo NAO conta - ele apenas seleciona qual snapshot olhar,
+  // os totais dentro do snapshot ja sao do periodo escolhido).
+  const filtersAreFullSelection =
+    filtersApi.filters.origens.length === 5 && filtersApi.filters.sexos.length === 2;
+  const duxOriginTotals = filtersAreFullSelection ? activeSnapshot?.originTotals : undefined;
+  const duxSnapshotTotals = filtersAreFullSelection ? activeSnapshot?.totals : undefined;
 
   const isLate = activePeriod === 'today' && activeSnapshot
     ? !todayIsStale && minutesSince(activeSnapshot.capturedAt) > 180
@@ -178,13 +180,21 @@ export default function Dashboard() {
               <div className="space-y-4 sm:space-y-6">
                 <BoiVacaSplitCard rows={filteredRows} />
                 <VolumeByOriginChart rows={filteredRows} originTotals={duxOriginTotals} />
-                <InsightsBlock rows={filteredRows} originTotals={duxOriginTotals} />
+                <InsightsBlock
+                  rows={filteredRows}
+                  snapshotTotals={duxSnapshotTotals}
+                  originTotals={duxOriginTotals}
+                />
               </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
               <div className="lg:col-span-2">
-                <ComprasTable rows={filteredRows} originTotals={duxOriginTotals} />
+                <ComprasTable
+                  rows={filteredRows}
+                  snapshotTotals={duxSnapshotTotals}
+                  originTotals={duxOriginTotals}
+                />
               </div>
               <div>
                 <ProofPanel snapshot={activeSnapshot} />
