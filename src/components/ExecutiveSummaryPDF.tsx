@@ -90,14 +90,14 @@ const ExecutiveSummaryPDF = forwardRef<HTMLDivElement, Props>(function Executive
   { snapshot, allSnapshots },
   ref,
 ) {
-  const diario = pickDailySnapshot(allSnapshots, snapshot);
+  const ontem = pickYesterdaySnapshot(allSnapshots, snapshot);
   const semanal = allSnapshots?.last7 ?? null;
   const mensal = allSnapshots?.last30 ?? null;
 
-  const reportIso = diario?.capturedAt ?? snapshot.capturedAt;
+  const reportIso = ontem?.capturedAt ?? snapshot.capturedAt;
 
-  const diarioOverall = diario
-    ? computeOverall(diario.rows, diario.totals, diario.originTotals)
+  const ontemOverall = ontem
+    ? computeOverall(ontem.rows, ontem.totals, ontem.originTotals)
     : null;
   const semanalOverall = semanal
     ? computeOverall(semanal.rows, semanal.totals, semanal.originTotals)
@@ -114,13 +114,13 @@ const ExecutiveSummaryPDF = forwardRef<HTMLDivElement, Props>(function Executive
 
         <div style={BODY_STYLE}>
           <KpiCardsRow
-            diarioQtd={diarioOverall?.qtdCompra ?? null}
+            ontemQtd={ontemOverall?.qtdCompra ?? null}
             semanalQtd={semanalOverall?.qtdCompra ?? null}
             mensalQtd={mensalOverall?.qtdCompra ?? null}
-            precoDia={diarioOverall?.precoMedioUSDKg ?? null}
+            precoOntem={ontemOverall?.precoMedioUSDKg ?? null}
           />
 
-          <PeriodBlock label="DIARIO" subtitle={formatBlockDate(diario)} snapshot={diario} />
+          <PeriodBlock label="ONTEM" subtitle={formatBlockDate(ontem)} snapshot={ontem} />
           <PeriodBlock
             label="SEMANAL"
             subtitle={formatBlockRange(semanal)}
@@ -272,15 +272,15 @@ function GoldRibbon() {
 ============================================================================ */
 
 function KpiCardsRow({
-  diarioQtd,
+  ontemQtd,
   semanalQtd,
   mensalQtd,
-  precoDia,
+  precoOntem,
 }: {
-  diarioQtd: number | null;
+  ontemQtd: number | null;
   semanalQtd: number | null;
   mensalQtd: number | null;
-  precoDia: number | null;
+  precoOntem: number | null;
 }) {
   return (
     <div
@@ -291,10 +291,10 @@ function KpiCardsRow({
         marginBottom: 16,
       }}
     >
-      <KpiCard label="COMPRA DIARIA" value={fmtCount(diarioQtd)} unit="cab" icon={<IconCalendarDay />} />
+      <KpiCard label="COMPRA DE ONTEM" value={fmtCount(ontemQtd)} unit="cab" icon={<IconCalendarDay />} />
       <KpiCard label="COMPRA SEMANAL" value={fmtCount(semanalQtd)} unit="cab" icon={<IconCalendarWeek />} />
       <KpiCard label="COMPRA MENSAL" value={fmtCount(mensalQtd)} unit="cab" icon={<IconCalendarMonth />} />
-      <KpiCard label="PRECO MEDIO/DIA" value={fmtPrice(precoDia)} unit="/kg" icon={<IconDollar />} />
+      <KpiCard label="PRECO MEDIO ONTEM" value={fmtPrice(precoOntem)} unit="/kg" icon={<IconDollar />} />
     </div>
   );
 }
@@ -815,24 +815,16 @@ const tdStyle: React.CSSProperties = {
    HELPERS
 ============================================================================ */
 
-function pickDailySnapshot(
+function pickYesterdaySnapshot(
   allSnapshots: AllSnapshots | undefined,
   fallback: ComprasSnapshot,
 ): ComprasSnapshot | null {
-  const today = allSnapshots?.today ?? null;
-  if (today && !isStale(today)) return today;
+  // Por design, o relatorio executivo do CEO traz o fechamento real do dia
+  // anterior (capturado pelo RPA na manha seguinte as ~06h). Se por algum
+  // motivo yesterday nao estiver disponivel, caimos no snapshot ativo do
+  // dashboard como fallback.
   if (allSnapshots?.yesterday) return allSnapshots.yesterday;
   return fallback ?? null;
-}
-
-function isStale(snapshot: ComprasSnapshot): boolean {
-  const captured = new Date(snapshot.capturedAt);
-  const now = new Date();
-  return (
-    captured.getFullYear() !== now.getFullYear() ||
-    captured.getMonth() !== now.getMonth() ||
-    captured.getDate() !== now.getDate()
-  );
 }
 
 function computeWeightedBase(snapshot: ComprasSnapshot): number | null {
