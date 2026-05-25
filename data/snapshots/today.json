@@ -1,35 +1,35 @@
 {
-  "capturedAt": "2026-05-25T13:31:23-03:00",
+  "capturedAt": "2026-05-25T14:02:13-03:00",
   "rows": [
     {
       "origem": "AR",
       "sexo": "FEMEA",
-      "qtdCompra": 367,
-      "pesoMedioKg": 510.98,
-      "precoMedioUSDKg": 3.94
+      "qtdCompra": 420,
+      "pesoMedioKg": 521.48,
+      "precoMedioUSDKg": 3.79
     },
     {
       "origem": "AR",
       "sexo": "MACHO",
-      "qtdCompra": 309,
-      "pesoMedioKg": 526.83,
-      "precoMedioUSDKg": 5.09
+      "qtdCompra": 315,
+      "pesoMedioKg": 527.62,
+      "precoMedioUSDKg": 5.06
     },
     {
       "origem": "BR",
       "sexo": "FEMEA",
-      "qtdCompra": 2012,
-      "pesoMedioKg": 215.94,
+      "qtdCompra": 1994,
+      "pesoMedioKg": 215.99,
       "precoMedioUSDKg": 4.46,
       "valorKgBaseUSD": 4.58
     },
     {
       "origem": "BR",
       "sexo": "MACHO",
-      "qtdCompra": 2071,
-      "pesoMedioKg": 281.41,
-      "precoMedioUSDKg": 4.62,
-      "valorKgBaseUSD": 4.62
+      "qtdCompra": 2188,
+      "pesoMedioKg": 281.37,
+      "precoMedioUSDKg": 4.6,
+      "valorKgBaseUSD": 4.61
     },
     {
       "origem": "CO",
@@ -43,7 +43,7 @@
       "sexo": "MACHO",
       "qtdCompra": 692,
       "pesoMedioKg": 355.16,
-      "precoMedioUSDKg": 4.74
+      "precoMedioUSDKg": 4.75
     },
     {
       "origem": "PY",
@@ -63,10 +63,10 @@
     }
   ],
   "totals": {
-    "qtdCompra": 7828,
-    "pesoMedioKg": 277.42,
-    "precoMedioUSDKg": 4.61,
-    "valorKgBaseUSD": 4.67
+    "qtdCompra": 7986,
+    "pesoMedioKg": 279.94,
+    "precoMedioUSDKg": 4.6,
+    "valorKgBaseUSD": 4.66
   },
   "source": {
     "module": "Compras Now",
@@ -74,13 +74,13 @@
   },
   "originTotals": {
     "AR": {
-      "qtdCompra": 676,
-      "pesoMedioKg": 518.22,
-      "precoMedioUSDKg": 4.57
+      "qtdCompra": 735,
+      "pesoMedioKg": 524.11,
+      "precoMedioUSDKg": 4.47
     },
     "BR": {
-      "qtdCompra": 4083,
-      "pesoMedioKg": 249.14,
+      "qtdCompra": 4182,
+      "pesoMedioKg": 250.2,
       "precoMedioUSDKg": 4.54,
       "valorKgBaseUSD": 4.6
     },
