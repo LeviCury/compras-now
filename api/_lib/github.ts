@@ -10,12 +10,19 @@ export interface GithubEnv {
 }
 
 export function getEnv(): GithubEnv {
-  const token = process.env.GITHUB_TOKEN ?? '';
+  // Aceita ambos os nomes pra manter compatibilidade com o .env do RPA (GITHUB_PAT)
+  // e com convencoes mais comuns em CI/CD (GITHUB_TOKEN).
+  const token = process.env.GITHUB_TOKEN ?? process.env.GITHUB_PAT ?? '';
   const repo = process.env.GITHUB_REPO ?? '';
   const branch = process.env.GITHUB_BRANCH ?? 'main';
   const dataPath = (process.env.GITHUB_DATA_PATH ?? 'data').replace(/^\/+|\/+$/g, '');
-  if (!token || !repo) {
-    throw new Error('GITHUB_TOKEN and GITHUB_REPO env vars are required.');
+  if (!token) {
+    throw new Error(
+      'Missing GitHub token. Configure GITHUB_TOKEN or GITHUB_PAT in environment.',
+    );
+  }
+  if (!repo) {
+    throw new Error('Missing GITHUB_REPO env var (formato esperado: owner/repo).');
   }
   return { token, repo, branch, dataPath };
 }
