@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-05-25T12:31:35-03:00",
+  "capturedAt": "2026-05-25T13:01:39-03:00",
   "rows": [
     {
       "origem": "AR",
@@ -11,25 +11,39 @@
     {
       "origem": "AR",
       "sexo": "MACHO",
-      "qtdCompra": 219,
-      "pesoMedioKg": 537.85,
-      "precoMedioUSDKg": 4.79
+      "qtdCompra": 309,
+      "pesoMedioKg": 526.83,
+      "precoMedioUSDKg": 5.09
     },
     {
       "origem": "BR",
       "sexo": "FEMEA",
-      "qtdCompra": 1651,
-      "pesoMedioKg": 214.61,
-      "precoMedioUSDKg": 4.45,
-      "valorKgBaseUSD": 4.57
+      "qtdCompra": 1958,
+      "pesoMedioKg": 216.3,
+      "precoMedioUSDKg": 4.46,
+      "valorKgBaseUSD": 4.58
     },
     {
       "origem": "BR",
       "sexo": "MACHO",
-      "qtdCompra": 1978,
-      "pesoMedioKg": 281.92,
+      "qtdCompra": 2031,
+      "pesoMedioKg": 282.01,
       "precoMedioUSDKg": 4.62,
       "valorKgBaseUSD": 4.62
+    },
+    {
+      "origem": "CO",
+      "sexo": "FEMEA",
+      "qtdCompra": 731,
+      "pesoMedioKg": 293.15,
+      "precoMedioUSDKg": 4.27
+    },
+    {
+      "origem": "CO",
+      "sexo": "MACHO",
+      "qtdCompra": 643,
+      "pesoMedioKg": 367.71,
+      "precoMedioUSDKg": 4.69
     },
     {
       "origem": "PY",
@@ -49,9 +63,9 @@
     }
   ],
   "totals": {
-    "qtdCompra": 5785,
-    "pesoMedioKg": 265.19,
-    "precoMedioUSDKg": 4.63,
+    "qtdCompra": 7609,
+    "pesoMedioKg": 277.85,
+    "precoMedioUSDKg": 4.61,
     "valorKgBaseUSD": 4.67
   },
   "source": {
@@ -60,15 +74,20 @@
   },
   "originTotals": {
     "AR": {
-      "qtdCompra": 586,
-      "pesoMedioKg": 521.02,
-      "precoMedioUSDKg": 4.32
+      "qtdCompra": 676,
+      "pesoMedioKg": 518.22,
+      "precoMedioUSDKg": 4.57
     },
     "BR": {
-      "qtdCompra": 3629,
-      "pesoMedioKg": 251.3,
+      "qtdCompra": 3989,
+      "pesoMedioKg": 249.76,
       "precoMedioUSDKg": 4.55,
       "valorKgBaseUSD": 4.6
+    },
+    "CO": {
+      "qtdCompra": 1374,
+      "pesoMedioKg": 328.04,
+      "precoMedioUSDKg": 4.48
     },
     "PY": {
       "qtdCompra": 1570,
