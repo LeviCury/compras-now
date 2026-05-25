@@ -1,6 +1,7 @@
 node_modules
 .commitmsg.tmp
 dist
+dist-server
 dist-ssr
 *.local
 
