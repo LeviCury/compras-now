@@ -29,7 +29,10 @@ export function formatNumber(value: number, fractionDigits = 0): string {
   }).format(value);
 }
 
-export function formatKg(value: number, fractionDigits = 1): string {
+export function formatKg(value: number, fractionDigits = 2): string {
+  // Mantemos 2 casas decimais para espelhar exatamente o que o DUX exibe no
+  // relatorio Compras Now (ex: 498,05 kg, 344,58 kg). Qualquer arredondamento
+  // diferente disso causa divergencia visual com a fonte oficial.
   return `${formatNumber(value, fractionDigits)} kg`;
 }
 
