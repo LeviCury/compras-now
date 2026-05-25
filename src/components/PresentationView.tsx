@@ -32,7 +32,7 @@ export default function PresentationView({
   if (isLoading && !all) {
     return (
       <div className="presentation-root items-center justify-center">
-        <div className="text-2xl font-semibold" style={{ color: '#a1a1aa' }}>
+        <div className="text-2xl font-semibold" style={{ color: 'var(--pres-faint-2)' }}>
           Carregando snapshots...
         </div>
       </div>
@@ -49,9 +49,9 @@ export default function PresentationView({
             key={key}
             className="pcol overflow-hidden rounded-2xl border flex flex-col"
             style={{
-              background: 'rgba(255, 255, 255, 0.025)',
-              borderColor: 'rgba(255, 255, 255, 0.06)',
-              boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.03)',
+              background: 'var(--pres-card-bg)',
+              borderColor: 'var(--pres-card-border)',
+              boxShadow: 'inset 0 1px 0 var(--pres-subtle)',
             }}
           >
             <PresentationColumn
@@ -79,7 +79,7 @@ function Header({ now, todayCapturedAt, onExit }: HeaderProps) {
   return (
     <header
       className="flex items-center justify-between px-8 py-5 border-b"
-      style={{ borderColor: 'rgba(244,244,245,0.08)' }}
+      style={{ borderColor: 'var(--pres-divider)' }}
     >
       <div className="flex items-center gap-4">
         <img
@@ -88,28 +88,28 @@ function Header({ now, todayCapturedAt, onExit }: HeaderProps) {
           width={48}
           height={48}
           className="h-12 w-12 rounded-xl object-contain"
-          style={{ background: 'rgba(255,255,255,0.04)', padding: 4 }}
+          style={{ background: '#ffffff', padding: 4 }}
         />
         <div>
           <div className="flex items-center gap-3">
             <h1
               className="text-2xl font-bold tracking-tight"
-              style={{ color: '#fafafa', letterSpacing: '-0.02em' }}
+              style={{ color: 'var(--pres-text)', letterSpacing: '-0.02em' }}
             >
               Compras Now Executivo
             </h1>
             <span
               className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] font-bold px-2 py-0.5 rounded"
-              style={{ background: 'rgba(227, 6, 19, 0.16)', color: '#FF3B49' }}
+              style={{ background: 'rgba(227, 6, 19, 0.12)', color: 'var(--pres-accent)' }}
             >
               <span
                 className="presentation-live-dot h-1.5 w-1.5 rounded-full"
-                style={{ background: '#FF3B49' }}
+                style={{ background: 'var(--pres-accent)' }}
               />
               Ao vivo
             </span>
           </div>
-          <div className="text-sm" style={{ color: '#a1a1aa' }}>
+          <div className="text-sm" style={{ color: 'var(--pres-muted)' }}>
             Painel executivo - DUX / Minerva Reports
           </div>
         </div>
@@ -117,14 +117,14 @@ function Header({ now, todayCapturedAt, onExit }: HeaderProps) {
 
       <div className="flex items-center gap-6">
         <div className="text-right">
-          <div className="text-[11px] uppercase tracking-[0.18em] font-semibold" style={{ color: '#71717a' }}>
+          <div className="text-[11px] uppercase tracking-[0.18em] font-semibold" style={{ color: 'var(--pres-faint)' }}>
             Atualizado em
           </div>
-          <div className="text-2xl font-bold tabular" style={{ color: '#fafafa', letterSpacing: '-0.02em' }}>
+          <div className="text-2xl font-bold tabular" style={{ color: 'var(--pres-text)', letterSpacing: '-0.02em' }}>
             {formatTime(now)}
           </div>
           {todayCapturedAt && (
-            <div className="text-xs tabular" style={{ color: '#a1a1aa' }}>
+            <div className="text-xs tabular" style={{ color: 'var(--pres-muted)' }}>
               ultima captura {timeAgo(todayCapturedAt)}
             </div>
           )}
@@ -134,9 +134,9 @@ function Header({ now, todayCapturedAt, onExit }: HeaderProps) {
             onClick={onExit}
             className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-sm font-medium transition-colors"
             style={{
-              borderColor: 'rgba(244,244,245,0.12)',
-              color: '#fafafa',
-              background: 'rgba(244,244,245,0.04)',
+              borderColor: 'var(--pres-card-border)',
+              color: 'var(--pres-text)',
+              background: 'var(--pres-subtle)',
             }}
             title="Sair do modo apresentacao (ESC)"
           >
@@ -153,7 +153,7 @@ function Footer() {
   return (
     <footer
       className="flex items-center justify-between px-8 py-3 border-t text-[11px] tracking-[0.06em]"
-      style={{ borderColor: 'rgba(244,244,245,0.08)', color: '#71717a' }}
+      style={{ borderColor: 'var(--pres-divider)', color: 'var(--pres-faint)' }}
     >
       <span>Fonte oficial: DUX &gt; Minerva Reports &gt; Relatorios de Controle &gt; Compras Now</span>
       <span className="tabular">{formatDateTime(new Date())} - ESC para sair</span>

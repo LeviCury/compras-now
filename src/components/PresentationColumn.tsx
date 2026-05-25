@@ -11,11 +11,13 @@ interface Props {
   sexos: Sexo[];
 }
 
-const SECTION_BORDER = 'rgba(255, 255, 255, 0.06)';
-const SUBCARD_BG = 'rgba(255, 255, 255, 0.03)';
-const SUBCARD_BORDER = 'rgba(255, 255, 255, 0.05)';
-const ZEBRA_BG = 'rgba(255, 255, 255, 0.015)';
-const CHEAPEST_BG = 'rgba(227, 6, 19, 0.08)';
+// Tokens via CSS variables (definidas em index.css). Trocam automaticamente
+// quando o usuario toggla tema claro/escuro no dashboard.
+const SECTION_BORDER = 'var(--pres-card-border)';
+const SUBCARD_BG = 'var(--pres-subcard)';
+const SUBCARD_BORDER = 'var(--pres-elevated)';
+const ZEBRA_BG = 'var(--pres-zebra)';
+const CHEAPEST_BG = 'var(--pres-cheapest-bg)';
 
 export default function PresentationColumn({ periodKey, snapshot, origens, sexos }: Props) {
   if (!snapshot) {
@@ -84,13 +86,13 @@ function KPIBlock({
     <div className="flex flex-col gap-1.5">
       <div
         className="text-[10px] uppercase tracking-[0.2em] font-semibold"
-        style={{ color: '#71717a' }}
+        style={{ color: 'var(--pres-faint)' }}
       >
         {label}
       </div>
       <div
         className={`presentation-bignumber tabular font-bold ${sizeClass}`}
-        style={{ color: accent ? '#E30613' : '#fafafa' }}
+        style={{ color: accent ? 'var(--pres-accent)' : 'var(--pres-text)' }}
       >
         {value}
       </div>
@@ -111,7 +113,7 @@ function BoiVacaSubCard({
       <BoiVacaCell label="Boi" value={split.boi.precoMedio} qtd={split.boi.qtd} tone="boi" />
       <div
         className="border-l pl-2 -ml-1 sm:pl-3"
-        style={{ borderColor: 'rgba(255, 255, 255, 0.06)' }}
+        style={{ borderColor: 'var(--pres-card-border)' }}
       >
         <BoiVacaCell label="Vaca" value={split.vaca.precoMedio} qtd={split.vaca.qtd} tone="vaca" />
       </div>
@@ -130,25 +132,25 @@ function BoiVacaCell({
   qtd: number;
   tone: 'boi' | 'vaca';
 }) {
-  const accent = tone === 'vaca' ? '#FF3B49' : '#e4e4e7';
+  const accent = tone === 'vaca' ? 'var(--pres-accent)' : 'var(--pres-text-2)';
   return (
     <div className="flex flex-col gap-1">
       <div className="flex items-center gap-1.5">
         <span className="h-2 w-2 rounded-sm" style={{ background: accent }} />
         <span
           className="text-[10px] uppercase tracking-[0.18em] font-semibold"
-          style={{ color: '#a1a1aa' }}
+          style={{ color: 'var(--pres-muted)' }}
         >
           {label}
         </span>
       </div>
       <div
         className="presentation-bignumber tabular font-bold pcol-boivaca-value"
-        style={{ color: '#fafafa' }}
+        style={{ color: 'var(--pres-text)' }}
       >
         {formatUSDPerKg(value)}
       </div>
-      <div className="text-[11px] tabular" style={{ color: '#71717a' }}>
+      <div className="text-[11px] tabular" style={{ color: 'var(--pres-faint)' }}>
         {formatNumber(qtd)} cab.
       </div>
     </div>
@@ -165,7 +167,7 @@ function PriceByOriginTable({ byOrigem, minMediaPrice }: PriceByOriginTableProps
     <div className="flex-1 flex flex-col px-4 pt-4 pb-3 sm:px-5 sm:pt-5 sm:pb-3 min-h-0">
       <div
         className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-3"
-        style={{ color: '#71717a' }}
+        style={{ color: 'var(--pres-faint)' }}
       >
         Preco por origem
       </div>
@@ -174,37 +176,37 @@ function PriceByOriginTable({ byOrigem, minMediaPrice }: PriceByOriginTableProps
         <div
           className="pcol-table-row px-2 py-2 mb-2 rounded-md border-b"
           style={{
-            background: 'rgba(255, 255, 255, 0.05)',
-            borderColor: 'rgba(255, 255, 255, 0.08)',
+            background: 'var(--pres-elevated)',
+            borderColor: 'var(--pres-divider)',
           }}
         >
           <span
             className="text-[11px] uppercase tracking-[0.16em] font-bold"
-            style={{ color: '#d4d4d8' }}
+            style={{ color: 'var(--pres-text-3)' }}
           >
             Origem
           </span>
           <span
             className="text-[11px] uppercase tracking-[0.16em] font-bold text-right"
-            style={{ color: '#d4d4d8' }}
+            style={{ color: 'var(--pres-text-3)' }}
           >
             Boi
           </span>
           <span
             className="text-[11px] uppercase tracking-[0.16em] font-bold text-right"
-            style={{ color: '#d4d4d8' }}
+            style={{ color: 'var(--pres-text-3)' }}
           >
             Vaca
           </span>
           <span
             className="text-[11px] uppercase tracking-[0.16em] font-bold text-right"
-            style={{ color: '#d4d4d8' }}
+            style={{ color: 'var(--pres-text-3)' }}
           >
             Media
           </span>
           <span
             className="pcol-cell-base text-[11px] uppercase tracking-[0.16em] font-bold text-right"
-            style={{ color: '#d4d4d8' }}
+            style={{ color: 'var(--pres-text-3)' }}
           >
             Base
           </span>
@@ -229,20 +231,20 @@ function PriceByOriginTable({ byOrigem, minMediaPrice }: PriceByOriginTableProps
                       ? ZEBRA_BG
                       : 'transparent',
                   borderLeft: isCheapestMedia
-                    ? '2px solid #E30613'
+                    ? '2px solid var(--pres-accent)'
                     : '2px solid transparent',
                 }}
               >
                 <div className="flex items-baseline gap-1.5 min-w-0">
                   <span
                     className="font-mono pcol-origem-code flex-none"
-                    style={{ color: isCheapestMedia ? '#E30613' : '#71717a' }}
+                    style={{ color: isCheapestMedia ? 'var(--pres-accent)' : 'var(--pres-faint)' }}
                   >
                     {agg.origem}
                   </span>
                   <span
                     className="pcol-origem-name font-medium truncate"
-                    style={{ color: isCheapestMedia ? '#E30613' : '#e4e4e7' }}
+                    style={{ color: isCheapestMedia ? 'var(--pres-accent)' : 'var(--pres-text-2)' }}
                   >
                     {ORIGEM_LABELS[agg.origem]}
                   </span>
@@ -274,12 +276,16 @@ function PriceCell({
   const cellClass = isBase ? 'pcol-cell-base text-right' : 'text-right';
   if (value <= 0) {
     return (
-      <span className={`${cellClass} tabular text-[0.9rem]`} style={{ color: '#3f3f46' }}>
+      <span className={`${cellClass} tabular text-[0.9rem]`} style={{ color: 'var(--pres-dim)' }}>
         —
       </span>
     );
   }
-  const color = highlight ? '#E30613' : subdued ? '#a1a1aa' : '#fafafa';
+  const color = highlight
+    ? 'var(--pres-accent)'
+    : subdued
+      ? 'var(--pres-muted)'
+      : 'var(--pres-text)';
   const sizeClass = subdued ? 'pcol-price-value-base' : 'pcol-price-value';
   return (
     <span
@@ -307,23 +313,23 @@ function ColumnHeader({ periodKey, snapshot }: { periodKey: PeriodKey; snapshot:
     <div
       className="px-4 py-3 sm:px-5 sm:py-4 border-b"
       style={{
-        background: 'rgba(255, 255, 255, 0.02)',
+        background: 'var(--pres-subtle)',
         borderColor: SECTION_BORDER,
       }}
     >
       <div
         className="text-[10px] uppercase tracking-[0.22em] font-semibold mb-1"
-        style={{ color: '#52525b' }}
+        style={{ color: 'var(--pres-faint-2)' }}
       >
         Periodo
       </div>
       <h2
         className="text-xl sm:text-2xl xl:text-3xl font-bold tracking-tight leading-tight"
-        style={{ color: '#fafafa', letterSpacing: '-0.02em' }}
+        style={{ color: 'var(--pres-text)', letterSpacing: '-0.02em' }}
       >
         {PERIOD_LABELS[periodKey]}
       </h2>
-      <div className="text-xs sm:text-sm mt-1" style={{ color: '#71717a' }}>
+      <div className="text-xs sm:text-sm mt-1" style={{ color: 'var(--pres-faint)' }}>
         {snapshot.periodLabel}
       </div>
     </div>
@@ -333,11 +339,15 @@ function ColumnHeader({ periodKey, snapshot }: { periodKey: PeriodKey; snapshot:
 function EmptyColumn({ periodKey }: { periodKey: PeriodKey }) {
   return (
     <div className="flex flex-col items-center justify-center h-full p-8 text-center gap-3">
-      <Clock4 className="h-10 w-10 opacity-30" strokeWidth={1.5} style={{ color: '#a1a1aa' }} />
-      <div className="text-sm" style={{ color: '#a1a1aa' }}>
+      <Clock4
+        className="h-10 w-10 opacity-30"
+        strokeWidth={1.5}
+        style={{ color: 'var(--pres-muted)' }}
+      />
+      <div className="text-sm" style={{ color: 'var(--pres-muted)' }}>
         Sem dados para
         <br />
-        <strong style={{ color: '#fafafa' }}>{PERIOD_LABELS[periodKey]}</strong>
+        <strong style={{ color: 'var(--pres-text)' }}>{PERIOD_LABELS[periodKey]}</strong>
       </div>
     </div>
   );
@@ -350,19 +360,19 @@ function AwaitingTodayColumn({ snapshot }: { snapshot: ComprasSnapshot }) {
       <div className="flex flex-col items-center justify-center flex-1 text-center gap-4 px-5 py-8">
         <span
           className="inline-flex h-16 w-16 items-center justify-center rounded-full"
-          style={{ background: 'rgba(227, 6, 19, 0.10)', color: '#E30613' }}
+          style={{ background: 'rgba(227, 6, 19, 0.10)', color: 'var(--pres-accent)' }}
         >
           <Clock4 className="h-8 w-8" strokeWidth={1.5} />
         </span>
         <div>
-          <div className="text-xl font-bold mb-2" style={{ color: '#fafafa' }}>
+          <div className="text-xl font-bold mb-2" style={{ color: 'var(--pres-text)' }}>
             Aguardando primeira captura
           </div>
-          <p className="text-sm" style={{ color: '#a1a1aa', maxWidth: 280 }}>
+          <p className="text-sm" style={{ color: 'var(--pres-muted)', maxWidth: 280 }}>
             O RPA inicia as 09:00. Ainda nao ha volume de compras relevante hoje.
           </p>
         </div>
-        <div className="text-[11px]" style={{ color: '#71717a' }}>
+        <div className="text-[11px]" style={{ color: 'var(--pres-faint)' }}>
           Ultima captura: {timeAgo(snapshot.capturedAt)}
         </div>
       </div>

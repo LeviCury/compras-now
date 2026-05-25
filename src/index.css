@@ -178,13 +178,54 @@
    Modo Apresentacao em TV - Big Numbers em 4 colunas
    ============================================================ */
 
+/* Base (light) - quando esta no modo apresentacao SEM .dark.
+   O dashboard ja toggla .dark no <html>; o modo apresentacao
+   herda esse estado por meio do seletor combinado. */
 html.presentation-active {
-  background: #0a0a0a;
+  --pres-bg:          #fafafa;
+  --pres-text:        #18181b;
+  --pres-text-2:      #27272a;
+  --pres-text-3:      #3f3f46;
+  --pres-muted:       #52525b;
+  --pres-faint:       #71717a;
+  --pres-faint-2:     #a1a1aa;
+  --pres-dim:         #d4d4d8;
+  --pres-card-bg:     rgba(0, 0, 0, 0.025);
+  --pres-card-border: rgba(0, 0, 0, 0.06);
+  --pres-subtle:      rgba(0, 0, 0, 0.04);
+  --pres-elevated:    rgba(0, 0, 0, 0.05);
+  --pres-zebra:       rgba(0, 0, 0, 0.025);
+  --pres-subcard:     rgba(0, 0, 0, 0.03);
+  --pres-divider:     rgba(0, 0, 0, 0.1);
+  --pres-accent:      #E30613;
+  --pres-cheapest-bg: rgba(227, 6, 19, 0.06);
+  background: var(--pres-bg);
+}
+
+/* Dark - sobrescreve quando o usuario esta no tema escuro */
+html.presentation-active.dark {
+  --pres-bg:          #0a0a0a;
+  --pres-text:        #fafafa;
+  --pres-text-2:      #e4e4e7;
+  --pres-text-3:      #d4d4d8;
+  --pres-muted:       #a1a1aa;
+  --pres-faint:       #71717a;
+  --pres-faint-2:     #52525b;
+  --pres-dim:         #3f3f46;
+  --pres-card-bg:     rgba(255, 255, 255, 0.025);
+  --pres-card-border: rgba(255, 255, 255, 0.06);
+  --pres-subtle:      rgba(255, 255, 255, 0.04);
+  --pres-elevated:    rgba(255, 255, 255, 0.05);
+  --pres-zebra:       rgba(255, 255, 255, 0.015);
+  --pres-subcard:     rgba(255, 255, 255, 0.03);
+  --pres-divider:     rgba(244, 244, 245, 0.08);
+  --pres-accent:      #FF3B49;
+  --pres-cheapest-bg: rgba(227, 6, 19, 0.08);
 }
 
 html.presentation-active body {
-  background: #0a0a0a;
-  color: #f4f4f5;
+  background: var(--pres-bg);
+  color: var(--pres-text);
   overflow: hidden;
 }
 
@@ -193,8 +234,8 @@ html.presentation-active body {
   width: 100vw;
   display: flex;
   flex-direction: column;
-  background: #0a0a0a;
-  color: #f4f4f5;
+  background: var(--pres-bg);
+  color: var(--pres-text);
   font-family: 'Inter', system-ui, sans-serif;
 }
 
