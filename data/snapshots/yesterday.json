@@ -1,33 +1,82 @@
 {
-  "capturedAt": "2026-05-24T11:59:56-03:00",
+  "capturedAt": "2026-05-25T06:01:39-03:00",
   "rows": [
     {
-      "origem": "BR",
+      "origem": "AR",
       "sexo": "FEMEA",
-      "qtdCompra": 140,
-      "pesoMedioKg": 210.0,
-      "precoMedioUSDKg": 0.0
+      "qtdCompra": 179,
+      "pesoMedioKg": 497.89,
+      "precoMedioUSDKg": 4.54
+    },
+    {
+      "origem": "AR",
+      "sexo": "MACHO",
+      "qtdCompra": 127,
+      "pesoMedioKg": 498.27,
+      "precoMedioUSDKg": 5.67
+    },
+    {
+      "origem": "CO",
+      "sexo": "FEMEA",
+      "qtdCompra": 4,
+      "pesoMedioKg": 190.0,
+      "precoMedioUSDKg": 5.18
     },
     {
       "origem": "CO",
       "sexo": "MACHO",
-      "qtdCompra": 5,
-      "pesoMedioKg": 215.0,
-      "precoMedioUSDKg": 5.54
+      "qtdCompra": 23,
+      "pesoMedioKg": 240.0,
+      "precoMedioUSDKg": 5.59
+    },
+    {
+      "origem": "PY",
+      "sexo": "FEMEA",
+      "qtdCompra": 204,
+      "pesoMedioKg": 200.44,
+      "precoMedioUSDKg": 4.89,
+      "valorKgBaseUSD": 4.83
+    },
+    {
+      "origem": "PY",
+      "sexo": "MACHO",
+      "qtdCompra": 108,
+      "pesoMedioKg": 210.0,
+      "precoMedioUSDKg": 5.03,
+      "valorKgBaseUSD": 4.9
     }
   ],
   "totals": {
-    "qtdCompra": 145,
-    "pesoMedioKg": 210.17,
-    "precoMedioUSDKg": 5.54
+    "qtdCompra": 645,
+    "pesoMedioKg": 344.58,
+    "precoMedioUSDKg": 5.03,
+    "valorKgBaseUSD": 4.86
   },
   "source": {
     "module": "Compras Now",
     "breadcrumb": "DUX > Minerva Reports > Relatorios de Controle > Compras Now"
   },
+  "originTotals": {
+    "AR": {
+      "qtdCompra": 306,
+      "pesoMedioKg": 498.05,
+      "precoMedioUSDKg": 5.07
+    },
+    "CO": {
+      "qtdCompra": 27,
+      "pesoMedioKg": 232.59,
+      "precoMedioUSDKg": 5.53
+    },
+    "PY": {
+      "qtdCompra": 312,
+      "pesoMedioKg": 203.75,
+      "precoMedioUSDKg": 4.94,
+      "valorKgBaseUSD": 4.86
+    }
+  },
   "period": "yesterday",
-  "periodFrom": "2026-05-23T00:00:00-03:00",
-  "periodTo": "2026-05-23T23:59:59-03:00",
-  "periodLabel": "Ontem (23/05)",
+  "periodFrom": "2026-05-24T00:00:00-03:00",
+  "periodTo": "2026-05-24T23:59:59-03:00",
+  "periodLabel": "Ontem (24/05)",
   "screenshotPath": "data/screenshots/yesterday.png"
 }
