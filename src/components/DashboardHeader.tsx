@@ -2,6 +2,7 @@ import { Moon, Play, Share2, Sun, Clock, Calendar } from 'lucide-react';
 import type { ComprasSnapshot, PeriodKey } from '../types';
 import { useTheme } from '../contexts/useTheme';
 import { formatDateTime, minutesSince, timeAgo } from '../utils/formatters';
+import UserBadge from './UserBadge';
 
 interface Props {
   snapshot?: ComprasSnapshot | null;
@@ -94,6 +95,8 @@ export default function DashboardHeader({
           <Share2 className="h-4 w-4" strokeWidth={2} />
           <span>Exportar</span>
         </button>
+
+        <UserBadge />
       </div>
     </header>
   );

@@ -97,12 +97,15 @@ if (-not (Test-Path $LogsDir)) {
 Write-Host ""
 Write-Host "[4/4] Registrando servico Windows $ServiceName via NSSM..." -ForegroundColor Yellow
 
-$serviceExists = (& $NssmPath status $ServiceName 2>&1) -notmatch "Can't open service"
-if ($serviceExists) {
+# Usamos Get-Service ao inves de "nssm status" porque o NSSM imprime em UTF-16
+# e o PowerShell le como ASCII, gerando texto com espacos entre as letras
+# (ex.: "S E R V I C E _ R U N N I N G") que nao bate com regex padrao.
+$existingService = Get-Service -Name $ServiceName -ErrorAction SilentlyContinue
+if ($existingService) {
     Write-Host "Servico ja existia, parando para reconfigurar..." -ForegroundColor Gray
-    & $NssmPath stop $ServiceName | Out-Null
+    & $NssmPath stop $ServiceName 2>$null | Out-Null
     Start-Sleep -Seconds 2
-    & $NssmPath remove $ServiceName confirm | Out-Null
+    & $NssmPath remove $ServiceName confirm 2>$null | Out-Null
     Start-Sleep -Seconds 1
 }
 

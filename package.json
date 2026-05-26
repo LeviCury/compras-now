@@ -16,10 +16,12 @@
     "typecheck": "tsc --noEmit -p tsconfig.app.json"
   },
   "dependencies": {
+    "@azure/msal-node": "^5.2.2",
     "@tanstack/react-query": "^5.59.0",
     "@vercel/node": "^3.2.24",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-session": "^1.19.0",
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.2",
@@ -32,6 +34,7 @@
   "devDependencies": {
     "@eslint/js": "^9.15.0",
     "@types/express": "^5.0.0",
+    "@types/express-session": "^1.19.0",
     "@types/file-saver": "^2.0.7",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",

@@ -13,15 +13,33 @@ const USE_MOCK =
   import.meta.env.VITE_USE_MOCK === '1' ||
   (typeof window !== 'undefined' &&
     window.location.hostname === 'localhost' &&
+    window.location.port === '5173' &&
     import.meta.env.VITE_USE_MOCK !== '0');
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? '';
+
+/**
+ * Quando o backend retorna 401 (sessao Microsoft expirada/inexistente),
+ * jogamos o usuario direto pro fluxo de /auth/login mantendo a URL atual
+ * como returnTo. Isso cobre o caso de sessao expirar durante o uso ativo.
+ */
+function redirectToLogin() {
+  if (typeof window === 'undefined') return;
+  const target = window.location.pathname + window.location.search;
+  window.location.href = `/auth/login?returnTo=${encodeURIComponent(target)}`;
+}
 
 async function safeJson<T>(url: string): Promise<T> {
   const response = await fetch(url, {
     headers: { Accept: 'application/json' },
     cache: 'no-store',
+    credentials: 'include',
   });
+  if (response.status === 401) {
+    redirectToLogin();
+    // Mesmo apos o redirect, lancamos pra evitar que o caller siga com dados invalidos.
+    throw new Error('Sessao expirada - redirecionando para login Microsoft...');
+  }
   if (!response.ok) {
     throw new Error(`Falha ao buscar ${url}: ${response.status} ${response.statusText}`);
   }
