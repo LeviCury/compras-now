@@ -36,14 +36,21 @@ if (-not (Test-Path $AppDir)) {
 
 Set-Location $AppDir
 
-Write-Host "[1/5] git pull..." -ForegroundColor Yellow
-git pull origin main
-if ($LASTEXITCODE -ne 0) { throw "git pull falhou" }
+Write-Host "[1/5] git sync (fetch + reset --hard origin/main)..." -ForegroundColor Yellow
+# Usamos fetch + reset --hard em vez de git pull para evitar conflitos quando
+# npm install do deploy anterior modificou package-lock.json. O lock e' sempre
+# autoritativo no repositorio - a VM deve refletir exatamente o origin/main.
+git fetch origin main
+if ($LASTEXITCODE -ne 0) { throw "git fetch falhou" }
+git reset --hard origin/main
+if ($LASTEXITCODE -ne 0) { throw "git reset falhou" }
 
 Write-Host ""
-Write-Host "[2/5] npm install (somente se package.json mudou)..." -ForegroundColor Yellow
-npm install
-if ($LASTEXITCODE -ne 0) { throw "npm install falhou" }
+Write-Host "[2/5] npm ci (instala dependencias do package-lock)..." -ForegroundColor Yellow
+# npm ci e' mais rapido que npm install e NAO modifica o package-lock.
+# Requer que o lock esteja sincronizado com package.json (o que o build local garante).
+npm ci
+if ($LASTEXITCODE -ne 0) { throw "npm ci falhou" }
 
 Write-Host ""
 Write-Host "[3/5] vite build (frontend)..." -ForegroundColor Yellow
