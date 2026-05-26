@@ -1,0 +1,101 @@
+{
+  "capturedAt": "2026-05-26T09:40:01-03:00",
+  "rows": [
+    {
+      "origem": "AR",
+      "sexo": "FEMEA",
+      "qtdCompra": 400,
+      "pesoMedioKg": 469.02,
+      "precoMedioUSDKg": 4.39
+    },
+    {
+      "origem": "AR",
+      "sexo": "MACHO",
+      "qtdCompra": 178,
+      "pesoMedioKg": 430.51,
+      "precoMedioUSDKg": 5.53
+    },
+    {
+      "origem": "BR",
+      "sexo": "FEMEA",
+      "qtdCompra": 827,
+      "pesoMedioKg": 216.86,
+      "precoMedioUSDKg": 4.42
+    },
+    {
+      "origem": "BR",
+      "sexo": "MACHO",
+      "qtdCompra": 717,
+      "pesoMedioKg": 274.99,
+      "precoMedioUSDKg": 4.91
+    },
+    {
+      "origem": "CO",
+      "sexo": "FEMEA",
+      "qtdCompra": 48,
+      "pesoMedioKg": 195.94,
+      "precoMedioUSDKg": 5.05
+    },
+    {
+      "origem": "CO",
+      "sexo": "MACHO",
+      "qtdCompra": 93,
+      "pesoMedioKg": 405.7,
+      "precoMedioUSDKg": 3.75
+    },
+    {
+      "origem": "PY",
+      "sexo": "FEMEA",
+      "qtdCompra": 80,
+      "pesoMedioKg": 210.0,
+      "precoMedioUSDKg": 4.7,
+      "valorKgBaseUSD": 4.7
+    },
+    {
+      "origem": "PY",
+      "sexo": "MACHO",
+      "qtdCompra": 1044,
+      "pesoMedioKg": 210.0,
+      "precoMedioUSDKg": 5.06,
+      "valorKgBaseUSD": 4.9
+    }
+  ],
+  "totals": {
+    "qtdCompra": 3387,
+    "pesoMedioKg": 272.78,
+    "precoMedioUSDKg": 4.81,
+    "valorKgBaseUSD": 4.89
+  },
+  "source": {
+    "module": "Compras Now",
+    "breadcrumb": "DUX > Minerva Reports > Relatorios de Controle > Compras Now"
+  },
+  "originTotals": {
+    "AR": {
+      "qtdCompra": 578,
+      "pesoMedioKg": 457.16,
+      "precoMedioUSDKg": 4.81
+    },
+    "BR": {
+      "qtdCompra": 1544,
+      "pesoMedioKg": 243.85,
+      "precoMedioUSDKg": 4.66
+    },
+    "CO": {
+      "qtdCompra": 141,
+      "pesoMedioKg": 334.29,
+      "precoMedioUSDKg": 4.3
+    },
+    "PY": {
+      "qtdCompra": 1124,
+      "pesoMedioKg": 210.0,
+      "precoMedioUSDKg": 5.04,
+      "valorKgBaseUSD": 4.89
+    }
+  },
+  "period": "today",
+  "periodFrom": "2026-05-26T00:00:00-03:00",
+  "periodTo": "2026-05-26T23:59:59-03:00",
+  "periodLabel": "Hoje (26/05)",
+  "screenshotPath": "data/screenshots/today.png"
+}
