@@ -75,6 +75,14 @@ if (!process.env.SESSION_SECRET) {
 const isProd = process.env.NODE_ENV === 'production';
 const isHttps = (process.env.AZURE_REDIRECT_URI ?? '').startsWith('https://');
 
+// COOKIE_SECURE=0 desliga o flag `secure` do cookie de sessao mesmo em
+// producao + HTTPS. Use isso quando estiver atras de um proxy reverso
+// que NAO repassa X-Forwarded-Proto (ex: nginx mal configurado), porque
+// nesse cenario o Express enxerga req.secure=false e nunca seta o cookie.
+// O ideal e' configurar o proxy corretamente; isso aqui e' workaround.
+const cookieSecure =
+  process.env.COOKIE_SECURE === '0' ? false : isProd && isHttps;
+
 app.use(
   session({
     name: 'compras-now-sid',
@@ -89,13 +97,13 @@ app.use(
     cookie: {
       httpOnly: true,
       sameSite: 'lax',
-      // secure=true so' funciona em HTTPS. Em dev/HTTP precisa false ou
-      // o cookie nem chega no browser.
-      secure: isProd && isHttps,
+      secure: cookieSecure,
       maxAge: 8 * 60 * 60 * 1000, // 8 horas
     },
   }),
 );
+
+console.log(`[auth] cookie.secure=${cookieSecure} (COOKIE_SECURE env=${process.env.COOKIE_SECURE ?? 'unset'})`);
 
 // Log de diagnostico de cada request com info de proxy/cookie - util pra
 // debugar problemas de sessao em producao atras de nginx/iis. Vai pra
