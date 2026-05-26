@@ -1,14 +1,17 @@
+import MinervaTagline from './brand/MinervaTagline';
+
 export default function DashboardSkeleton() {
   return (
     <div className="min-h-screen p-4 sm:p-6">
       <div className="mx-auto max-w-[1400px] space-y-4 sm:space-y-6">
-        <div className="card-padded flex items-center gap-4">
-          <div className="skeleton h-14 w-14 rounded-2xl" />
-          <div className="space-y-2 flex-1">
-            <div className="skeleton h-6 w-48" />
-            <div className="skeleton h-4 w-72" />
-          </div>
-          <div className="skeleton h-10 w-32" />
+        <div className="card-padded flex flex-col items-center gap-3 py-6 sm:py-8">
+          <MinervaTagline size="medium" />
+          <p
+            className="text-[10px] uppercase tracking-[0.16em] font-semibold"
+            style={{ color: 'var(--text-faint)' }}
+          >
+            Carregando dados oficiais do DUX
+          </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[0, 1, 2, 3].map((i) => (

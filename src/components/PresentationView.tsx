@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Minimize2 } from 'lucide-react';
 import type { AllSnapshots, DashboardFilters } from '../types';
 import { PERIOD_KEYS } from '../types';
 import { formatDateTime, formatTime, timeAgo } from '../utils/formatters';
 import PresentationColumn from './PresentationColumn';
+import MinervaTagline from './brand/MinervaTagline';
 
 interface Props {
   all?: AllSnapshots;
@@ -21,10 +23,16 @@ export default function PresentationView({
   onExit,
 }: Props) {
   const [now, setNow] = useState(() => new Date());
+  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => setNow(new Date()), 30_000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const t = window.setTimeout(() => setShowSplash(false), 2500);
+    return () => window.clearTimeout(t);
   }, []);
 
   const todayCapturedAt = all?.today?.capturedAt;
@@ -65,6 +73,47 @@ export default function PresentationView({
       </main>
 
       <Footer />
+
+      <AnimatePresence>
+        {showSplash && (
+          <motion.div
+            key="splash"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center px-6"
+            style={{ background: 'var(--pres-bg)' }}
+            aria-hidden
+          >
+            <motion.img
+              src="/favicon.png"
+              alt="Minerva"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.45, ease: 'easeOut' }}
+              className="h-20 w-20 rounded-2xl object-contain mb-6"
+              style={{ background: '#ffffff', padding: 8 }}
+            />
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.55, ease: 'easeOut' }}
+            >
+              <MinervaTagline size="hero" />
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7, duration: 0.45 }}
+              className="text-[11px] uppercase tracking-[0.24em] font-bold mt-8"
+              style={{ color: 'var(--pres-faint)' }}
+            >
+              Compras Now Executivo - Minerva Foods
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -6,9 +6,21 @@ export default {
     extend: {
       colors: {
         minerva: {
-          DEFAULT: '#E30613',
-          dark: '#B0040E',
-          light: '#FF3B49',
+          DEFAULT: '#e34852', // Minerva red oficial
+          dark: '#b03742',
+          light: '#ed6e76',
+        },
+        // Paleta corporativa Minerva - azuis
+        navy: {
+          DEFAULT: '#2e5371',
+          deep: '#172a39',
+          muted: '#2c3d4c',
+          bright: '#145a86',
+        },
+        // Paleta corporativa Minerva - amarelos/bege
+        sand: {
+          DEFAULT: '#afae89',
+          light: '#cdcca8',
         },
       },
       fontFamily: {
@@ -45,8 +57,8 @@ export default {
         },
       },
       boxShadow: {
-        card: '0 1px 0 rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.04)',
-        glow: '0 0 0 1px rgba(227, 6, 19, 0.25)',
+        card: '0 1px 2px rgba(23, 42, 57, 0.04), 0 1px 3px rgba(23, 42, 57, 0.06)',
+        glow: '0 0 0 1px rgba(227, 72, 82, 0.25)',
       },
     },
   },

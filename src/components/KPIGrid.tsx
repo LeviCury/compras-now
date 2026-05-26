@@ -46,12 +46,16 @@ export default function KPIGrid({ rows, snapshotTotals, originTotals }: Props) {
         icon={Truck}
         label="Cabecas compradas"
         value={formatNumber(overall.qtdCompra)}
+        numericValue={overall.qtdCompra}
+        formatValue={(n) => formatNumber(Math.round(n))}
         hint={`${overall.origensAtivas} origens ativas`}
       />
       <KPICard
         icon={DollarSign}
         label="Preco medio USD/kg"
         value={formatUSDPerKg(overall.precoMedioUSDKg)}
+        numericValue={overall.precoMedioUSDKg}
+        formatValue={(n) => formatUSDPerKg(n)}
         hint="Ponderado por qtd x peso"
         emphasis="primary"
         footer={
@@ -70,6 +74,8 @@ export default function KPIGrid({ rows, snapshotTotals, originTotals }: Props) {
         icon={Scale}
         label="Peso medio"
         value={formatKg(overall.pesoMedioKg)}
+        numericValue={overall.pesoMedioKg}
+        formatValue={(n) => formatKg(n)}
         hint="Ponderado por cabeca"
       />
       <KPICard

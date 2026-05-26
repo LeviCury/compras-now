@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { LogOut, User as UserIcon } from 'lucide-react';
+import { HelpCircle, LogOut, User as UserIcon } from 'lucide-react';
 import { useAuth } from '../contexts/useAuth';
+import { resetTour, runWelcomeTour } from '../services/welcomeTour';
 
 /**
  * Badge compacto pro header: foto + nome + dropdown com info do usuario
@@ -133,6 +134,26 @@ export default function UserBadge() {
               </div>
             </div>
           </div>
+
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              resetTour();
+              void runWelcomeTour();
+            }}
+            className="w-full px-4 py-2.5 text-sm font-medium inline-flex items-center gap-2 transition-colors border-b"
+            style={{ color: 'var(--text)', borderColor: 'var(--border-subtle)' }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--bg-subtle)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent';
+            }}
+          >
+            <HelpCircle className="h-4 w-4" strokeWidth={2} />
+            Refazer tour
+          </button>
 
           <button
             type="button"
