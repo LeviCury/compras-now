@@ -39,7 +39,19 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // CRITICO: rotas de autenticacao e /api/me NUNCA podem ser cacheadas
+        // (cookies de sessao mudam, tokens mudam, e cache de 401 quebra o
+        // fluxo do AuthGate). NetworkOnly garante passagem direta ao server.
+        navigateFallbackDenylist: [/^\/auth\//, /^\/api\/me/],
         runtimeCaching: [
+          {
+            urlPattern: /^\/auth\//,
+            handler: 'NetworkOnly',
+          },
+          {
+            urlPattern: /^\/api\/me/,
+            handler: 'NetworkOnly',
+          },
           {
             urlPattern: /^\/api\/snapshot(\?|$)/,
             handler: 'NetworkFirst',

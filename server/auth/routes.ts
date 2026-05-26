@@ -42,7 +42,22 @@ router.get('/login', async (req: Request, res: Response) => {
       state,
       prompt: 'select_account',
     });
-    res.redirect(url);
+
+    console.log(
+      `[/auth/login] sid=${req.sessionID} state=${state.slice(0, 8)}... -> redirect MS`,
+    );
+
+    // CRITICO: forca persistencia da sessao ANTES do redirect, senao o
+    // SID do cookie pode apontar pra "nada" no store quando o usuario
+    // volta do Microsoft (causa loop de login).
+    req.session.save((saveErr) => {
+      if (saveErr) {
+        console.error('[auth/login] erro salvando sessao:', saveErr);
+        res.status(500).send('Erro salvando sessao.');
+        return;
+      }
+      res.redirect(url);
+    });
   } catch (err) {
     console.error('[auth/login]', err);
     res
@@ -74,9 +89,20 @@ router.get('/callback', async (req: Request, res: Response) => {
     return;
   }
 
+  console.log(
+    `[/auth/callback] sid=${req.sessionID} authState(session)=${req.session.authState?.slice(0, 8) ?? 'undefined'}... state(query)=${state?.slice(0, 8) ?? 'undefined'}...`,
+  );
+
   // Verificacao anti-CSRF: o state precisa bater com o que geramos no /login.
   if (!state || !req.session.authState || state !== req.session.authState) {
-    res.status(400).send('Estado invalido (possivel CSRF). Tente o login novamente.');
+    console.error(
+      `[/auth/callback] state mismatch! Sessao perdida? sid=${req.sessionID}. ` +
+        'Isso geralmente significa que /auth/login nao persistiu a sessao antes de redirecionar.',
+    );
+    res.status(400).send(
+      'Estado invalido. A sessao foi perdida entre o login e o callback. ' +
+        'Volte para o painel e tente novamente.',
+    );
     return;
   }
   delete req.session.authState;
@@ -148,6 +174,8 @@ router.get('/callback', async (req: Request, res: Response) => {
 // ---------------------------------------------------------------------------
 router.post('/logout', (req: Request, res: Response) => {
   const user = req.session.user;
+  const isHttps = (process.env.AZURE_REDIRECT_URI ?? '').startsWith('https://');
+  const isProd = process.env.NODE_ENV === 'production';
 
   req.session.destroy((err) => {
     if (err) {
@@ -155,27 +183,37 @@ router.post('/logout', (req: Request, res: Response) => {
       res.status(500).json({ error: 'logout_failed' });
       return;
     }
-    res.clearCookie('compras-now-sid');
 
-    // Por enquanto so' devolvemos um JSON com OK + a URL opcional pra um
-    // logout federado no Microsoft. O front decide se redireciona pra la'
-    // ou se so' volta pra '/' (que vai disparar /auth/login de novo).
+    // CRITICO: clearCookie precisa das MESMAS opcoes usadas para SETAR o
+    // cookie. Se nao bater (path, sameSite, secure), o browser ignora o
+    // Set-Cookie de deletion e o cookie zombie persiste, causando bug no
+    // proximo login.
+    res.clearCookie('compras-now-sid', {
+      path: '/',
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: isProd && isHttps,
+    });
+
+    // URL opcional pra logout federado no Microsoft (encerra a sessao
+    // tambem no SSO, fazendo a proxima entrada exigir login limpo).
     const federationLogoutUrl =
       user && process.env.AZURE_TENANT_ID
         ? `https://login.microsoftonline.com/${process.env.AZURE_TENANT_ID}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodeURIComponent(getOrigin())}`
         : null;
 
+    console.log(`[/auth/logout] sessao destruida (user=${user?.mail ?? 'n/a'})`);
     res.json({ ok: true, federationLogoutUrl });
   });
 });
 
 // ---------------------------------------------------------------------------
-// GET /api/me - perfil do usuario logado
+// Handler para GET /api/me - perfil do usuario logado
 // ---------------------------------------------------------------------------
-// Fica fora de requireAuth: o frontend chama isso na inicializacao para
-// descobrir se ja' esta logado. Resposta 200 -> renderiza app; 401 -> manda
-// pra /auth/login.
-router.get('/me', (req: Request, res: Response) => {
+// Exportado separadamente porque ele e' montado em PATH EXATO (/api/me) no
+// server/index.ts, fora do requireAuth global. Frontend chama na inicializacao
+// para descobrir se ja' esta logado: 200 -> renderiza app, 401 -> redirect.
+export function meHandler(req: Request, res: Response): void {
   if (isAuthDisabled()) {
     res.status(200).json({
       user: null,
@@ -192,6 +230,9 @@ router.get('/me', (req: Request, res: Response) => {
     return;
   }
   res.status(200).json({ user: req.session.user, authDisabled: false });
-});
+}
+
+// Tambem disponivel como /auth/me, util para diagnostico.
+router.get('/me', meHandler);
 
 export default router;
