@@ -18,7 +18,7 @@ import express, { type Request, type Response, type NextFunction } from 'express
 import session from 'express-session';
 import dotenv from 'dotenv';
 
-import authRouter from './auth/routes';
+import authRouter, { meHandler } from './auth/routes';
 import { requireAuth, isAuthDisabled } from './middleware/requireAuth';
 import healthRouter from './routes/health';
 import snapshotRouter from './routes/snapshot';
@@ -35,6 +35,13 @@ dotenv.config();
 
 const app = express();
 const PORT = Number(process.env.PORT ?? 8080);
+
+// Quando rodando atras de proxy reverso (na VM com IIS/Nginx corporativo
+// fazendo TLS termination), Express precisa confiar nos headers
+// X-Forwarded-Proto e X-Forwarded-For para que cookies "secure" e
+// req.protocol funcionem corretamente. Em dev local (localhost) nao tem
+// efeito porque nao ha proxy entre o browser e o Express.
+app.set('trust proxy', 1);
 
 // Em producao o server compilado fica em dist-server/ e a SPA em dist/
 // (ambos na raiz do projeto). __dirname = dist-server/, DIST = dist/.
@@ -74,6 +81,11 @@ app.use(
     secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
+    // proxy: true faz com que express-session use req.secure derivado de
+    // X-Forwarded-Proto (que o nginx setar) para decidir enviar o cookie
+    // marcado como secure. Sem isso, em prod atras de proxy reverso, o
+    // cookie nunca seria setado (Express enxerga HTTP no upstream).
+    proxy: true,
     cookie: {
       httpOnly: true,
       sameSite: 'lax',
@@ -85,15 +97,35 @@ app.use(
   }),
 );
 
+// Log de diagnostico de cada request com info de proxy/cookie - util pra
+// debugar problemas de sessao em producao atras de nginx/iis. Vai pra
+// stdout.log via NSSM.
+app.use((req: Request, _res: Response, next: NextFunction) => {
+  if (req.path.startsWith('/auth/') || req.path === '/api/me') {
+    console.log(
+      `[diag] ${req.method} ${req.path} sid=${req.sessionID} ` +
+        `proto=${req.protocol} secure=${req.secure} ` +
+        `x-fwd-proto=${req.headers['x-forwarded-proto'] ?? 'unset'} ` +
+        `x-fwd-for=${req.headers['x-forwarded-for'] ?? 'unset'} ` +
+        `cookie=${req.headers.cookie ? 'present' : 'MISSING'} ` +
+        `session.user=${req.session.user?.mail ?? 'unset'} ` +
+        `session.authState=${req.session.authState ? 'set' : 'unset'}`,
+    );
+  }
+  next();
+});
+
 // ---------------------------------------------------------------------------
 // Rotas de auth (publicas - precisam responder antes do requireAuth)
 // ---------------------------------------------------------------------------
 //
-// Importante: o router de auth tambem expoe GET /me, que e' a forma do
-// frontend perguntar "estou logado?". Montamos em /auth E em /api para que
-// `GET /api/me` funcione (pre-empt do requireAuth global de /api).
+// Importante: GET /api/me precisa ser montado em PATH EXATO (sem prefixo de
+// router) porque o frontend faz `fetch('/api/me')`. Se montassemos como
+// `app.use('/api/me', authRouter)`, o express ia procurar uma sub-rota do
+// router que case com "" (vazio), nao encontraria, e o request cairia no
+// fallback do SPA -> retornaria HTML em vez de JSON, quebrando o front.
 app.use('/auth', authRouter);
-app.use('/api/me', authRouter);
+app.get('/api/me', meHandler);
 
 // ---------------------------------------------------------------------------
 // /api/health - publico (monitoria pode bater sem login)
