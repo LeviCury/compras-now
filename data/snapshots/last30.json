@@ -1,87 +1,87 @@
 {
-  "capturedAt": "2026-05-25T06:03:47-03:00",
+  "capturedAt": "2026-05-26T06:05:16-03:00",
   "rows": [
     {
       "origem": "AR",
       "sexo": "FEMEA",
-      "qtdCompra": 37815,
-      "pesoMedioKg": 2834.07,
-      "precoMedioUSDKg": 4.36
+      "qtdCompra": 37232,
+      "pesoMedioKg": 2870.69,
+      "precoMedioUSDKg": 4.37
     },
     {
       "origem": "AR",
       "sexo": "MACHO",
-      "qtdCompra": 43722,
-      "pesoMedioKg": 517.19,
-      "precoMedioUSDKg": 5.6
+      "qtdCompra": 42930,
+      "pesoMedioKg": 516.71,
+      "precoMedioUSDKg": 5.59
     },
     {
       "origem": "BR",
       "sexo": "FEMEA",
-      "qtdCompra": 101799,
-      "pesoMedioKg": 222.19,
+      "qtdCompra": 103325,
+      "pesoMedioKg": 222.44,
       "precoMedioUSDKg": 4.62,
       "valorKgBaseUSD": 4.59
     },
     {
       "origem": "BR",
       "sexo": "MACHO",
-      "qtdCompra": 164234,
-      "pesoMedioKg": 289.45,
+      "qtdCompra": 164320,
+      "pesoMedioKg": 289.47,
       "precoMedioUSDKg": 4.7,
       "valorKgBaseUSD": 4.68
     },
     {
       "origem": "CO",
       "sexo": "FEMEA",
-      "qtdCompra": 13002,
-      "pesoMedioKg": 312.15,
-      "precoMedioUSDKg": 4.09
+      "qtdCompra": 13148,
+      "pesoMedioKg": 309.47,
+      "precoMedioUSDKg": 4.12
     },
     {
       "origem": "CO",
       "sexo": "MACHO",
-      "qtdCompra": 10070,
-      "pesoMedioKg": 381.08,
+      "qtdCompra": 10470,
+      "pesoMedioKg": 382.59,
       "precoMedioUSDKg": 4.31
     },
     {
       "origem": "PY",
       "sexo": "FEMEA",
-      "qtdCompra": 24371,
-      "pesoMedioKg": 193.33,
+      "qtdCompra": 24376,
+      "pesoMedioKg": 193.43,
       "precoMedioUSDKg": 4.84,
       "valorKgBaseUSD": 4.74
     },
     {
       "origem": "PY",
       "sexo": "MACHO",
-      "qtdCompra": 42312,
-      "pesoMedioKg": 208.25,
+      "qtdCompra": 43307,
+      "pesoMedioKg": 208.23,
       "precoMedioUSDKg": 4.99,
       "valorKgBaseUSD": 4.83
     },
     {
       "origem": "UY",
       "sexo": "FEMEA",
-      "qtdCompra": 2413,
-      "pesoMedioKg": 268.69,
-      "precoMedioUSDKg": 58.38,
+      "qtdCompra": 1957,
+      "pesoMedioKg": 271.02,
+      "precoMedioUSDKg": 69.62,
       "valorKgBaseUSD": 4.79
     },
     {
       "origem": "UY",
       "sexo": "MACHO",
-      "qtdCompra": 2328,
-      "pesoMedioKg": 283.34,
-      "precoMedioUSDKg": 5.64,
+      "qtdCompra": 1930,
+      "pesoMedioKg": 282.75,
+      "precoMedioUSDKg": 5.61,
       "valorKgBaseUSD": 4.21
     }
   ],
   "totals": {
-    "qtdCompra": 442066,
-    "pesoMedioKg": 503.7,
-    "precoMedioUSDKg": 5.16,
+    "qtdCompra": 442995,
+    "pesoMedioKg": 502.25,
+    "precoMedioUSDKg": 5.15,
     "valorKgBaseUSD": 4.68
   },
   "source": {
@@ -90,37 +90,37 @@
   },
   "originTotals": {
     "AR": {
-      "qtdCompra": 81537,
-      "pesoMedioKg": 1591.71,
-      "precoMedioUSDKg": 5.13
+      "qtdCompra": 80162,
+      "pesoMedioKg": 1610.03,
+      "precoMedioUSDKg": 5.12
     },
     "BR": {
-      "qtdCompra": 266033,
-      "pesoMedioKg": 263.72,
+      "qtdCompra": 267645,
+      "pesoMedioKg": 263.59,
       "precoMedioUSDKg": 4.67,
       "valorKgBaseUSD": 4.64
     },
     "CO": {
-      "qtdCompra": 23072,
-      "pesoMedioKg": 342.23,
-      "precoMedioUSDKg": 4.2
+      "qtdCompra": 23618,
+      "pesoMedioKg": 341.88,
+      "precoMedioUSDKg": 4.21
     },
     "PY": {
-      "qtdCompra": 66683,
-      "pesoMedioKg": 202.79,
+      "qtdCompra": 67683,
+      "pesoMedioKg": 202.9,
       "precoMedioUSDKg": 4.93,
       "valorKgBaseUSD": 4.8
     },
     "UY": {
-      "qtdCompra": 4741,
-      "pesoMedioKg": 275.88,
-      "precoMedioUSDKg": 33.09,
+      "qtdCompra": 3887,
+      "pesoMedioKg": 276.84,
+      "precoMedioUSDKg": 38.91,
       "valorKgBaseUSD": 4.77
     }
   },
   "period": "last30",
-  "periodFrom": "2026-04-24T00:00:00-03:00",
-  "periodTo": "2026-05-24T23:59:59-03:00",
-  "periodLabel": "Ultimos 30 dias (24/04 - 24/05)",
+  "periodFrom": "2026-04-25T00:00:00-03:00",
+  "periodTo": "2026-05-25T23:59:59-03:00",
+  "periodLabel": "Ultimos 30 dias (25/04 - 25/05)",
   "screenshotPath": "data/screenshots/last30.png"
 }
