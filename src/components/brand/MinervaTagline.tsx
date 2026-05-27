@@ -1,81 +1,128 @@
 import { Quote } from 'lucide-react';
 
 /**
- * Frase corporativa Minerva renderizada com cada palavra-chave em sua cor.
- * Reconstruida em React/CSS para escalar e adaptar a fundos diferentes -
- * NAO usa PNG da arte original. Cores extraidas da referencia oficial:
+ * Frase corporativa Minerva reconstruida com a hierarquia tipografica
+ * exata da arte oficial (fornecida pela area de marca):
  *
- *   "Criando conexoes entre pessoas, alimentos e natureza"
- *      cyan      red    navy   purple    orange  navy  green
+ *   [aspa] "Criando" "conexoes"
+ *   "entre" "pessoas,"
+ *   "alimentos" "e"
+ *   "natureza" [aspa]
  *
- * Usa CSS vars (--tagline-*) para que dark/light tenha tonalidade ajustada.
+ * As palavras-chave (conexoes, pessoas, alimentos, natureza) sao maiores e
+ * em bold; as palavras de ligacao (Criando, entre, e) sao menores e em
+ * italic. As aspas sao cyan, do mesmo tamanho das palavras-chave.
+ *
+ * Cores oficiais Minerva (definidas em src/index.css como CSS vars que
+ * tem variante para dark mode).
  */
 
 type Size = 'hero' | 'large' | 'medium' | 'compact';
-type Align = 'center' | 'left';
 
 interface Props {
   size?: Size;
-  align?: Align;
   className?: string;
 }
 
-const SIZE_CLASSES: Record<Size, string> = {
-  hero: 'text-[clamp(2rem,5vw,3.75rem)] leading-[1.05]',
-  large: 'text-[clamp(1.5rem,3.6vw,2.5rem)] leading-[1.1]',
-  medium: 'text-[clamp(1.1rem,2.2vw,1.5rem)] leading-[1.15]',
-  compact: 'text-base sm:text-lg leading-snug',
+interface Scale {
+  key: string;        // tailwind class das palavras-chave (bold, grandes)
+  join: string;       // tailwind class das palavras de ligacao (italic, menores)
+  quote: number;      // px do icone Quote
+  lineGap: string;    // gap vertical entre linhas
+  inlineGap: string;  // gap horizontal entre palavras na mesma linha
+}
+
+const SCALES: Record<Size, Scale> = {
+  hero: {
+    key: 'text-[clamp(2.6rem,7vw,5.5rem)] leading-[0.95]',
+    join: 'text-[clamp(1.6rem,4vw,3.2rem)] leading-[0.95]',
+    quote: 64,
+    lineGap: 'gap-y-1 sm:gap-y-2',
+    inlineGap: 'gap-x-3 sm:gap-x-5',
+  },
+  large: {
+    key: 'text-[clamp(1.8rem,4.6vw,3.2rem)] leading-[0.95]',
+    join: 'text-[clamp(1.1rem,2.6vw,1.85rem)] leading-[0.95]',
+    quote: 40,
+    lineGap: 'gap-y-1',
+    inlineGap: 'gap-x-2 sm:gap-x-4',
+  },
+  medium: {
+    key: 'text-[clamp(1.3rem,3vw,2rem)] leading-[0.95]',
+    join: 'text-[clamp(0.85rem,1.8vw,1.2rem)] leading-[0.95]',
+    quote: 28,
+    lineGap: 'gap-y-1',
+    inlineGap: 'gap-x-2 sm:gap-x-3',
+  },
+  compact: {
+    key: 'text-[clamp(1rem,2.2vw,1.4rem)] leading-[0.95]',
+    join: 'text-[clamp(0.7rem,1.4vw,0.9rem)] leading-[0.95]',
+    quote: 20,
+    lineGap: 'gap-y-0.5',
+    inlineGap: 'gap-x-1.5 sm:gap-x-2',
+  },
 };
 
-const QUOTE_SIZE: Record<Size, number> = {
-  hero: 48,
-  large: 36,
-  medium: 26,
-  compact: 18,
-};
+export default function MinervaTagline({ size = 'large', className = '' }: Props) {
+  const s = SCALES[size];
 
-export default function MinervaTagline({ size = 'large', align = 'center', className = '' }: Props) {
-  const alignClass = align === 'center' ? 'text-center' : 'text-left';
-  const quoteOpenClass = align === 'center' ? '-translate-y-1' : '';
   return (
-    <div className={`${className} ${alignClass} font-display tracking-tight ${SIZE_CLASSES[size]}`}>
-      <Quote
-        className={`inline-block align-top mr-2 sm:mr-3 ${quoteOpenClass}`}
-        style={{ color: 'var(--tagline-cyan)', transform: 'scaleX(-1)' }}
-        size={QUOTE_SIZE[size]}
-        strokeWidth={2.4}
-        fill="currentColor"
-        aria-hidden
-      />
-      <span className="italic font-medium" style={{ color: 'var(--tagline-cyan)' }}>
-        Criando
-      </span>{' '}
-      <span className="font-extrabold" style={{ color: 'var(--tagline-red)' }}>
-        conex&otilde;es
-      </span>{' '}
-      <span className="font-semibold" style={{ color: 'var(--tagline-navy)' }}>
-        entre
-      </span>{' '}
-      <span className="font-extrabold" style={{ color: 'var(--tagline-purple)' }}>
-        pessoas,
-      </span>{' '}
-      <span className="font-extrabold" style={{ color: 'var(--tagline-orange)' }}>
-        alimentos
-      </span>{' '}
-      <span className="font-semibold" style={{ color: 'var(--tagline-navy)' }}>
-        e
-      </span>{' '}
-      <span className="font-extrabold" style={{ color: 'var(--tagline-green)' }}>
-        natureza
-      </span>
-      <Quote
-        className="inline-block align-top ml-2 sm:ml-3"
-        style={{ color: 'var(--tagline-cyan)' }}
-        size={QUOTE_SIZE[size]}
-        strokeWidth={2.4}
-        fill="currentColor"
-        aria-hidden
-      />
+    <div
+      className={`font-display tracking-tight text-center inline-flex flex-col items-center ${s.lineGap} ${className}`}
+      aria-label="Criando conexoes entre pessoas, alimentos e natureza"
+    >
+      {/* Linha 1: [«] Criando conexoes */}
+      <div className={`inline-flex items-start ${s.inlineGap}`}>
+        <Quote
+          className="shrink-0"
+          style={{ color: 'var(--tagline-cyan)', transform: 'scaleX(-1)' }}
+          size={s.quote}
+          strokeWidth={2.4}
+          fill="currentColor"
+          aria-hidden
+        />
+        <span className={`${s.join} italic font-medium`} style={{ color: 'var(--tagline-cyan)' }}>
+          Criando
+        </span>
+        <span className={`${s.key} font-extrabold`} style={{ color: 'var(--tagline-red)' }}>
+          conex&otilde;es
+        </span>
+      </div>
+
+      {/* Linha 2: entre pessoas, */}
+      <div className={`inline-flex items-baseline ${s.inlineGap}`}>
+        <span className={`${s.join} italic font-medium`} style={{ color: 'var(--tagline-navy)' }}>
+          entre
+        </span>
+        <span className={`${s.key} font-extrabold`} style={{ color: 'var(--tagline-purple)' }}>
+          pessoas,
+        </span>
+      </div>
+
+      {/* Linha 3: alimentos e */}
+      <div className={`inline-flex items-baseline ${s.inlineGap}`}>
+        <span className={`${s.key} font-extrabold`} style={{ color: 'var(--tagline-orange)' }}>
+          alimentos
+        </span>
+        <span className={`${s.join} italic font-medium`} style={{ color: 'var(--tagline-navy)' }}>
+          e
+        </span>
+      </div>
+
+      {/* Linha 4: natureza [»] */}
+      <div className={`inline-flex items-start ${s.inlineGap}`}>
+        <span className={`${s.key} font-extrabold`} style={{ color: 'var(--tagline-green)' }}>
+          natureza
+        </span>
+        <Quote
+          className="shrink-0 self-end"
+          style={{ color: 'var(--tagline-cyan)' }}
+          size={s.quote}
+          strokeWidth={2.4}
+          fill="currentColor"
+          aria-hidden
+        />
+      </div>
     </div>
   );
 }
