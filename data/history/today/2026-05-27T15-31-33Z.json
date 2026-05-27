@@ -1,0 +1,104 @@
+{
+  "capturedAt": "2026-05-27T12:31:33-03:00",
+  "rows": [
+    {
+      "origem": "AR",
+      "sexo": "FEMEA",
+      "qtdCompra": 1050,
+      "pesoMedioKg": 491.63,
+      "precoMedioUSDKg": 4.41
+    },
+    {
+      "origem": "AR",
+      "sexo": "MACHO",
+      "qtdCompra": 745,
+      "pesoMedioKg": 494.4,
+      "precoMedioUSDKg": 5.57
+    },
+    {
+      "origem": "BR",
+      "sexo": "FEMEA",
+      "qtdCompra": 2072,
+      "pesoMedioKg": 221.71,
+      "precoMedioUSDKg": 4.64,
+      "valorKgBaseUSD": 4.44
+    },
+    {
+      "origem": "BR",
+      "sexo": "MACHO",
+      "qtdCompra": 2140,
+      "pesoMedioKg": 297.04,
+      "precoMedioUSDKg": 4.6,
+      "valorKgBaseUSD": 4.59
+    },
+    {
+      "origem": "CO",
+      "sexo": "FEMEA",
+      "qtdCompra": 378,
+      "pesoMedioKg": 292.91,
+      "precoMedioUSDKg": 4.14
+    },
+    {
+      "origem": "CO",
+      "sexo": "MACHO",
+      "qtdCompra": 494,
+      "pesoMedioKg": 427.07,
+      "precoMedioUSDKg": 3.97
+    },
+    {
+      "origem": "PY",
+      "sexo": "FEMEA",
+      "qtdCompra": 308,
+      "pesoMedioKg": 183.9,
+      "precoMedioUSDKg": 5.09,
+      "valorKgBaseUSD": 4.87
+    },
+    {
+      "origem": "PY",
+      "sexo": "MACHO",
+      "qtdCompra": 1742,
+      "pesoMedioKg": 209.62,
+      "precoMedioUSDKg": 5.09,
+      "valorKgBaseUSD": 4.9
+    }
+  ],
+  "totals": {
+    "qtdCompra": 8929,
+    "pesoMedioKg": 304.97,
+    "precoMedioUSDKg": 4.77,
+    "valorKgBaseUSD": 4.66
+  },
+  "source": {
+    "module": "Compras Now",
+    "breadcrumb": "DUX > Minerva Reports > Relatorios de Controle > Compras Now"
+  },
+  "originTotals": {
+    "AR": {
+      "qtdCompra": 1795,
+      "pesoMedioKg": 492.78,
+      "precoMedioUSDKg": 4.98
+    },
+    "BR": {
+      "qtdCompra": 4212,
+      "pesoMedioKg": 259.98,
+      "precoMedioUSDKg": 4.62,
+      "valorKgBaseUSD": 4.54
+    },
+    "CO": {
+      "qtdCompra": 872,
+      "pesoMedioKg": 368.92,
+      "precoMedioUSDKg": 4.04
+    },
+    "PY": {
+      "qtdCompra": 2050,
+      "pesoMedioKg": 205.76,
+      "precoMedioUSDKg": 5.09,
+      "valorKgBaseUSD": 4.9
+    }
+  },
+  "period": "today",
+  "periodFrom": "2026-05-27T00:00:00-03:00",
+  "periodTo": "2026-05-27T23:59:59-03:00",
+  "periodLabel": "Hoje (27/05)",
+  "screenshotPath": "data/screenshots/today.png"
+}
