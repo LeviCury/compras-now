@@ -34,14 +34,6 @@
     --navbar-border: rgba(23, 42, 57, 0.08);
     --navbar-shadow: 0 1px 0 rgba(23, 42, 57, 0.04), 0 8px 24px -16px rgba(23, 42, 57, 0.10);
 
-    /* Cores oficiais da frase Minerva e dos 5 valores (light theme) */
-    --tagline-cyan:   #16a085;
-    --tagline-red:    #e34852;
-    --tagline-navy:   #2e3a5f;
-    --tagline-purple: #7b3aa8;
-    --tagline-orange: #f08a3e;
-    --tagline-green:  #2ecc71;
-
     /* LoginScreen - background + card glassmorphism (light) */
     --login-bg: linear-gradient(135deg, #f4f3ed 0%, #fafaf7 60%, #ffffff 100%);
     --login-card-bg: rgba(255, 255, 255, 0.72);
@@ -77,14 +69,6 @@
     --navbar-bg-solid: rgba(23, 42, 57, 0.92);
     --navbar-border: rgba(205, 204, 168, 0.10);
     --navbar-shadow: 0 1px 0 rgba(0, 0, 0, 0.30), 0 8px 24px -16px rgba(0, 0, 0, 0.50);
-
-    /* Cores Minerva ajustadas para contraste em fundo escuro */
-    --tagline-cyan:   #1ec0a2;
-    --tagline-red:    #ff5a64;
-    --tagline-navy:   #cdcca8;
-    --tagline-purple: #b074d4;
-    --tagline-orange: #ffa05a;
-    --tagline-green:  #3fdb86;
 
     /* LoginScreen - background + card glassmorphism (dark) */
     --login-bg: linear-gradient(135deg, #0d1a26 0%, #172a39 60%, #1f3346 100%);
