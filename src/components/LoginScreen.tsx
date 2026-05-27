@@ -174,7 +174,7 @@ export default function LoginScreen({ onLogin }: Props) {
         >
           Valores Minerva Foods
         </p>
-        <MinervaValues variant="compact" tone="color" />
+        <MinervaValues variant="compact" />
       </motion.footer>
     </div>
   );

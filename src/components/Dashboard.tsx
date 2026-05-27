@@ -267,7 +267,7 @@ export default function Dashboard() {
 
         <footer className="pt-8 pb-2 flex flex-col items-center gap-4">
           <div className="w-full max-w-3xl">
-            <MinervaValues variant="compact" tone="mono" />
+            <MinervaValues variant="compact" />
           </div>
           <div className="text-center text-xs" style={{ color: 'var(--text-faint)' }}>
             Compras Now Executivo - Minerva Foods | Fonte oficial: DUX/Compras Now
