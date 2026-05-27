@@ -23,7 +23,7 @@ export default function LoginScreen({ onLogin }: Props) {
   const { theme, toggle } = useTheme();
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-between py-8 px-4 sm:px-6">
+    <div className="relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-between py-6 px-4 sm:px-6">
       {/* Background: gradiente base + 3 auroras animadas */}
       <BackgroundCanvas />
 
@@ -40,17 +40,17 @@ export default function LoginScreen({ onLogin }: Props) {
       </div>
 
       {/* Espacador no topo pra empurrar o card pro centro */}
-      <div aria-hidden className="h-2 sm:h-6" />
+      <div aria-hidden className="h-2 sm:h-4" />
 
       {/* Card central */}
       <motion.section
         initial={{ opacity: 0, y: 16, scale: 0.985 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.55, ease: 'easeOut' }}
-        className="relative z-10 w-full max-w-3xl mx-auto"
+        className="relative z-10 w-full max-w-2xl mx-auto"
       >
         <div
-          className="relative rounded-2xl px-6 sm:px-10 py-8 sm:py-12 flex flex-col items-center gap-6 sm:gap-8"
+          className="relative rounded-2xl px-6 sm:px-8 py-6 sm:py-8 flex flex-col items-center gap-4 sm:gap-5"
           style={{
             background: 'var(--login-card-bg)',
             backdropFilter: 'blur(18px) saturate(140%)',
@@ -75,14 +75,14 @@ export default function LoginScreen({ onLogin }: Props) {
             <motion.img
               src="/favicon.png"
               alt="Minerva Foods"
-              width={72}
-              height={72}
+              width={56}
+              height={56}
               animate={{ y: [0, -4, 0] }}
               transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative h-16 w-16 sm:h-[72px] sm:w-[72px] rounded-2xl object-contain"
+              className="relative h-12 w-12 sm:h-14 sm:w-14 rounded-2xl object-contain"
               style={{
                 background: 'rgba(255,255,255,0.95)',
-                padding: 8,
+                padding: 6,
                 boxShadow: '0 8px 24px -8px rgba(227,72,82,0.30)',
               }}
             />
@@ -121,7 +121,7 @@ export default function LoginScreen({ onLogin }: Props) {
             transition={{ delay: 0.3, duration: 0.55 }}
             className="w-full"
           >
-            <MinervaTagline size="large" />
+            <MinervaTagline size="medium" />
           </motion.div>
 
           {/* Botao Entrar */}
@@ -137,7 +137,7 @@ export default function LoginScreen({ onLogin }: Props) {
               whileHover={{ y: -2, scale: 1.01 }}
               whileTap={{ scale: 0.985 }}
               transition={{ type: 'spring', stiffness: 320, damping: 20 }}
-              className="inline-flex items-center justify-center gap-3 px-6 sm:px-8 h-12 sm:h-14 rounded-xl text-base font-semibold text-white"
+              className="inline-flex items-center justify-center gap-3 px-6 sm:px-7 h-11 sm:h-12 rounded-xl text-sm sm:text-base font-semibold text-white"
               style={{
                 background: 'linear-gradient(135deg, var(--accent) 0%, #b03742 100%)',
                 boxShadow:
@@ -166,10 +166,10 @@ export default function LoginScreen({ onLogin }: Props) {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 0.5 }}
-        className="relative z-10 w-full max-w-5xl mx-auto px-2 sm:px-4 pt-8 sm:pt-12"
+        className="relative z-10 w-full max-w-5xl mx-auto px-2 sm:px-4 pt-4 sm:pt-6"
       >
         <p
-          className="text-center text-[10px] uppercase tracking-[0.16em] font-semibold mb-4"
+          className="text-center text-[10px] uppercase tracking-[0.16em] font-semibold mb-3"
           style={{ color: 'var(--text-faint)' }}
         >
           Valores Minerva Foods
