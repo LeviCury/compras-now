@@ -1,15 +1,13 @@
-import { Award, Heart, Leaf, Lightbulb, TrendingUp, type LucideIcon } from 'lucide-react';
-
 /**
- * Os 5 valores corporativos Minerva renderizados como uma faixa horizontal
- * de "pilares" (icone circular + label colorido). Reconstruido em React;
- * NAO usa PNG da arte original.
+ * Banner oficial dos 5 valores corporativos Minerva renderizado a partir
+ * do PNG fornecido pela area de marca (fundo transparente).
  *
- *   Orientacao para Resultados -- TrendingUp (cyan)
- *   Comprometimento             -- Heart      (red)
- *   Sustentabilidade            -- Leaf       (green)
- *   Inovacao                    -- Lightbulb  (orange)
- *   Reconhecimento              -- Award      (purple)
+ *   Orientacao para Resultados | Comprometimento | Sustentabilidade |
+ *   Inovacao | Reconhecimento
+ *
+ * O arquivo fica em /public/brand/minerva-valores.png. Quando precisarmos
+ * de uma versao SVG ou de cores diferentes pra dark mode, basta substituir
+ * o asset - a aplicacao nao precisa mudar.
  */
 
 type Variant = 'horizontal' | 'compact';
@@ -21,19 +19,7 @@ interface Props {
   className?: string;
 }
 
-interface ValueDef {
-  label: string;
-  icon: LucideIcon;
-  colorVar: string;
-}
-
-const VALUES: ValueDef[] = [
-  { label: 'Orientacao para Resultados', icon: TrendingUp, colorVar: 'var(--tagline-cyan)' },
-  { label: 'Comprometimento', icon: Heart, colorVar: 'var(--tagline-red)' },
-  { label: 'Sustentabilidade', icon: Leaf, colorVar: 'var(--tagline-green)' },
-  { label: 'Inovacao', icon: Lightbulb, colorVar: 'var(--tagline-orange)' },
-  { label: 'Reconhecimento', icon: Award, colorVar: 'var(--tagline-purple)' },
-];
+const IMAGE_SRC = '/brand/minerva-valores.png';
 
 export default function MinervaValues({
   variant = 'horizontal',
@@ -41,62 +27,33 @@ export default function MinervaValues({
   className = '',
 }: Props) {
   const isCompact = variant === 'compact';
-  const itemGap = isCompact ? 'gap-3 sm:gap-5' : 'gap-5 sm:gap-8';
-
-  return (
-    <ul
-      role="list"
-      aria-label="Valores Minerva Foods"
-      className={`flex flex-wrap items-start justify-center ${itemGap} ${className}`}
-    >
-      {VALUES.map((v) => (
-        <ValueItem key={v.label} value={v} variant={variant} tone={tone} />
-      ))}
-    </ul>
-  );
-}
-
-function ValueItem({
-  value,
-  variant,
-  tone,
-}: {
-  value: ValueDef;
-  variant: Variant;
-  tone: Tone;
-}) {
-  const isCompact = variant === 'compact';
   const isMono = tone === 'mono';
-  const color = isMono ? 'var(--text-faint)' : value.colorVar;
-  const labelColor = isMono ? 'var(--text-muted)' : value.colorVar;
-  const Icon = value.icon;
 
-  const circleSize = isCompact ? 'h-8 w-8' : 'h-10 w-10 sm:h-12 sm:w-12';
-  const iconSize = isCompact ? 16 : 20;
-  const labelSize = isCompact ? 'text-[10px] sm:text-[11px]' : 'text-xs sm:text-sm';
-  // Garante 2 linhas de altura no label pra alinhar todos os itens pela base,
-  // ja' que "Orientacao para Resultados" quebra em 2 linhas e os outros nao.
-  const labelMinHeight = isCompact ? 'min-h-[2.6em]' : 'min-h-[2.8em]';
-  const itemWidth = isCompact ? 'w-[96px] sm:w-[112px]' : 'w-[112px] sm:w-[128px]';
+  // No modo `mono` o banner fica em escala de cinza + opacity reduzida pra
+  // virar uma assinatura discreta (footer do dashboard). No `color` aparece
+  // com a paleta oficial Minerva.
+  const filter = isMono ? 'grayscale(1) opacity(0.55)' : undefined;
+
+  // Largura maxima fluida. Compact eh menor (uso em footer / login),
+  // horizontal eh maior (pode ser usado em hero futuro).
+  const maxWidth = isCompact ? 720 : 960;
 
   return (
-    <li className={`flex flex-col items-center gap-1.5 ${itemWidth}`}>
-      <span
-        className={`${circleSize} inline-flex items-center justify-center rounded-full transition-transform shrink-0`}
+    <div className={`w-full flex justify-center ${className}`}>
+      <img
+        src={IMAGE_SRC}
+        alt="Valores Minerva Foods: Orientacao para Resultados, Comprometimento, Sustentabilidade, Inovacao, Reconhecimento"
+        className="h-auto w-full select-none"
         style={{
-          background: isMono ? 'var(--bg-subtle)' : 'color-mix(in srgb, ' + color + ' 12%, transparent)',
-          border: `1.5px solid ${color}`,
-          color,
+          maxWidth,
+          filter,
+          // Pequena suavizacao em fundos escuros (a imagem original e' pensada
+          // pra fundo claro). Em dark mode, deixamos `mix-blend-mode: normal`
+          // mas reforcamos contraste com um leve brightness.
         }}
-      >
-        <Icon size={iconSize} strokeWidth={2.2} />
-      </span>
-      <span
-        className={`${labelSize} ${labelMinHeight} font-semibold text-center leading-tight tracking-tight flex items-start justify-center`}
-        style={{ color: labelColor }}
-      >
-        {value.label}
-      </span>
-    </li>
+        draggable={false}
+        loading="lazy"
+      />
+    </div>
   );
 }
