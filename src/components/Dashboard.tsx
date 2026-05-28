@@ -14,6 +14,7 @@ import AppNavbar from './AppNavbar';
 import PeriodNav from './PeriodNav';
 import DashboardContextBar from './DashboardContextBar';
 import MinervaValues from './brand/MinervaValues';
+import HyperAutomationCredit from './brand/HyperAutomationCredit';
 import KPIGrid from './KPIGrid';
 import PriceByOriginChart from './PriceByOriginChart';
 import VolumeByOriginChart from './VolumeByOriginChart';
@@ -277,6 +278,7 @@ export default function Dashboard() {
           <div className="text-center text-xs" style={{ color: 'var(--text-faint)' }}>
             Compras Now Executivo - Minerva Foods | Fonte oficial: DUX/Compras Now
           </div>
+          <HyperAutomationCredit variant="light" />
         </footer>
       </div>
 

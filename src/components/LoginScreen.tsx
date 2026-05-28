@@ -3,6 +3,7 @@ import { LogIn, Moon, ShieldCheck, Sun } from 'lucide-react';
 import { useTheme } from '../contexts/useTheme';
 import MinervaTagline from './brand/MinervaTagline';
 import MinervaValues from './brand/MinervaValues';
+import HyperAutomationCredit from './brand/HyperAutomationCredit';
 
 interface Props {
   onLogin: () => void;
@@ -175,6 +176,9 @@ export default function LoginScreen({ onLogin }: Props) {
           Valores Minerva Foods
         </p>
         <MinervaValues variant="compact" />
+        <div className="mt-4">
+          <HyperAutomationCredit variant="light" />
+        </div>
       </motion.footer>
     </div>
   );

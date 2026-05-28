@@ -6,6 +6,7 @@ import { PERIOD_KEYS } from '../types';
 import { formatDateTime, formatTime, timeAgo } from '../utils/formatters';
 import PresentationColumn from './PresentationColumn';
 import MinervaTagline from './brand/MinervaTagline';
+import HyperAutomationCredit from './brand/HyperAutomationCredit';
 
 interface Props {
   all?: AllSnapshots;
@@ -201,11 +202,16 @@ function Header({ now, todayCapturedAt, onExit }: HeaderProps) {
 function Footer() {
   return (
     <footer
-      className="flex items-center justify-between px-8 py-3 border-t text-[11px] tracking-[0.06em]"
+      className="flex items-center justify-between px-8 py-3 border-t text-[11px] tracking-[0.06em] gap-4"
       style={{ borderColor: 'var(--pres-divider)', color: 'var(--pres-faint)' }}
     >
-      <span>Fonte oficial: DUX &gt; Minerva Reports &gt; Relatorios de Controle &gt; Compras Now</span>
-      <span className="tabular">{formatDateTime(new Date())} - ESC para sair</span>
+      <span className="flex-1 min-w-0 truncate">
+        Fonte oficial: DUX &gt; Minerva Reports &gt; Relatorios de Controle &gt; Compras Now
+      </span>
+      <div className="flex-shrink-0">
+        <HyperAutomationCredit variant="dark" />
+      </div>
+      <span className="tabular flex-shrink-0">{formatDateTime(new Date())} - ESC para sair</span>
     </footer>
   );
 }

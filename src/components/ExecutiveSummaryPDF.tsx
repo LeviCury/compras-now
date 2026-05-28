@@ -10,57 +10,71 @@ interface Props {
 }
 
 /* ============================================================================
-   PALETA - identidade executiva (navy + gold + Minerva accent)
+   PALETA - identidade Minerva oficial (azure escuro + vermelho Minerva)
 ============================================================================ */
 const C = {
-  pageBg: '#ffffff',
+  // Fundo geral: off-white com leve tom azulado. Faz os cards brancos
+  // ganharem profundidade visual (sem ficar tudo "morto" em branco puro).
+  pageBg: '#f8fafc',
+  cardBg: '#ffffff',
 
-  navyDarkest: '#020617',
-  navyDark: '#0b1220',
-  navy: '#0f172a',
-  navyMid: '#1e293b',
+  // Minerva azure escuro (azulado, nao slate puro)
+  navyDeep: '#0d1820',
+  navy: '#172a39',          // Azure escuro Minerva
+  navyMid: '#2c3d4c',       // Azure acizendato Minerva
   navyText: '#f8fafc',
-  navySoft: '#94a3b8',
+  navySoft: '#a8b5c2',      // texto secundario sobre navy
 
-  ink: '#0f172a',
-  inkSoft: '#334155',
+  // ink (texto sobre fundo branco)
+  ink: '#172a39',           // Azure escuro Minerva
+  inkSoft: '#3d5366',
   inkMuted: '#64748b',
   inkFaint: '#94a3b8',
 
+  // bordas e backgrounds neutros
   border: '#e2e8f0',
   borderSoft: '#f1f5f9',
-  zebra: '#fafbfc',
+  zebra: '#fbfcfd',
+  bgSubtle: '#f1f5f9',      // fundo de badge / ícone (usado nos KPI cards)
 
-  brand: '#E30613',
-  brandLight: '#FF3B49',
+  // acento Minerva (vermelho oficial)
+  brand: '#e34852',
+  brandSoft: '#fdf2f2',     // background super sutil de destaque
 
-  gold: '#f59e0b',
-  goldBright: '#fbbf24',
-  goldDeep: '#b45309',
-  goldSoft: '#fef3c7',
-  goldBorder: '#fcd34d',
-
-  totalRowBg: '#f1f5f9',
+  // total row - destaque sutil com tom Minerva sand
+  totalRowBg: '#f6f4ec',    // sand pastel super sutil (compativel com #afae89)
   totalRowBorder: '#cbd5e1',
 
-  spreadUp: '#dc2626',
-  spreadUpBg: '#fee2e2',
-  spreadUpBorder: '#fca5a5',
-  spreadDown: '#059669',
-  spreadDownBg: '#d1fae5',
-  spreadDownBorder: '#86efac',
-  spreadFlatBg: '#e2e8f0',
+  // spread - mantem semaforo mas alinha vermelho com Minerva
+  spreadUp: '#c53842',
+  spreadUpBg: '#fdecee',
+  spreadDown: '#0e8a5f',
+  spreadDownBg: '#e8f5ee',
+  spreadFlatBg: '#eef2f6',
 } as const;
 
+// Bullets coloridos respeitando a paleta Minerva oficial. Cada origem ganha
+// identidade visual propria mas todas as cores sao da paleta corporativa:
+// azure vibrante, verde sobrio (mesmo do spreadDown), sand apagado,
+// vermelho Minerva e azure acinzentado.
 const ORIGEM_BULLETS: Record<Origem, string> = {
-  AR: '#8b5cf6',
-  BR: '#10b981',
-  CO: '#f59e0b',
-  PY: '#E30613',
-  UY: '#3b82f6',
+  AR: '#145a86', // azure vibrante Minerva
+  BR: '#0e8a5f', // verde sobrio (alinhado com spreadDown)
+  CO: '#afae89', // sand apagado Minerva
+  PY: '#e34852', // vermelho Minerva (brand)
+  UY: '#2c3d4c', // azure acinzentado Minerva
 };
 
 const ORIGENS_FIXAS: Origem[] = ['AR', 'BR', 'CO', 'PY', 'UY'];
+
+// Cor de accent (border-left) dos 4 KPI cards. Cada um ganha um tom Minerva
+// diferente pra dar variacao sem fugir da paleta corporativa.
+const KPI_ACCENTS = {
+  ontem: '#e34852',   // vermelho Minerva
+  semanal: '#2e5371', // azure medio
+  mensal: '#145a86',  // azure vibrante
+  preco: '#afae89',   // sand apagado
+} as const;
 
 /* ============================================================================
    PAGE STYLE
@@ -68,6 +82,8 @@ const ORIGENS_FIXAS: Origem[] = ['AR', 'BR', 'CO', 'PY', 'UY'];
 const PAGE_STYLE: React.CSSProperties = {
   width: '794px',
   height: '1123px',
+  // Fundo geral off-white sutil. Cards brancos sobre essa base ficam com
+  // mais "papel" e profundidade (igual o dashboard light do sistema).
   background: C.pageBg,
   color: C.ink,
   fontFamily: "Inter, 'Segoe UI', system-ui, -apple-system, sans-serif",
@@ -110,7 +126,7 @@ const ExecutiveSummaryPDF = forwardRef<HTMLDivElement, Props>(function Executive
     <div ref={ref}>
       <div data-pdf-page="1" style={PAGE_STYLE}>
         <ReportHeader reportIso={reportIso} />
-        <GoldRibbon />
+        <RedRibbon />
 
         <div style={BODY_STYLE}>
           <KpiCardsRow
@@ -151,7 +167,7 @@ function ReportHeader({ reportIso }: { reportIso: string }) {
   return (
     <div
       style={{
-        background: `linear-gradient(180deg, ${C.navy} 0%, ${C.navyDark} 100%)`,
+        background: `linear-gradient(180deg, ${C.navy} 0%, ${C.navyDeep} 100%)`,
         color: C.navyText,
         padding: '20px 38px 18px',
         display: 'flex',
@@ -182,7 +198,7 @@ function ReportHeader({ reportIso }: { reportIso: string }) {
             style={{
               fontSize: 9.5,
               fontWeight: 800,
-              color: C.brandLight,
+              color: C.brand,
               letterSpacing: '0.22em',
               marginBottom: 4,
             }}
@@ -240,7 +256,7 @@ function ReportHeader({ reportIso }: { reportIso: string }) {
         <div
           style={{
             fontSize: 10,
-            color: C.gold,
+            color: C.navySoft,
             marginTop: 4,
             letterSpacing: '0.04em',
             fontWeight: 600,
@@ -248,17 +264,41 @@ function ReportHeader({ reportIso }: { reportIso: string }) {
         >
           {formatReportTime(reportIso)}
         </div>
+        {/* Credito da equipe responsavel - posicionado no header pra ficar
+            visivel logo de cara e nao competir por espaco com o conteudo. */}
+        <div
+          style={{
+            fontSize: 9,
+            color: C.navySoft,
+            marginTop: 10,
+            letterSpacing: '0.04em',
+            fontWeight: 500,
+            textAlign: 'right',
+          }}
+        >
+          Desenvolvido por{' '}
+          <strong
+            style={{
+              color: C.brand,
+              fontWeight: 700,
+              letterSpacing: '0.05em',
+            }}
+          >
+            HyperAutomation Team
+          </strong>{' '}
+          &middot; TI Minerva
+        </div>
       </div>
     </div>
   );
 }
 
-function GoldRibbon() {
+function RedRibbon() {
   return (
     <div
       style={{
-        height: 4,
-        background: `linear-gradient(90deg, ${C.gold} 0%, ${C.goldBright} 50%, ${C.gold} 100%)`,
+        height: 3,
+        background: C.brand,
         flexShrink: 0,
       }}
     />
@@ -285,14 +325,14 @@ function KpiCardsRow({
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: 10,
-        marginBottom: 16,
+        gap: 12,
+        marginBottom: 18,
       }}
     >
-      <KpiCard label="COMPRA DE ONTEM" value={fmtCount(ontemQtd)} unit="cab" icon={<IconCalendarDay />} />
-      <KpiCard label="COMPRA SEMANAL" value={fmtCount(semanalQtd)} unit="cab" icon={<IconCalendarWeek />} />
-      <KpiCard label="COMPRA MENSAL" value={fmtCount(mensalQtd)} unit="cab" icon={<IconCalendarMonth />} />
-      <KpiCard label="PRECO MEDIO ONTEM" value={fmtPrice(precoOntem)} unit="/kg" icon={<IconDollar />} />
+      <KpiCard label="COMPRA DE ONTEM" value={fmtCount(ontemQtd)} unit="cab" icon={<IconCalendarDay />} accentColor={KPI_ACCENTS.ontem} />
+      <KpiCard label="COMPRA SEMANAL" value={fmtCount(semanalQtd)} unit="cab" icon={<IconCalendarWeek />} accentColor={KPI_ACCENTS.semanal} />
+      <KpiCard label="COMPRA MENSAL" value={fmtCount(mensalQtd)} unit="cab" icon={<IconCalendarMonth />} accentColor={KPI_ACCENTS.mensal} />
+      <KpiCard label="PRECO MEDIO ONTEM" value={fmtPrice(precoOntem)} unit="/kg" icon={<IconDollar />} accentColor={KPI_ACCENTS.preco} />
     </div>
   );
 }
@@ -302,27 +342,30 @@ function KpiCard({
   value,
   unit,
   icon,
+  accentColor,
 }: {
   label: string;
   value: string;
   unit: string;
   icon: React.ReactNode;
+  accentColor: string;
 }) {
   return (
     <div
       style={{
-        background: `linear-gradient(135deg, ${C.goldSoft} 0%, #fde7a8 100%)`,
-        border: `1px solid ${C.goldBorder}`,
-        borderLeft: `4px solid ${C.gold}`,
-        borderRadius: 7,
-        padding: '14px 16px 14px 14px',
+        background: C.cardBg,
+        border: `1px solid ${C.border}`,
+        borderLeft: `3px solid ${accentColor}`,
+        borderRadius: 8,
+        padding: '14px 16px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        minHeight: 78,
+        minHeight: 82,
         boxSizing: 'border-box',
         position: 'relative',
-        boxShadow: '0 1px 3px rgba(180, 83, 9, 0.08)',
+        // Sombra mais presente, igual cards do sistema light
+        boxShadow: '0 2px 8px rgba(23, 42, 57, 0.06), 0 1px 2px rgba(23, 42, 57, 0.04)',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
@@ -330,20 +373,25 @@ function KpiCard({
           style={{
             fontSize: 8.5,
             fontWeight: 800,
-            color: C.goldDeep,
+            color: C.inkMuted,
             letterSpacing: '0.18em',
             lineHeight: 1.1,
           }}
         >
           {label}
         </span>
+        {/* Icone em badge colorido (fundo soft do accent + icone na cor cheia).
+            Igual o estilo dos cards do dashboard. */}
         <span
           style={{
-            color: C.gold,
-            opacity: 0.85,
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
+            width: 26,
+            height: 26,
+            borderRadius: 6,
+            background: `${accentColor}1f`, // ~12% alpha
+            color: accentColor,
             flexShrink: 0,
           }}
         >
@@ -461,21 +509,25 @@ function PeriodBlock({
   return (
     <section
       style={{
-        marginBottom: 12,
-        borderRadius: 7,
+        marginBottom: 14,
+        borderRadius: 8,
         overflow: 'hidden',
         border: `1px solid ${C.border}`,
+        background: C.cardBg,
+        // Mesma sombra dos cards KPI = consistencia + profundidade.
+        boxShadow: '0 2px 8px rgba(23, 42, 57, 0.06), 0 1px 2px rgba(23, 42, 57, 0.04)',
       }}
     >
-      {/* Header escuro do bloco */}
+      {/* Header escuro do bloco - Minerva azure com borda lateral vermelha sutil */}
       <div
         style={{
           background: `linear-gradient(180deg, ${C.navyMid} 0%, ${C.navy} 100%)`,
           color: C.navyText,
-          padding: '9px 16px',
+          padding: '11px 16px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          borderLeft: `3px solid ${C.brand}`,
         }}
       >
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 11 }}>
@@ -505,7 +557,7 @@ function PeriodBlock({
             style={{
               fontSize: 16,
               fontWeight: 800,
-              color: C.gold,
+              color: '#ffffff',
               letterSpacing: '-0.01em',
               lineHeight: 1,
             }}
@@ -530,11 +582,11 @@ function PeriodBlock({
         style={{
           width: '100%',
           borderCollapse: 'collapse',
-          background: '#ffffff',
+          background: C.cardBg,
         }}
       >
         <thead>
-          <tr style={{ background: '#f8fafc' }}>
+          <tr style={{ background: C.bgSubtle }}>
             {['Origem', 'Cabecas', 'Preco/Kg', 'Base/Kg', 'Spread'].map((col, idx) => (
               <th
                 key={col}
@@ -574,9 +626,9 @@ function OriginRow({
   agg: OrigemAggregate | undefined;
   striped: boolean;
 }) {
-  const bulletColor = ORIGEM_BULLETS[origem];
   const hasData = agg && agg.qtdCompra > 0;
   const labelColor = hasData ? C.ink : C.inkFaint;
+  const bulletColor = hasData ? ORIGEM_BULLETS[origem] : C.inkFaint;
 
   return (
     <tr
@@ -586,24 +638,29 @@ function OriginRow({
       }}
     >
       <td style={{ ...tdStyle }}>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+        {/* Alinhamento bulletproof: o bullet de 8px e o label de 10.5px ficam
+            centralizados verticalmente pela mesma lineHeight (1.4) no container.
+            html2canvas respeita inline-block + vertical-align middle bem
+            consistente. */}
+        <span style={{ display: 'inline-block', lineHeight: 1.4, verticalAlign: 'middle' }}>
           <span
             style={{
               display: 'inline-block',
-              width: 9,
-              height: 9,
+              width: 8,
+              height: 8,
               borderRadius: '50%',
               background: bulletColor,
-              flexShrink: 0,
+              verticalAlign: 'middle',
+              marginRight: 8,
               boxShadow: `0 0 0 2px ${striped ? C.zebra : '#ffffff'}, 0 0 0 2.5px ${bulletColor}20`,
             }}
           />
           <span
             style={{
-              fontWeight: 600,
+              fontWeight: 700,
               color: labelColor,
               fontSize: 10.5,
-              lineHeight: 1,
+              verticalAlign: 'middle',
             }}
           >
             {ORIGEM_LABELS[origem]}
@@ -639,8 +696,8 @@ function TotalRow({
 }) {
   if (!overall) {
     return (
-      <tr style={{ background: C.totalRowBg, borderTop: `2px solid ${C.totalRowBorder}` }}>
-        <td style={{ ...tdStyle, fontWeight: 800, fontSize: 11 }}>Total</td>
+      <tr style={{ background: C.totalRowBg, borderTop: `2px solid ${C.navyMid}` }}>
+        <td style={{ ...tdStyle, fontWeight: 800, fontSize: 11, color: C.navy }}>Total</td>
         <td colSpan={4} style={{ ...tdStyle, textAlign: 'right', color: C.inkFaint }}>
           sem dados
         </td>
@@ -649,15 +706,15 @@ function TotalRow({
   }
 
   return (
-    <tr style={{ background: C.totalRowBg, borderTop: `2px solid ${C.totalRowBorder}` }}>
-      <td style={{ ...tdStyle, fontWeight: 800, fontSize: 11, color: C.ink }}>Total</td>
-      <td style={{ ...tdStyle, textAlign: 'right', fontWeight: 800, color: C.ink }}>
+    <tr style={{ background: C.totalRowBg, borderTop: `2px solid ${C.navyMid}` }}>
+      <td style={{ ...tdStyle, fontWeight: 800, fontSize: 11, color: C.navy }}>Total</td>
+      <td style={{ ...tdStyle, textAlign: 'right', fontWeight: 800, color: C.navy }}>
         {formatNumber(overall.qtdCompra)}
       </td>
-      <td style={{ ...tdStyle, textAlign: 'right', fontWeight: 800, color: C.ink }}>
+      <td style={{ ...tdStyle, textAlign: 'right', fontWeight: 800, color: C.navy }}>
         {fmtPrice(overall.precoMedioUSDKg)}
       </td>
-      <td style={{ ...tdStyle, textAlign: 'right', fontWeight: 800, color: C.ink }}>
+      <td style={{ ...tdStyle, textAlign: 'right', fontWeight: 800, color: C.navy }}>
         {totalBase != null ? fmtPrice(totalBase) : '—'}
       </td>
       <td style={{ ...tdStyle, textAlign: 'right' }}>
@@ -689,15 +746,18 @@ function SpreadBadge({
   }
   const diff = preco - base;
 
-  // Container "simples": inline-block + texto puro como children.
-  // Evita inline-flex + spans aninhados (html2canvas trata bem block normal).
+  // Tecnica classica: line-height === height garante centralizacao vertical
+  // matematica em inline-block, independente de ascenders/descenders do glyph
+  // (triangulos UTF como ▲▼ tem visual offset). html2canvas respeita isso
+  // bulletproof porque nao tem flex nem spans aninhados.
   const baseStyle: React.CSSProperties = {
     display: 'inline-block',
-    padding: '5px 10px',
-    borderRadius: 4,
+    height: 24,
+    lineHeight: '24px',
+    padding: '0 12px',
+    borderRadius: 5,
     fontWeight: 700,
     fontSize: 10.5,
-    lineHeight: 1.4,
     whiteSpace: 'nowrap',
     verticalAlign: 'middle',
     letterSpacing: '0.01em',
@@ -777,7 +837,7 @@ function ReportFooter() {
       <span
         style={{
           fontWeight: 800,
-          color: C.gold,
+          color: C.navy,
           letterSpacing: '0.12em',
           fontSize: 11,
         }}
