@@ -43,6 +43,12 @@ export default defineConfig({
         // (cookies de sessao mudam, tokens mudam, e cache de 401 quebra o
         // fluxo do AuthGate). NetworkOnly garante passagem direta ao server.
         navigateFallbackDenylist: [/^\/auth\//, /^\/api\/me/],
+        // Garante que o SW novo assume controle imediato (sem precisar fechar
+        // todas as tabs antigas). Combinado com `registerType: 'autoUpdate'`,
+        // qualquer deploy entra em vigor sem Ctrl+Shift+R do user.
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
         runtimeCaching: [
           {
             urlPattern: /^\/auth\//,
@@ -80,11 +86,17 @@ export default defineConfig({
             },
           },
           {
+            // StaleWhileRevalidate: serve do cache imediato (UX rapida) mas busca
+            // versao nova em background. Combinado com cache busting via
+            // capturedAt na URL, cada nova captura vira recurso novo no SW.
             urlPattern: /^\/api\/screenshot/,
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'screenshot-cache',
-              expiration: { maxAgeSeconds: 60 * 60 * 24 },
+              expiration: {
+                maxAgeSeconds: 60 * 60 * 24,
+                maxEntries: 40,
+              },
             },
           },
         ],

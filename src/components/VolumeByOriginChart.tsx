@@ -9,6 +9,7 @@ import {
   YAxis,
 } from 'recharts';
 import type { ComprasRow, OriginTotals } from '../types';
+import { SEXO_LABELS } from '../types';
 import { volumeSeries } from '../utils/analytics';
 import { useTheme } from '../contexts/useTheme';
 import { CHART_COLORS, resolveSexoColor, tooltipStyle } from './charts/chartTheme';
@@ -34,7 +35,7 @@ export default function VolumeByOriginChart({ rows, originTotals }: Props) {
           Volume de cabecas por origem
         </h2>
         <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
-          Quantidade comprada empilhada Boi/Vaca.
+          Quantidade comprada empilhada {SEXO_LABELS.MACHO}/{SEXO_LABELS.FEMEA}.
         </p>
       </div>
 
@@ -53,7 +54,10 @@ export default function VolumeByOriginChart({ rows, originTotals }: Props) {
             <Tooltip
               contentStyle={tooltipStyle(theme)}
               cursor={{ fill: theme === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)' }}
-              formatter={(value: number, name: string) => [`${formatNumber(value)} cab.`, name]}
+              formatter={(value: number, name: string) => {
+                const label = name === 'Macho' ? SEXO_LABELS.MACHO : name === 'Femea' ? SEXO_LABELS.FEMEA : name;
+                return [`${formatNumber(value)} cab.`, label];
+              }}
             />
             <Legend
               wrapperStyle={{ fontSize: 12, paddingTop: 8 }}
@@ -67,12 +71,12 @@ export default function VolumeByOriginChart({ rows, originTotals }: Props) {
                     fontWeight: 600,
                   }}
                 >
-                  {v}
+                  {v === 'Macho' ? SEXO_LABELS.MACHO : v === 'Femea' ? SEXO_LABELS.FEMEA : v}
                 </span>
               )}
             />
-            <Bar dataKey="Boi" stackId="vol" fill={boiColor} radius={[0, 0, 0, 0]} />
-            <Bar dataKey="Vaca" stackId="vol" fill={vacaColor} radius={[3, 3, 0, 0]} />
+            <Bar dataKey="Macho" stackId="vol" fill={boiColor} radius={[0, 0, 0, 0]} />
+            <Bar dataKey="Femea" stackId="vol" fill={vacaColor} radius={[3, 3, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

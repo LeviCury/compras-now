@@ -142,27 +142,36 @@ export interface OverallTotals {
 }
 
 /**
- * Calcula os totais gerais.
+ * Calcula os totais gerais aplicando a regra DUX-soberano:
  *
- * `snapshotTotals` e `originTotals` sao opcionais: quando vierem do DUX,
- * usamos os valores brutos (o DUX e a fonte da verdade). Sem isso, fallback
- * para o calculo via media ponderada das linhas FEMEA/MACHO.
+ * - QTD e PESO: sempre recalculados das rows visiveis (agregacao trivial, nao
+ *   "inventa" valores). Quando nao ha filtro, da o mesmo resultado do DUX.
+ * - PRECO MEDIO e BASE: SEMPRE vem do `snapshot.totals` quando disponivel,
+ *   independente dos filtros do usuario. Filtro visualiza dados; nao recalcula
+ *   medias oficiais (o DUX e a fonte da verdade).
+ *
+ * Fallback (sem `snapshotTotals`): calcula via media ponderada das rows. Isso
+ * so ocorre em snapshots antigos sem o campo `totals`.
  */
 export function computeOverall(
   rows: ComprasRow[],
   snapshotTotals?: Totals,
   originTotals?: OriginTotals,
 ): OverallTotals {
-  const qtdCompra =
-    snapshotTotals?.qtdCompra ?? rows.reduce((acc, r) => acc + r.qtdCompra, 0);
-  const pesoMedioKg =
-    snapshotTotals?.pesoMedioKg ??
-    weightedAverage(rows.map((r) => ({ value: r.pesoMedioKg, weight: r.qtdCompra })));
+  // QTD e PESO: agregacao trivial das rows visiveis.
+  const qtdCompra = rows.reduce((acc, r) => acc + r.qtdCompra, 0);
+  const pesoMedioKg = weightedAverage(
+    rows.map((r) => ({ value: r.pesoMedioKg, weight: r.qtdCompra })),
+  );
+
+  // PRECO MEDIO: DUX-soberano. SEMPRE vem do snapshot.totals quando disponivel.
   const precoMedioUSDKg =
     snapshotTotals?.precoMedioUSDKg ??
     weightedAverage(
       rows.map((r) => ({ value: r.precoMedioUSDKg, weight: r.qtdCompra * r.pesoMedioKg })),
     );
+
+  // BASE: DUX-soberano. Mesmo principio.
   const valorKgBaseUSD =
     typeof snapshotTotals?.valorKgBaseUSD === 'number' ? snapshotTotals.valorKgBaseUSD : null;
 
@@ -182,10 +191,12 @@ export function computeOverall(
 export interface PriceBySexoBar {
   origem: Origem;
   label: string;
-  Boi: number;
-  Vaca: number;
-  qtdBoi: number;
-  qtdVaca: number;
+  // Chaves ASCII-safe (sem acento) usadas como dataKey nos charts do Recharts.
+  // O label exibido na legenda/tooltip vem de SEXO_LABELS via formatter.
+  Macho: number;
+  Femea: number;
+  qtdMacho: number;
+  qtdFemea: number;
 }
 
 export function priceBySexoSeries(
@@ -196,18 +207,19 @@ export function priceBySexoSeries(
   return byOrigem.map((agg) => ({
     origem: agg.origem,
     label: agg.label,
-    Boi: agg.boi?.precoMedioUSDKg ?? 0,
-    Vaca: agg.vaca?.precoMedioUSDKg ?? 0,
-    qtdBoi: agg.boi?.qtdCompra ?? 0,
-    qtdVaca: agg.vaca?.qtdCompra ?? 0,
+    Macho: agg.boi?.precoMedioUSDKg ?? 0,
+    Femea: agg.vaca?.precoMedioUSDKg ?? 0,
+    qtdMacho: agg.boi?.qtdCompra ?? 0,
+    qtdFemea: agg.vaca?.qtdCompra ?? 0,
   }));
 }
 
 export interface VolumeBar {
   origem: Origem;
   label: string;
-  Boi: number;
-  Vaca: number;
+  // Mesma logica de PriceBySexoBar: ASCII safe pra dataKey.
+  Macho: number;
+  Femea: number;
   total: number;
 }
 
@@ -216,8 +228,8 @@ export function volumeSeries(rows: ComprasRow[], originTotals?: OriginTotals): V
   return byOrigem.map((agg) => ({
     origem: agg.origem,
     label: agg.label,
-    Boi: agg.boi?.qtdCompra ?? 0,
-    Vaca: agg.vaca?.qtdCompra ?? 0,
+    Macho: agg.boi?.qtdCompra ?? 0,
+    Femea: agg.vaca?.qtdCompra ?? 0,
     total: agg.qtdCompra,
   }));
 }

@@ -21,31 +21,14 @@ export default function ComprasTable({ rows, snapshotTotals, originTotals }: Pro
   const byOrigem = aggregateByOrigem(rows, originTotals);
   const overall = computeOverall(rows, snapshotTotals, originTotals);
 
-  // Base ponderada: prefere o valor do DUX, calcula como fallback.
-  let totalBase: number | null;
-  if (typeof snapshotTotals?.valorKgBaseUSD === 'number') {
-    totalBase = snapshotTotals.valorKgBaseUSD;
-  } else if (snapshotTotals) {
-    totalBase = null;
-  } else {
-    const baseRows = rows.filter(
-      (r) => typeof r.valorKgBaseUSD === 'number' && r.valorKgBaseUSD > 0,
-    );
-    const totalBaseDen = baseRows.reduce((acc, r) => acc + r.qtdCompra * r.pesoMedioKg, 0);
-    totalBase =
-      totalBaseDen > 0
-        ? baseRows.reduce(
-            (acc, r) => acc + (r.valorKgBaseUSD ?? 0) * r.qtdCompra * r.pesoMedioKg,
-            0,
-          ) / totalBaseDen
-        : null;
-  }
-
+  // Grand Total: usa direto o `overall` ja calculado com regra DUX-soberano.
+  // Preco medio e base vem de snapshot.totals (DUX) sempre, mesmo com filtro
+  // parcial. Qtd e peso refletem a selecao via soma trivial das rows.
   const grandTotal: RowMetrics = {
     qtdCompra: overall.qtdCompra,
     pesoMedioKg: overall.pesoMedioKg,
     precoMedioUSDKg: overall.precoMedioUSDKg,
-    valorKgBaseUSD: totalBase,
+    valorKgBaseUSD: overall.valorKgBaseUSD,
   };
 
   return (

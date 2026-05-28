@@ -13,32 +13,11 @@ interface Props {
 export default function KPIGrid({ rows, snapshotTotals, originTotals }: Props) {
   const overall = computeOverall(rows, snapshotTotals, originTotals);
 
-  // Base/Spread global: prefere o valor que ja veio do DUX (snapshotTotals.valorKgBaseUSD);
-  // se nao tiver, calcula a partir das linhas com base configurada.
-  let globalBase: number | null = null;
-  let spread: number | null = null;
-
-  if (typeof snapshotTotals?.valorKgBaseUSD === 'number') {
-    globalBase = snapshotTotals.valorKgBaseUSD;
-    spread = overall.precoMedioUSDKg - globalBase;
-  } else {
-    const rowsWithBase = rows.filter(
-      (r) => typeof r.valorKgBaseUSD === 'number' && r.valorKgBaseUSD > 0,
-    );
-    const baseDen = rowsWithBase.reduce((acc, r) => acc + r.qtdCompra * r.pesoMedioKg, 0);
-    const baseNum = rowsWithBase.reduce(
-      (acc, r) => acc + (r.valorKgBaseUSD ?? 0) * r.qtdCompra * r.pesoMedioKg,
-      0,
-    );
-    globalBase = baseDen > 0 ? baseNum / baseDen : null;
-    const precoDen = rowsWithBase.reduce((acc, r) => acc + r.qtdCompra * r.pesoMedioKg, 0);
-    const precoNum = rowsWithBase.reduce(
-      (acc, r) => acc + r.precoMedioUSDKg * r.qtdCompra * r.pesoMedioKg,
-      0,
-    );
-    const precoFiltrado = precoDen > 0 ? precoNum / precoDen : null;
-    spread = globalBase != null && precoFiltrado != null ? precoFiltrado - globalBase : null;
-  }
+  // Base e spread global: usam direto o `overall` (regra DUX-soberano aplicada
+  // em computeOverall). Base e o `snapshot.totals.valorKgBaseUSD` quando
+  // disponivel, e o spread e simplesmente preco - base.
+  const globalBase = overall.valorKgBaseUSD;
+  const spread = globalBase != null ? overall.precoMedioUSDKg - globalBase : null;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

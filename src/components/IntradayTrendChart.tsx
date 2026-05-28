@@ -12,7 +12,7 @@ import {
 import { Activity } from 'lucide-react';
 import { useTheme } from '../contexts/useTheme';
 import type { IntradayResponse, Origem, Sexo } from '../types';
-import { ORIGEM_LABELS } from '../types';
+import { ORIGEM_LABELS, SEXO_LABELS } from '../types';
 import { buildIntradaySeries } from '../utils/analytics';
 import { formatTime, formatUSD, formatUSDPerKg } from '../utils/formatters';
 import { CHART_COLORS, resolveOrigemColor, tooltipStyle } from './charts/chartTheme';
@@ -55,7 +55,7 @@ export default function IntradayTrendChart({ intraday, isLoading, origens, sexos
           </h2>
           <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
             Preco medio USD/kg conforme as execucoes do RPA ao longo do dia.
-            {sexoFilter !== 'TODOS' && ` Somente ${sexoFilter === 'MACHO' ? 'Boi' : 'Vaca'}.`}
+            {sexoFilter !== 'TODOS' && ` Somente ${SEXO_LABELS[sexoFilter]}.`}
           </p>
         </div>
       </div>

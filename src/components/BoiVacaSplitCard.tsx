@@ -1,4 +1,5 @@
 import type { ComprasRow } from '../types';
+import { SEXO_LABELS } from '../types';
 import { computeBoiVacaSplit } from '../utils/analytics';
 import { formatNumber, formatPercent, formatUSDPerKg } from '../utils/formatters';
 import { useTheme } from '../contexts/useTheme';
@@ -18,7 +19,7 @@ export default function BoiVacaSplitCard({ rows }: Props) {
     <div className="card-padded flex flex-col gap-4">
       <div>
         <h2 className="text-base font-semibold tracking-tight" style={{ letterSpacing: '-0.01em' }}>
-          Mix Boi x Vaca
+          Mix {SEXO_LABELS.MACHO} x {SEXO_LABELS.FEMEA}
         </h2>
         <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
           Distribuicao de cabecas e preco medio ponderado.
@@ -27,7 +28,7 @@ export default function BoiVacaSplitCard({ rows }: Props) {
 
       <div className="space-y-3">
         <SplitRow
-          label="Boi (Macho)"
+          label={SEXO_LABELS.MACHO}
           color={boiColor}
           qtd={split.boi.qtd}
           pct={split.boi.pct}
@@ -35,7 +36,7 @@ export default function BoiVacaSplitCard({ rows }: Props) {
           total={split.totalQtd}
         />
         <SplitRow
-          label="Vaca (Femea)"
+          label={SEXO_LABELS.FEMEA}
           color={vacaColor}
           qtd={split.vaca.qtd}
           pct={split.vaca.pct}

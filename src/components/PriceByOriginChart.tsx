@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 import { TrendingDown } from 'lucide-react';
 import type { ComprasRow, OriginTotals, Totals } from '../types';
+import { SEXO_LABELS } from '../types';
 import { priceBySexoSeries, computeOverall } from '../utils/analytics';
 import { useTheme } from '../contexts/useTheme';
 import { CHART_COLORS, resolveSexoColor, tooltipStyle } from './charts/chartTheme';
@@ -40,7 +41,7 @@ export default function PriceByOriginChart({ rows, snapshotTotals, originTotals 
             Preco medio por origem
           </h2>
           <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
-            Boi vs Vaca em USD/kg. Linha tracejada = media geral ({formatUSDPerKg(overall.precoMedioUSDKg)}).
+            {SEXO_LABELS.MACHO} vs {SEXO_LABELS.FEMEA} em USD/kg. Linha tracejada = media geral ({formatUSDPerKg(overall.precoMedioUSDKg)}).
           </p>
         </div>
         {overall.cheapestOrigem && (
@@ -77,8 +78,9 @@ export default function PriceByOriginChart({ rows, snapshotTotals, originTotals 
               cursor={{ fill: theme === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)' }}
               formatter={(value: number, name: string, item) => {
                 const payload = item.payload as ReturnType<typeof priceBySexoSeries>[number];
-                const qtd = name === 'Boi' ? payload.qtdBoi : payload.qtdVaca;
-                return [`${formatUSDPerKg(value)} | ${formatNumber(qtd)} cab.`, name];
+                const qtd = name === 'Macho' ? payload.qtdMacho : payload.qtdFemea;
+                const label = name === 'Macho' ? SEXO_LABELS.MACHO : SEXO_LABELS.FEMEA;
+                return [`${formatUSDPerKg(value)} | ${formatNumber(qtd)} cab.`, label];
               }}
               itemStyle={{ fontWeight: 600 }}
               labelStyle={{
@@ -99,7 +101,7 @@ export default function PriceByOriginChart({ rows, snapshotTotals, originTotals 
                     fontWeight: 600,
                   }}
                 >
-                  {value}
+                  {value === 'Macho' ? SEXO_LABELS.MACHO : value === 'Femea' ? SEXO_LABELS.FEMEA : value}
                 </span>
               )}
             />
@@ -115,14 +117,14 @@ export default function PriceByOriginChart({ rows, snapshotTotals, originTotals 
                 fontSize: 10,
               }}
             />
-            <Bar dataKey="Boi" fill={boiColor} radius={[3, 3, 0, 0]}>
+            <Bar dataKey="Macho" fill={boiColor} radius={[3, 3, 0, 0]}>
               {data.map((d) => (
-                <Cell key={`boi-${d.origem}`} fill={boiColor} opacity={d.Boi > 0 ? 1 : 0.2} />
+                <Cell key={`macho-${d.origem}`} fill={boiColor} opacity={d.Macho > 0 ? 1 : 0.2} />
               ))}
             </Bar>
-            <Bar dataKey="Vaca" fill={vacaColor} radius={[3, 3, 0, 0]}>
+            <Bar dataKey="Femea" fill={vacaColor} radius={[3, 3, 0, 0]}>
               {data.map((d) => (
-                <Cell key={`vaca-${d.origem}`} fill={vacaColor} opacity={d.Vaca > 0 ? 1 : 0.2} />
+                <Cell key={`femea-${d.origem}`} fill={vacaColor} opacity={d.Femea > 0 ? 1 : 0.2} />
               ))}
             </Bar>
           </BarChart>

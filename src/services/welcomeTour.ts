@@ -37,7 +37,7 @@ const STEPS: DriveStep[] = [
     popover: {
       title: 'Filtre por origem e tipo',
       description:
-        'Origens (AR, BR, CO, PY, UY) e tipo (Boi/Vaca). O filtro se aplica ao periodo selecionado.',
+        'Origens (AR, BR, CO, PY, UY) e tipo (Macho/Femea). O filtro se aplica ao periodo selecionado.',
       side: 'bottom',
       align: 'end',
     },

@@ -84,7 +84,11 @@ export async function fetchIntraday(): Promise<IntradayResponse> {
 export function screenshotUrl(snapshot: ComprasSnapshot): string | null {
   if (snapshot.screenshotUrl) return snapshot.screenshotUrl;
   if (USE_MOCK) return '/mock/dux-screenshot.svg';
-  return `${API_BASE}/api/screenshot?period=${snapshot.period}`;
+  // Cache busting via capturedAt: cada captura nova do RPA tem ISO unico, entao
+  // gera URL diferente -> browser e Service Worker tratam como recurso novo,
+  // sem servir versao antiga do cache. Resolve o "preciso de Ctrl+Shift+R".
+  const v = encodeURIComponent(snapshot.capturedAt);
+  return `${API_BASE}/api/screenshot?period=${snapshot.period}&v=${v}`;
 }
 
 function sleep(ms: number) {

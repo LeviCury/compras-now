@@ -73,14 +73,19 @@ export default function Dashboard() {
     [activeSnapshot, filtersApi.filters],
   );
 
-  // Os totais do DUX (snapshot.totals e snapshot.originTotals) representam TODAS as
-  // origens/sexos. So' nao podemos usa-los quando o usuario aplica filtros parciais
-  // de origem/sexo (o periodo NAO conta - ele apenas seleciona qual snapshot olhar,
-  // os totais dentro do snapshot ja sao do periodo escolhido).
-  const filtersAreFullSelection =
-    filtersApi.filters.origens.length === 5 && filtersApi.filters.sexos.length === 2;
-  const duxOriginTotals = filtersAreFullSelection ? activeSnapshot?.originTotals : undefined;
-  const duxSnapshotTotals = filtersAreFullSelection ? activeSnapshot?.totals : undefined;
+  // Regra DUX-soberano: snapshot.totals.precoMedioUSDKg e valorKgBaseUSD sao
+  // valores oficiais do DUX para o periodo e SEMPRE devem ser exibidos como
+  // Grand Total, independente da selecao na UI. So qtd e peso "respeitam" o
+  // filtro porque sao agregacoes triviais (sem inventar numero).
+  //
+  // originTotals (por origem) e confiavel quando ambos sexos estao selecionados,
+  // porque o "X Total" do DUX agrega FEMEA+MACHO. Quando filtra so um sexo,
+  // cai no fallback de rows porque o DUX nao fornece "AR Total so Macho".
+  const sexosFull = filtersApi.filters.sexos.length === 2;
+  const duxOriginTotals = sexosFull ? activeSnapshot?.originTotals : undefined;
+  // snapshot.totals: passa sempre. computeOverall usa apenas preco/base dele
+  // (DUX-soberano), recalculando qtd/peso a partir das rows visiveis.
+  const duxSnapshotTotals = activeSnapshot?.totals;
 
   const isLate = activePeriod === 'today' && activeSnapshot
     ? !todayIsStale && minutesSince(activeSnapshot.capturedAt) > 180

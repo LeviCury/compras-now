@@ -1,5 +1,5 @@
 import type { AllSnapshots, ComprasSnapshot, PeriodKey } from '../types';
-import { ORIGEM_LABELS, PERIOD_KEYS, PERIOD_SHORT_LABELS } from '../types';
+import { ORIGEM_LABELS, PERIOD_KEYS, PERIOD_SHORT_LABELS, SEXO_LABELS } from '../types';
 import { aggregateByOrigem, computeOverall } from '../utils/analytics';
 import { formatDateTime, formatNumber, formatUSDPerKg } from '../utils/formatters';
 
@@ -28,8 +28,8 @@ export function buildWhatsappMessage(
   lines.push('');
   for (const agg of byOrigem) {
     const parts: string[] = [];
-    if (agg.boi) parts.push(`Boi ${formatUSDPerKg(agg.boi.precoMedioUSDKg)}`);
-    if (agg.vaca) parts.push(`Vaca ${formatUSDPerKg(agg.vaca.precoMedioUSDKg)}`);
+    if (agg.boi) parts.push(`${SEXO_LABELS.MACHO} ${formatUSDPerKg(agg.boi.precoMedioUSDKg)}`);
+    if (agg.vaca) parts.push(`${SEXO_LABELS.FEMEA} ${formatUSDPerKg(agg.vaca.precoMedioUSDKg)}`);
     lines.push(`- ${ORIGEM_LABELS[agg.origem]}: ${parts.join(' / ')} (${formatNumber(agg.qtdCompra)} cab.)`);
   }
 

@@ -1,6 +1,6 @@
 import { Clock4 } from 'lucide-react';
 import type { ComprasSnapshot, Origem, PeriodKey, Sexo } from '../types';
-import { ORIGEM_LABELS, PERIOD_LABELS } from '../types';
+import { ORIGEM_LABELS, PERIOD_LABELS, SEXO_LABELS } from '../types';
 import { aggregateByOrigem, applyFilters, computeBoiVacaSplit, computeOverall } from '../utils/analytics';
 import { formatNumber, formatUSDPerKg, timeAgo } from '../utils/formatters';
 
@@ -29,17 +29,14 @@ export default function PresentationColumn({ periodKey, snapshot, origens, sexos
   }
 
   const rows = applyFilters(snapshot, { origens, sexos, period: periodKey });
-  // No modo apresentacao a regra de UX e' mostrar sempre os totais do DUX (sem filtro
-  // parcial). Os filtros do dashboard sao reaproveitados, mas em apresentacao o default
-  // e' tudo selecionado, entao usar os totais do snapshot e' equivalente.
-  const allOrigens = origens.length === 5 && sexos.length === 2;
-  const overall = computeOverall(
-    rows,
-    allOrigens ? snapshot.totals : undefined,
-    allOrigens ? snapshot.originTotals : undefined,
-  );
+  // Regra DUX-soberano: snapshot.totals (preco e base) sao sempre soberanos,
+  // independente da selecao. originTotals (por origem) so e confiavel quando
+  // ambos sexos estao selecionados, porque o "X Total" do DUX agrega FEMEA+MACHO.
+  const sexosFull = sexos.length === 2;
+  const duxOriginTotals = sexosFull ? snapshot.originTotals : undefined;
+  const overall = computeOverall(rows, snapshot.totals, duxOriginTotals);
   const split = computeBoiVacaSplit(rows);
-  const byOrigem = aggregateByOrigem(rows, allOrigens ? snapshot.originTotals : undefined);
+  const byOrigem = aggregateByOrigem(rows, duxOriginTotals);
   const validMedias = byOrigem.map((b) => b.precoMedioUSDKg).filter((n) => n > 0);
   const minMediaPrice = validMedias.length > 0 ? Math.min(...validMedias) : 0;
 
@@ -110,12 +107,12 @@ function BoiVacaSubCard({
       className="rounded-xl border grid grid-cols-2 gap-2 p-3 sm:gap-3 sm:p-4"
       style={{ background: SUBCARD_BG, borderColor: SUBCARD_BORDER }}
     >
-      <BoiVacaCell label="Boi" value={split.boi.precoMedio} qtd={split.boi.qtd} tone="boi" />
+      <BoiVacaCell label={SEXO_LABELS.MACHO} value={split.boi.precoMedio} qtd={split.boi.qtd} tone="boi" />
       <div
         className="border-l pl-2 -ml-1 sm:pl-3"
         style={{ borderColor: 'var(--pres-card-border)' }}
       >
-        <BoiVacaCell label="Vaca" value={split.vaca.precoMedio} qtd={split.vaca.qtd} tone="vaca" />
+        <BoiVacaCell label={SEXO_LABELS.FEMEA} value={split.vaca.precoMedio} qtd={split.vaca.qtd} tone="vaca" />
       </div>
     </div>
   );
@@ -190,13 +187,13 @@ function PriceByOriginTable({ byOrigem, minMediaPrice }: PriceByOriginTableProps
             className="text-[11px] uppercase tracking-[0.16em] font-bold text-right"
             style={{ color: 'var(--pres-text-3)' }}
           >
-            Boi
+            {SEXO_LABELS.MACHO}
           </span>
           <span
             className="text-[11px] uppercase tracking-[0.16em] font-bold text-right"
             style={{ color: 'var(--pres-text-3)' }}
           >
-            Vaca
+            {SEXO_LABELS.FEMEA}
           </span>
           <span
             className="text-[11px] uppercase tracking-[0.16em] font-bold text-right"

@@ -90,8 +90,8 @@ export const ORIGEM_LABELS: Record<Origem, string> = {
 };
 
 export const SEXO_LABELS: Record<Sexo, string> = {
-  MACHO: 'Boi',
-  FEMEA: 'Vaca',
+  MACHO: 'Macho',
+  FEMEA: 'Fêmea',
 };
 
 export const PERIOD_LABELS: Record<PeriodKey, string> = {

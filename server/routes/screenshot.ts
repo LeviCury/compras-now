@@ -50,7 +50,10 @@ router.get('/', async (req: Request, res: Response) => {
       const ext = path.split('.').pop()?.toLowerCase() ?? 'png';
       const mime = MIME_BY_EXT[ext] ?? 'application/octet-stream';
       res.setHeader('Content-Type', mime);
-      res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+      // Cache curto + must-revalidate. O cache-busting principal e via query
+      // param `?v=<capturedAt>` no client, mas mesmo se algum proxy ignorar,
+      // 60s e curto o suficiente pra nao "congelar" a print de prova do DUX.
+      res.setHeader('Cache-Control', 'public, max-age=60, must-revalidate');
       res.setHeader('Content-Length', String(buffer.length));
       res.status(200).send(buffer);
       return;

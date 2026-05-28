@@ -1,5 +1,6 @@
 import { ArrowDown, ArrowUp, Lightbulb, TrendingDown, TrendingUp, Target } from 'lucide-react';
 import type { ComprasRow, OriginTotals, Totals } from '../types';
+import { SEXO_LABELS } from '../types';
 import { aggregateByOrigem, computeOverall } from '../utils/analytics';
 import { formatNumber, formatUSD, formatUSDPerKg } from '../utils/formatters';
 
@@ -83,8 +84,8 @@ export default function InsightsBlock({ rows, snapshotTotals, originTotals }: Pr
       tone: 'muted',
       text: (
         <>
-          Em <strong style={{ color: 'var(--text)' }}>{top.origem}</strong>, Boi esta{' '}
-          {top.gap > 0 ? 'mais caro' : 'mais barato'} que Vaca em{' '}
+          Em <strong style={{ color: 'var(--text)' }}>{top.origem}</strong>, {SEXO_LABELS.MACHO} esta{' '}
+          {top.gap > 0 ? 'mais caro' : 'mais barato'} que {SEXO_LABELS.FEMEA} em{' '}
           <strong style={{ color: 'var(--text)' }}>{formatUSDPerKg(Math.abs(top.gap))}</strong>.
         </>
       ),
