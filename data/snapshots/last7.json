@@ -1,71 +1,85 @@
 {
-  "capturedAt": "2026-06-01T06:03:43-03:00",
+  "capturedAt": "2026-06-02T06:03:06-03:00",
   "rows": [
     {
       "origem": "AR",
       "sexo": "FEMEA",
-      "qtdCompra": 9224,
-      "pesoMedioKg": 496.33,
-      "precoMedioUSDKg": 4.33
+      "qtdCompra": 11151,
+      "pesoMedioKg": 494.87,
+      "precoMedioUSDKg": 4.42
     },
     {
       "origem": "AR",
       "sexo": "MACHO",
-      "qtdCompra": 7502,
-      "pesoMedioKg": 512.19,
-      "precoMedioUSDKg": 5.48
+      "qtdCompra": 9962,
+      "pesoMedioKg": 515.37,
+      "precoMedioUSDKg": 5.49
     },
     {
       "origem": "BR",
       "sexo": "FEMEA",
-      "qtdCompra": 15547,
-      "pesoMedioKg": 217.49,
+      "qtdCompra": 19499,
+      "pesoMedioKg": 217.14,
       "precoMedioUSDKg": 4.49,
       "valorKgBaseUSD": 4.45
     },
     {
       "origem": "BR",
       "sexo": "MACHO",
-      "qtdCompra": 18596,
-      "pesoMedioKg": 284.5,
-      "precoMedioUSDKg": 4.7,
-      "valorKgBaseUSD": 4.63
+      "qtdCompra": 23503,
+      "pesoMedioKg": 287.75,
+      "precoMedioUSDKg": 4.68,
+      "valorKgBaseUSD": 4.61
     },
     {
       "origem": "CO",
       "sexo": "FEMEA",
-      "qtdCompra": 3512,
-      "pesoMedioKg": 307.17,
-      "precoMedioUSDKg": 4.11
+      "qtdCompra": 4176,
+      "pesoMedioKg": 300.25,
+      "precoMedioUSDKg": 4.16
     },
     {
       "origem": "CO",
       "sexo": "MACHO",
-      "qtdCompra": 3090,
-      "pesoMedioKg": 407.08,
-      "precoMedioUSDKg": 4.01
+      "qtdCompra": 3952,
+      "pesoMedioKg": 401.37,
+      "precoMedioUSDKg": 4.07
     },
     {
       "origem": "PY",
       "sexo": "FEMEA",
-      "qtdCompra": 4534,
-      "pesoMedioKg": 194.54,
-      "precoMedioUSDKg": 4.88,
-      "valorKgBaseUSD": 4.78
+      "qtdCompra": 6375,
+      "pesoMedioKg": 192.18,
+      "precoMedioUSDKg": 4.95,
+      "valorKgBaseUSD": 4.83
     },
     {
       "origem": "PY",
       "sexo": "MACHO",
-      "qtdCompra": 7960,
-      "pesoMedioKg": 209.64,
+      "qtdCompra": 9541,
+      "pesoMedioKg": 209.65,
       "precoMedioUSDKg": 5.08,
-      "valorKgBaseUSD": 4.9
+      "valorKgBaseUSD": 4.91
+    },
+    {
+      "origem": "UY",
+      "sexo": "FEMEA",
+      "qtdCompra": 20,
+      "pesoMedioKg": 249.9,
+      "precoMedioUSDKg": 5.29
+    },
+    {
+      "origem": "UY",
+      "sexo": "MACHO",
+      "qtdCompra": 20,
+      "pesoMedioKg": 291.2,
+      "precoMedioUSDKg": 5.62
     }
   ],
   "totals": {
-    "qtdCompra": 69965,
-    "pesoMedioKg": 314.16,
-    "precoMedioUSDKg": 4.72,
+    "qtdCompra": 88199,
+    "pesoMedioKg": 314.35,
+    "precoMedioUSDKg": 4.74,
     "valorKgBaseUSD": 4.63
   },
   "source": {
@@ -74,31 +88,36 @@
   },
   "originTotals": {
     "AR": {
-      "qtdCompra": 16726,
-      "pesoMedioKg": 503.44,
-      "precoMedioUSDKg": 4.93
+      "qtdCompra": 21113,
+      "pesoMedioKg": 504.54,
+      "precoMedioUSDKg": 5.0
     },
     "BR": {
-      "qtdCompra": 34143,
-      "pesoMedioKg": 253.99,
-      "precoMedioUSDKg": 4.61,
-      "valorKgBaseUSD": 4.56
+      "qtdCompra": 43002,
+      "pesoMedioKg": 255.73,
+      "precoMedioUSDKg": 4.59,
+      "valorKgBaseUSD": 4.54
     },
     "CO": {
-      "qtdCompra": 6602,
-      "pesoMedioKg": 353.93,
-      "precoMedioUSDKg": 4.06
+      "qtdCompra": 8128,
+      "pesoMedioKg": 349.42,
+      "precoMedioUSDKg": 4.12
     },
     "PY": {
-      "qtdCompra": 12494,
-      "pesoMedioKg": 204.16,
-      "precoMedioUSDKg": 5.01,
-      "valorKgBaseUSD": 4.87
+      "qtdCompra": 15916,
+      "pesoMedioKg": 202.65,
+      "precoMedioUSDKg": 5.03,
+      "valorKgBaseUSD": 4.88
+    },
+    "UY": {
+      "qtdCompra": 40,
+      "pesoMedioKg": 270.55,
+      "precoMedioUSDKg": 5.46
     }
   },
   "period": "last7",
-  "periodFrom": "2026-05-24T00:00:00-03:00",
-  "periodTo": "2026-05-31T23:59:59-03:00",
-  "periodLabel": "Ultimos 7 dias (24/05 - 31/05)",
+  "periodFrom": "2026-05-25T00:00:00-03:00",
+  "periodTo": "2026-06-01T23:59:59-03:00",
+  "periodLabel": "Ultimos 7 dias (25/05 - 01/06)",
   "screenshotPath": "data/screenshots/last7.png"
 }
