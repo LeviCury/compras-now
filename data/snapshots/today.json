@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-06-02T13:31:26-03:00",
+  "capturedAt": "2026-06-02T14:01:28-03:00",
   "rows": [
     {
       "origem": "AR",
@@ -11,25 +11,25 @@
     {
       "origem": "AR",
       "sexo": "MACHO",
-      "qtdCompra": 539,
-      "pesoMedioKg": 500.63,
-      "precoMedioUSDKg": 5.5
+      "qtdCompra": 728,
+      "pesoMedioKg": 507.2,
+      "precoMedioUSDKg": 5.49
     },
     {
       "origem": "BR",
       "sexo": "FEMEA",
-      "qtdCompra": 2221,
-      "pesoMedioKg": 225.31,
+      "qtdCompra": 2418,
+      "pesoMedioKg": 224.47,
       "precoMedioUSDKg": 4.48,
       "valorKgBaseUSD": 4.47
     },
     {
       "origem": "BR",
       "sexo": "MACHO",
-      "qtdCompra": 2953,
-      "pesoMedioKg": 288.14,
-      "precoMedioUSDKg": 4.77,
-      "valorKgBaseUSD": 4.64
+      "qtdCompra": 3099,
+      "pesoMedioKg": 288.53,
+      "precoMedioUSDKg": 4.74,
+      "valorKgBaseUSD": 4.62
     },
     {
       "origem": "CO",
@@ -48,25 +48,25 @@
     {
       "origem": "PY",
       "sexo": "FEMEA",
-      "qtdCompra": 716,
-      "pesoMedioKg": 194.92,
-      "precoMedioUSDKg": 4.99,
-      "valorKgBaseUSD": 4.93
+      "qtdCompra": 926,
+      "pesoMedioKg": 198.34,
+      "precoMedioUSDKg": 5.0,
+      "valorKgBaseUSD": 4.95
     },
     {
       "origem": "PY",
       "sexo": "MACHO",
-      "qtdCompra": 1532,
+      "qtdCompra": 2006,
       "pesoMedioKg": 210.0,
       "precoMedioUSDKg": 5.14,
-      "valorKgBaseUSD": 5.01
+      "valorKgBaseUSD": 5.02
     }
   ],
   "totals": {
-    "qtdCompra": 9613,
-    "pesoMedioKg": 280.16,
-    "precoMedioUSDKg": 4.83,
-    "valorKgBaseUSD": 4.69
+    "qtdCompra": 10829,
+    "pesoMedioKg": 279.06,
+    "precoMedioUSDKg": 4.85,
+    "valorKgBaseUSD": 4.71
   },
   "source": {
     "module": "Compras Now",
@@ -74,15 +74,15 @@
   },
   "originTotals": {
     "AR": {
-      "qtdCompra": 1465,
-      "pesoMedioKg": 493.6,
-      "precoMedioUSDKg": 4.72
+      "qtdCompra": 1654,
+      "pesoMedioKg": 497.29,
+      "precoMedioUSDKg": 4.82
     },
     "BR": {
-      "qtdCompra": 5174,
-      "pesoMedioKg": 261.17,
-      "precoMedioUSDKg": 4.65,
-      "valorKgBaseUSD": 4.57
+      "qtdCompra": 5517,
+      "pesoMedioKg": 260.46,
+      "precoMedioUSDKg": 4.63,
+      "valorKgBaseUSD": 4.56
     },
     "CO": {
       "qtdCompra": 726,
@@ -90,10 +90,10 @@
       "precoMedioUSDKg": 5.37
     },
     "PY": {
-      "qtdCompra": 2248,
-      "pesoMedioKg": 205.2,
+      "qtdCompra": 2932,
+      "pesoMedioKg": 206.32,
       "precoMedioUSDKg": 5.09,
-      "valorKgBaseUSD": 4.99
+      "valorKgBaseUSD": 5.0
     }
   },
   "period": "today",
