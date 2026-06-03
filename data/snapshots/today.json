@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-06-03T09:01:45-03:00",
+  "capturedAt": "2026-06-03T09:31:22-03:00",
   "rows": [
     {
       "origem": "AR",
@@ -18,25 +18,40 @@
     {
       "origem": "BR",
       "sexo": "FEMEA",
-      "qtdCompra": 1142,
-      "pesoMedioKg": 213.34,
-      "precoMedioUSDKg": 4.58
+      "qtdCompra": 1441,
+      "pesoMedioKg": 216.45,
+      "precoMedioUSDKg": 4.47
     },
     {
       "origem": "BR",
       "sexo": "MACHO",
-      "qtdCompra": 2526,
-      "pesoMedioKg": 298.65,
-      "precoMedioUSDKg": 4.68,
+      "qtdCompra": 2653,
+      "pesoMedioKg": 299.66,
+      "precoMedioUSDKg": 4.63,
       "valorKgBaseUSD": 4.29
+    },
+    {
+      "origem": "CO",
+      "sexo": "MACHO",
+      "qtdCompra": 10,
+      "pesoMedioKg": 220.0,
+      "precoMedioUSDKg": 5.7
+    },
+    {
+      "origem": "PY",
+      "sexo": "FEMEA",
+      "qtdCompra": 28,
+      "pesoMedioKg": 210.0,
+      "precoMedioUSDKg": 4.84,
+      "valorKgBaseUSD": 4.85
     },
     {
       "origem": "PY",
       "sexo": "MACHO",
-      "qtdCompra": 210,
+      "qtdCompra": 314,
       "pesoMedioKg": 210.0,
-      "precoMedioUSDKg": 5.15,
-      "valorKgBaseUSD": 5.05
+      "precoMedioUSDKg": 5.1,
+      "valorKgBaseUSD": 5.03
     },
     {
       "origem": "UY",
@@ -47,10 +62,10 @@
     }
   ],
   "totals": {
-    "qtdCompra": 4336,
-    "pesoMedioKg": 283.65,
-    "precoMedioUSDKg": 4.76,
-    "valorKgBaseUSD": 4.86
+    "qtdCompra": 4904,
+    "pesoMedioKg": 279.11,
+    "precoMedioUSDKg": 4.7,
+    "valorKgBaseUSD": 4.89
   },
   "source": {
     "module": "Compras Now",
@@ -63,10 +78,16 @@
       "precoMedioUSDKg": 5.36
     },
     "BR": {
-      "qtdCompra": 3668,
-      "pesoMedioKg": 272.09,
-      "precoMedioUSDKg": 4.65,
+      "qtdCompra": 4094,
+      "pesoMedioKg": 270.38,
+      "precoMedioUSDKg": 4.58,
       "valorKgBaseUSD": 4.29
+    },
+    "PY": {
+      "qtdCompra": 342,
+      "pesoMedioKg": 210.0,
+      "precoMedioUSDKg": 5.08,
+      "valorKgBaseUSD": 5.02
     }
   },
   "period": "today",
