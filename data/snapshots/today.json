@@ -1,35 +1,35 @@
 {
-  "capturedAt": "2026-06-04T08:36:24-03:00",
+  "capturedAt": "2026-06-04T09:01:29-03:00",
   "rows": [
     {
       "origem": "AR",
       "sexo": "FEMEA",
-      "qtdCompra": 423,
-      "pesoMedioKg": 526.86,
-      "precoMedioUSDKg": 3.72
+      "qtdCompra": 473,
+      "pesoMedioKg": 521.9,
+      "precoMedioUSDKg": 3.89
     },
     {
       "origem": "AR",
       "sexo": "MACHO",
-      "qtdCompra": 216,
-      "pesoMedioKg": 521.76,
-      "precoMedioUSDKg": 5.41
+      "qtdCompra": 286,
+      "pesoMedioKg": 516.43,
+      "precoMedioUSDKg": 5.45
     },
     {
       "origem": "BR",
       "sexo": "FEMEA",
-      "qtdCompra": 367,
-      "pesoMedioKg": 218.34,
-      "precoMedioUSDKg": 4.4,
-      "valorKgBaseUSD": 4.41
+      "qtdCompra": 475,
+      "pesoMedioKg": 217.01,
+      "precoMedioUSDKg": 4.65,
+      "valorKgBaseUSD": 4.44
     },
     {
       "origem": "BR",
       "sexo": "MACHO",
-      "qtdCompra": 338,
-      "pesoMedioKg": 298.05,
-      "precoMedioUSDKg": 4.57,
-      "valorKgBaseUSD": 4.58
+      "qtdCompra": 564,
+      "pesoMedioKg": 296.89,
+      "precoMedioUSDKg": 4.58,
+      "valorKgBaseUSD": 4.57
     },
     {
       "origem": "PY",
@@ -49,10 +49,10 @@
     }
   ],
   "totals": {
-    "qtdCompra": 1794,
-    "pesoMedioKg": 340.54,
-    "precoMedioUSDKg": 4.74,
-    "valorKgBaseUSD": 4.76
+    "qtdCompra": 2248,
+    "pesoMedioKg": 337.89,
+    "precoMedioUSDKg": 4.77,
+    "valorKgBaseUSD": 4.72
   },
   "source": {
     "module": "Compras Now",
@@ -60,15 +60,15 @@
   },
   "originTotals": {
     "AR": {
-      "qtdCompra": 639,
-      "pesoMedioKg": 525.13,
-      "precoMedioUSDKg": 4.48
+      "qtdCompra": 759,
+      "pesoMedioKg": 519.84,
+      "precoMedioUSDKg": 4.64
     },
     "BR": {
-      "qtdCompra": 705,
-      "pesoMedioKg": 256.55,
-      "precoMedioUSDKg": 4.5,
-      "valorKgBaseUSD": 4.54
+      "qtdCompra": 1039,
+      "pesoMedioKg": 260.37,
+      "precoMedioUSDKg": 4.61,
+      "valorKgBaseUSD": 4.53
     },
     "PY": {
       "qtdCompra": 450,
