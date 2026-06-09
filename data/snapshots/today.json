@@ -1,12 +1,12 @@
 {
-  "capturedAt": "2026-06-09T11:31:22-03:00",
+  "capturedAt": "2026-06-09T12:01:40-03:00",
   "rows": [
     {
       "origem": "AR",
       "sexo": "FEMEA",
-      "qtdCompra": 783,
-      "pesoMedioKg": 522.17,
-      "precoMedioUSDKg": 4.21
+      "qtdCompra": 824,
+      "pesoMedioKg": 516.3,
+      "precoMedioUSDKg": 4.16
     },
     {
       "origem": "AR",
@@ -18,24 +18,24 @@
     {
       "origem": "BR",
       "sexo": "FEMEA",
-      "qtdCompra": 1305,
-      "pesoMedioKg": 223.54,
-      "precoMedioUSDKg": 4.22,
-      "valorKgBaseUSD": 4.28
+      "qtdCompra": 1528,
+      "pesoMedioKg": 226.48,
+      "precoMedioUSDKg": 4.25,
+      "valorKgBaseUSD": 4.29
     },
     {
       "origem": "BR",
       "sexo": "MACHO",
-      "qtdCompra": 2276,
-      "pesoMedioKg": 293.87,
-      "precoMedioUSDKg": 4.56,
-      "valorKgBaseUSD": 4.52
+      "qtdCompra": 2723,
+      "pesoMedioKg": 295.53,
+      "precoMedioUSDKg": 4.55,
+      "valorKgBaseUSD": 4.51
     },
     {
       "origem": "CO",
       "sexo": "FEMEA",
-      "qtdCompra": 860,
-      "pesoMedioKg": 352.08,
+      "qtdCompra": 873,
+      "pesoMedioKg": 349.22,
       "precoMedioUSDKg": 4.4
     },
     {
@@ -77,10 +77,10 @@
     }
   ],
   "totals": {
-    "qtdCompra": 7038,
-    "pesoMedioKg": 330.18,
-    "precoMedioUSDKg": 4.73,
-    "valorKgBaseUSD": 4.51
+    "qtdCompra": 7762,
+    "pesoMedioKg": 326.29,
+    "precoMedioUSDKg": 4.7,
+    "valorKgBaseUSD": 4.5
   },
   "source": {
     "module": "Compras Now",
@@ -88,19 +88,19 @@
   },
   "originTotals": {
     "AR": {
-      "qtdCompra": 1317,
-      "pesoMedioKg": 545.05,
-      "precoMedioUSDKg": 4.76
+      "qtdCompra": 1358,
+      "pesoMedioKg": 540.8,
+      "precoMedioUSDKg": 4.72
     },
     "BR": {
-      "qtdCompra": 3581,
-      "pesoMedioKg": 268.24,
+      "qtdCompra": 4251,
+      "pesoMedioKg": 270.71,
       "precoMedioUSDKg": 4.44,
       "valorKgBaseUSD": 4.44
     },
     "CO": {
-      "qtdCompra": 1118,
-      "pesoMedioKg": 336.2,
+      "qtdCompra": 1131,
+      "pesoMedioKg": 334.18,
       "precoMedioUSDKg": 4.66
     },
     "PY": {
