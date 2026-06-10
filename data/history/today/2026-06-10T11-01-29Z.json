@@ -1,0 +1,101 @@
+{
+  "capturedAt": "2026-06-10T08:01:29-03:00",
+  "rows": [
+    {
+      "origem": "AR",
+      "sexo": "FEMEA",
+      "qtdCompra": 13,
+      "pesoMedioKg": 469.23,
+      "precoMedioUSDKg": 5.01
+    },
+    {
+      "origem": "AR",
+      "sexo": "MACHO",
+      "qtdCompra": 66,
+      "pesoMedioKg": 506.97,
+      "precoMedioUSDKg": 5.3
+    },
+    {
+      "origem": "BR",
+      "sexo": "FEMEA",
+      "qtdCompra": 238,
+      "pesoMedioKg": 210.65,
+      "precoMedioUSDKg": 4.22
+    },
+    {
+      "origem": "BR",
+      "sexo": "MACHO",
+      "qtdCompra": 453,
+      "pesoMedioKg": 302.03,
+      "precoMedioUSDKg": 4.5
+    },
+    {
+      "origem": "CO",
+      "sexo": "FEMEA",
+      "qtdCompra": 16,
+      "pesoMedioKg": 190.0,
+      "precoMedioUSDKg": 5.44
+    },
+    {
+      "origem": "CO",
+      "sexo": "MACHO",
+      "qtdCompra": 10,
+      "pesoMedioKg": 270.0,
+      "precoMedioUSDKg": 5.44
+    },
+    {
+      "origem": "PY",
+      "sexo": "FEMEA",
+      "qtdCompra": 6,
+      "pesoMedioKg": 210.0,
+      "precoMedioUSDKg": 4.8,
+      "valorKgBaseUSD": 4.9
+    },
+    {
+      "origem": "PY",
+      "sexo": "MACHO",
+      "qtdCompra": 6,
+      "pesoMedioKg": 210.0,
+      "precoMedioUSDKg": 4.9,
+      "valorKgBaseUSD": 5.0
+    }
+  ],
+  "totals": {
+    "qtdCompra": 808,
+    "pesoMedioKg": 290.56,
+    "precoMedioUSDKg": 4.56,
+    "valorKgBaseUSD": 4.95
+  },
+  "source": {
+    "module": "Compras Now",
+    "breadcrumb": "DUX > Minerva Reports > Relatorios de Controle > Compras Now"
+  },
+  "originTotals": {
+    "AR": {
+      "qtdCompra": 79,
+      "pesoMedioKg": 500.76,
+      "precoMedioUSDKg": 5.25
+    },
+    "BR": {
+      "qtdCompra": 691,
+      "pesoMedioKg": 270.56,
+      "precoMedioUSDKg": 4.41
+    },
+    "CO": {
+      "qtdCompra": 26,
+      "pesoMedioKg": 220.77,
+      "precoMedioUSDKg": 5.44
+    },
+    "PY": {
+      "qtdCompra": 12,
+      "pesoMedioKg": 210.0,
+      "precoMedioUSDKg": 4.85,
+      "valorKgBaseUSD": 4.95
+    }
+  },
+  "period": "today",
+  "periodFrom": "2026-06-10T00:00:00-03:00",
+  "periodTo": "2026-06-10T23:59:59-03:00",
+  "periodLabel": "Hoje (10/06)",
+  "screenshotPath": "data/screenshots/today.png"
+}
