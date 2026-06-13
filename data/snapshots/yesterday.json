@@ -1,80 +1,86 @@
 {
-  "capturedAt": "2026-06-12T08:25:07-03:00",
+  "capturedAt": "2026-06-13T06:01:44-03:00",
   "rows": [
     {
       "origem": "AR",
       "sexo": "FEMEA",
-      "qtdCompra": 351,
-      "pesoMedioKg": 470.38,
-      "precoMedioUSDKg": 3.68
+      "qtdCompra": 737,
+      "pesoMedioKg": 502.79,
+      "precoMedioUSDKg": 3.96
     },
     {
       "origem": "AR",
       "sexo": "MACHO",
-      "qtdCompra": 525,
-      "pesoMedioKg": 406.22,
-      "precoMedioUSDKg": 5.18
+      "qtdCompra": 574,
+      "pesoMedioKg": 495.11,
+      "precoMedioUSDKg": 5.5
     },
     {
       "origem": "BR",
       "sexo": "FEMEA",
-      "qtdCompra": 3306,
-      "pesoMedioKg": 213.17,
-      "precoMedioUSDKg": 4.33,
-      "valorKgBaseUSD": 4.38
+      "qtdCompra": 1982,
+      "pesoMedioKg": 220.99,
+      "precoMedioUSDKg": 4.31,
+      "valorKgBaseUSD": 4.41
     },
     {
       "origem": "BR",
       "sexo": "MACHO",
-      "qtdCompra": 5103,
-      "pesoMedioKg": 296.13,
-      "precoMedioUSDKg": 4.52,
-      "valorKgBaseUSD": 4.53
+      "qtdCompra": 5655,
+      "pesoMedioKg": 288.81,
+      "precoMedioUSDKg": 4.56,
+      "valorKgBaseUSD": 4.52
     },
     {
       "origem": "CO",
       "sexo": "FEMEA",
-      "qtdCompra": 817,
-      "pesoMedioKg": 332.27,
-      "precoMedioUSDKg": 3.97
+      "qtdCompra": 600,
+      "pesoMedioKg": 298.0,
+      "precoMedioUSDKg": 4.48
     },
     {
       "origem": "CO",
       "sexo": "MACHO",
-      "qtdCompra": 224,
-      "pesoMedioKg": 318.87,
-      "precoMedioUSDKg": 4.71
+      "qtdCompra": 779,
+      "pesoMedioKg": 343.7,
+      "precoMedioUSDKg": 5.15
     },
     {
       "origem": "PY",
       "sexo": "FEMEA",
-      "qtdCompra": 1523,
-      "pesoMedioKg": 192.09,
-      "precoMedioUSDKg": 5.06,
-      "valorKgBaseUSD": 4.97
+      "qtdCompra": 560,
+      "pesoMedioKg": 194.52,
+      "precoMedioUSDKg": 5.11,
+      "valorKgBaseUSD": 4.95
     },
     {
       "origem": "PY",
       "sexo": "MACHO",
-      "qtdCompra": 2129,
+      "qtdCompra": 922,
       "pesoMedioKg": 210.0,
-      "precoMedioUSDKg": 5.27,
-      "valorKgBaseUSD": 5.05
+      "precoMedioUSDKg": 5.21,
+      "valorKgBaseUSD": 5.06
+    },
+    {
+      "origem": "UY",
+      "sexo": "FEMEA",
+      "qtdCompra": 283,
+      "pesoMedioKg": 245.12,
+      "precoMedioUSDKg": 5.43
     },
     {
       "origem": "UY",
       "sexo": "MACHO",
-      "qtdCompra": 35,
-      "pesoMedioKg": 265.0,
-      "precoMedioUSDKg": 5.66,
-      "valorKgBaseUSD": 5.6
+      "qtdCompra": 354,
+      "pesoMedioKg": 314.3,
+      "precoMedioUSDKg": 5.88
     }
   ],
   "totals": {
-    "qtdCompra": 14013,
-    "pesoMedioKg": 263.05,
-    "precoMedioUSDKg": 4.67,
-    "valorKgBaseUSD": 4.64
+    "qtdCompra": 12446,
+    "pesoMedioKg": 293.72,
+    "precoMedioUSDKg": 4.74,
+    "valorKgBaseUSD": 4.59
   },
   "source": {
     "module": "Compras Now",
@@ -82,31 +88,36 @@
   },
   "originTotals": {
     "AR": {
-      "qtdCompra": 876,
-      "pesoMedioKg": 431.93,
-      "precoMedioUSDKg": 4.73
+      "qtdCompra": 1311,
+      "pesoMedioKg": 499.43,
+      "precoMedioUSDKg": 4.8
     },
     "BR": {
-      "qtdCompra": 8409,
-      "pesoMedioKg": 263.51,
-      "precoMedioUSDKg": 4.45,
-      "valorKgBaseUSD": 4.47
+      "qtdCompra": 7637,
+      "pesoMedioKg": 271.21,
+      "precoMedioUSDKg": 4.5,
+      "valorKgBaseUSD": 4.48
     },
     "CO": {
-      "qtdCompra": 1041,
-      "pesoMedioKg": 329.38,
-      "precoMedioUSDKg": 4.16
+      "qtdCompra": 1379,
+      "pesoMedioKg": 323.82,
+      "precoMedioUSDKg": 4.89
     },
     "PY": {
-      "qtdCompra": 3652,
-      "pesoMedioKg": 202.53,
-      "precoMedioUSDKg": 5.18,
+      "qtdCompra": 1482,
+      "pesoMedioKg": 204.15,
+      "precoMedioUSDKg": 5.17,
       "valorKgBaseUSD": 5.02
+    },
+    "UY": {
+      "qtdCompra": 637,
+      "pesoMedioKg": 283.57,
+      "precoMedioUSDKg": 5.69
     }
   },
   "period": "yesterday",
-  "periodFrom": "2026-06-11T00:00:00-03:00",
-  "periodTo": "2026-06-11T23:59:59-03:00",
-  "periodLabel": "Ontem (11/06)",
+  "periodFrom": "2026-06-12T00:00:00-03:00",
+  "periodTo": "2026-06-12T23:59:59-03:00",
+  "periodLabel": "Ontem (12/06)",
   "screenshotPath": "data/screenshots/yesterday.png"
 }
