@@ -1,0 +1,49 @@
+{
+  "capturedAt": "2026-06-14T18:01:29-03:00",
+  "rows": [
+    {
+      "origem": "AR",
+      "sexo": "FEMEA",
+      "qtdCompra": 233,
+      "pesoMedioKg": 554.46,
+      "precoMedioUSDKg": 4.27
+    },
+    {
+      "origem": "AR",
+      "sexo": "MACHO",
+      "qtdCompra": 93,
+      "pesoMedioKg": 553.76,
+      "precoMedioUSDKg": 5.3
+    },
+    {
+      "origem": "PY",
+      "sexo": "FEMEA",
+      "qtdCompra": 90,
+      "pesoMedioKg": 180.0,
+      "precoMedioUSDKg": 5.15,
+      "valorKgBaseUSD": 5.05
+    }
+  ],
+  "totals": {
+    "qtdCompra": 416,
+    "pesoMedioKg": 473.29,
+    "precoMedioUSDKg": 4.77,
+    "valorKgBaseUSD": 5.05
+  },
+  "source": {
+    "module": "Compras Now",
+    "breadcrumb": "DUX > Minerva Reports > Relatorios de Controle > Compras Now"
+  },
+  "originTotals": {
+    "AR": {
+      "qtdCompra": 326,
+      "pesoMedioKg": 554.26,
+      "precoMedioUSDKg": 4.64
+    }
+  },
+  "period": "today",
+  "periodFrom": "2026-06-14T00:00:00-03:00",
+  "periodTo": "2026-06-14T23:59:59-03:00",
+  "periodLabel": "Hoje (14/06)",
+  "screenshotPath": "data/screenshots/today.png"
+}
