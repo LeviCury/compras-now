@@ -1,12 +1,12 @@
 {
-  "capturedAt": "2026-06-21T09:01:34-03:00",
+  "capturedAt": "2026-06-21T09:31:32-03:00",
   "rows": [
     {
       "origem": "AR",
       "sexo": "FEMEA",
-      "qtdCompra": 32,
-      "pesoMedioKg": 418.75,
-      "precoMedioUSDKg": 4.28
+      "qtdCompra": 66,
+      "pesoMedioKg": 450.3,
+      "precoMedioUSDKg": 4.26
     },
     {
       "origem": "BR",
@@ -17,9 +17,9 @@
     }
   ],
   "totals": {
-    "qtdCompra": 194,
-    "pesoMedioKg": 332.11,
-    "precoMedioUSDKg": 4.6
+    "qtdCompra": 228,
+    "pesoMedioKg": 354.17,
+    "precoMedioUSDKg": 4.55
   },
   "source": {
     "module": "Compras Now",
