@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-06-22T17:31:29-03:00",
+  "capturedAt": "2026-06-22T18:01:47-03:00",
   "rows": [
     {
       "origem": "AR",
@@ -11,8 +11,8 @@
     {
       "origem": "AR",
       "sexo": "MACHO",
-      "qtdCompra": 1142,
-      "pesoMedioKg": 510.33,
+      "qtdCompra": 1176,
+      "pesoMedioKg": 509.17,
       "precoMedioUSDKg": 5.31
     },
     {
@@ -63,8 +63,8 @@
     }
   ],
   "totals": {
-    "qtdCompra": 8369,
-    "pesoMedioKg": 327.41,
+    "qtdCompra": 8403,
+    "pesoMedioKg": 327.98,
     "precoMedioUSDKg": 4.72,
     "valorKgBaseUSD": 4.51
   },
@@ -74,8 +74,8 @@
   },
   "originTotals": {
     "AR": {
-      "qtdCompra": 1925,
-      "pesoMedioKg": 571.5,
+      "qtdCompra": 1959,
+      "pesoMedioKg": 569.73,
       "precoMedioUSDKg": 5.01
     },
     "BR": {
