@@ -1,104 +1,50 @@
 {
-  "capturedAt": "2026-06-25T18:31:29-03:00",
+  "capturedAt": "2026-06-26T07:31:28-03:00",
   "rows": [
     {
       "origem": "AR",
       "sexo": "FEMEA",
-      "qtdCompra": 1513,
-      "pesoMedioKg": 492.96,
-      "precoMedioUSDKg": 3.95
-    },
-    {
-      "origem": "AR",
-      "sexo": "MACHO",
-      "qtdCompra": 1011,
-      "pesoMedioKg": 524.43,
-      "precoMedioUSDKg": 5.08
+      "qtdCompra": 48,
+      "pesoMedioKg": 425.1,
+      "precoMedioUSDKg": 3.11
     },
     {
       "origem": "BR",
       "sexo": "FEMEA",
-      "qtdCompra": 1595,
-      "pesoMedioKg": 218.39,
-      "precoMedioUSDKg": 4.27,
-      "valorKgBaseUSD": 4.19
+      "qtdCompra": 278,
+      "pesoMedioKg": 206.26,
+      "precoMedioUSDKg": 4.16,
+      "valorKgBaseUSD": 4.2
     },
     {
       "origem": "BR",
       "sexo": "MACHO",
-      "qtdCompra": 2960,
-      "pesoMedioKg": 268.27,
-      "precoMedioUSDKg": 4.44,
-      "valorKgBaseUSD": 4.22
-    },
-    {
-      "origem": "CO",
-      "sexo": "FEMEA",
-      "qtdCompra": 506,
-      "pesoMedioKg": 276.35,
-      "precoMedioUSDKg": 4.77
-    },
-    {
-      "origem": "CO",
-      "sexo": "MACHO",
-      "qtdCompra": 914,
-      "pesoMedioKg": 605.81,
-      "precoMedioUSDKg": 4.58
-    },
-    {
-      "origem": "PY",
-      "sexo": "FEMEA",
-      "qtdCompra": 250,
-      "pesoMedioKg": 192.48,
-      "precoMedioUSDKg": 4.99,
-      "valorKgBaseUSD": 4.93
-    },
-    {
-      "origem": "PY",
-      "sexo": "MACHO",
-      "qtdCompra": 1007,
-      "pesoMedioKg": 210.06,
-      "precoMedioUSDKg": 5.17,
-      "valorKgBaseUSD": 5.05
+      "qtdCompra": 122,
+      "pesoMedioKg": 293.07,
+      "precoMedioUSDKg": 4.19
     }
   ],
   "totals": {
-    "qtdCompra": 9756,
-    "pesoMedioKg": 345.6,
-    "precoMedioUSDKg": 4.56,
-    "valorKgBaseUSD": 4.4
+    "qtdCompra": 448,
+    "pesoMedioKg": 253.35,
+    "precoMedioUSDKg": 4.09,
+    "valorKgBaseUSD": 4.2
   },
   "source": {
     "module": "Compras Now",
     "breadcrumb": "DUX > Minerva Reports > Relatorios de Controle > Compras Now"
   },
   "originTotals": {
-    "AR": {
-      "qtdCompra": 2524,
-      "pesoMedioKg": 505.56,
-      "precoMedioUSDKg": 4.5
-    },
     "BR": {
-      "qtdCompra": 4555,
-      "pesoMedioKg": 250.8,
-      "precoMedioUSDKg": 4.38,
-      "valorKgBaseUSD": 4.21
-    },
-    "CO": {
-      "qtdCompra": 1420,
-      "pesoMedioKg": 488.41,
-      "precoMedioUSDKg": 4.65
-    },
-    "PY": {
-      "qtdCompra": 1257,
-      "pesoMedioKg": 206.56,
-      "precoMedioUSDKg": 5.13,
-      "valorKgBaseUSD": 5.03
+      "qtdCompra": 400,
+      "pesoMedioKg": 232.74,
+      "precoMedioUSDKg": 4.17,
+      "valorKgBaseUSD": 4.2
     }
   },
   "period": "today",
-  "periodFrom": "2026-06-25T00:00:00-03:00",
-  "periodTo": "2026-06-25T23:59:59-03:00",
-  "periodLabel": "Hoje (25/06)",
+  "periodFrom": "2026-06-26T00:00:00-03:00",
+  "periodTo": "2026-06-26T23:59:59-03:00",
+  "periodLabel": "Hoje (26/06)",
   "screenshotPath": "data/screenshots/today.png"
 }
