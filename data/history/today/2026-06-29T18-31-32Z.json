@@ -1,0 +1,92 @@
+{
+  "capturedAt": "2026-06-29T15:31:32-03:00",
+  "rows": [
+    {
+      "origem": "AR",
+      "sexo": "FEMEA",
+      "qtdCompra": 883,
+      "pesoMedioKg": 503.25,
+      "precoMedioUSDKg": 4.2
+    },
+    {
+      "origem": "AR",
+      "sexo": "MACHO",
+      "qtdCompra": 882,
+      "pesoMedioKg": 540.87,
+      "precoMedioUSDKg": 5.08
+    },
+    {
+      "origem": "BR",
+      "sexo": "FEMEA",
+      "qtdCompra": 1633,
+      "pesoMedioKg": 243.48,
+      "precoMedioUSDKg": 4.18,
+      "valorKgBaseUSD": 4.25
+    },
+    {
+      "origem": "BR",
+      "sexo": "MACHO",
+      "qtdCompra": 2547,
+      "pesoMedioKg": 287.03,
+      "precoMedioUSDKg": 4.32,
+      "valorKgBaseUSD": 4.28
+    },
+    {
+      "origem": "PY",
+      "sexo": "FEMEA",
+      "qtdCompra": 802,
+      "pesoMedioKg": 196.05,
+      "precoMedioUSDKg": 5.03,
+      "valorKgBaseUSD": 4.96
+    },
+    {
+      "origem": "PY",
+      "sexo": "MACHO",
+      "qtdCompra": 1361,
+      "pesoMedioKg": 209.96,
+      "precoMedioUSDKg": 5.13,
+      "valorKgBaseUSD": 5.07
+    },
+    {
+      "origem": "UY",
+      "sexo": "FEMEA",
+      "qtdCompra": 40,
+      "pesoMedioKg": 220.8,
+      "precoMedioUSDKg": 5.1
+    }
+  ],
+  "totals": {
+    "qtdCompra": 8148,
+    "pesoMedioKg": 307.06,
+    "precoMedioUSDKg": 4.63,
+    "valorKgBaseUSD": 4.51
+  },
+  "source": {
+    "module": "Compras Now",
+    "breadcrumb": "DUX > Minerva Reports > Relatorios de Controle > Compras Now"
+  },
+  "originTotals": {
+    "AR": {
+      "qtdCompra": 1765,
+      "pesoMedioKg": 522.05,
+      "precoMedioUSDKg": 4.7
+    },
+    "BR": {
+      "qtdCompra": 4180,
+      "pesoMedioKg": 270.02,
+      "precoMedioUSDKg": 4.26,
+      "valorKgBaseUSD": 4.27
+    },
+    "PY": {
+      "qtdCompra": 2163,
+      "pesoMedioKg": 204.8,
+      "precoMedioUSDKg": 5.1,
+      "valorKgBaseUSD": 5.03
+    }
+  },
+  "period": "today",
+  "periodFrom": "2026-06-29T00:00:00-03:00",
+  "periodTo": "2026-06-29T23:59:59-03:00",
+  "periodLabel": "Hoje (29/06)",
+  "screenshotPath": "data/screenshots/today.png"
+}
