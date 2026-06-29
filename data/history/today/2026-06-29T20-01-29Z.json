@@ -1,0 +1,92 @@
+{
+  "capturedAt": "2026-06-29T17:01:29-03:00",
+  "rows": [
+    {
+      "origem": "AR",
+      "sexo": "FEMEA",
+      "qtdCompra": 918,
+      "pesoMedioKg": 503.13,
+      "precoMedioUSDKg": 4.2
+    },
+    {
+      "origem": "AR",
+      "sexo": "MACHO",
+      "qtdCompra": 1038,
+      "pesoMedioKg": 545.09,
+      "precoMedioUSDKg": 5.09
+    },
+    {
+      "origem": "BR",
+      "sexo": "FEMEA",
+      "qtdCompra": 1666,
+      "pesoMedioKg": 242.82,
+      "precoMedioUSDKg": 4.18,
+      "valorKgBaseUSD": 4.23
+    },
+    {
+      "origem": "BR",
+      "sexo": "MACHO",
+      "qtdCompra": 3047,
+      "pesoMedioKg": 285.06,
+      "precoMedioUSDKg": 4.37,
+      "valorKgBaseUSD": 4.29
+    },
+    {
+      "origem": "PY",
+      "sexo": "FEMEA",
+      "qtdCompra": 1852,
+      "pesoMedioKg": 188.31,
+      "precoMedioUSDKg": 4.99,
+      "valorKgBaseUSD": 4.9
+    },
+    {
+      "origem": "PY",
+      "sexo": "MACHO",
+      "qtdCompra": 1957,
+      "pesoMedioKg": 209.97,
+      "precoMedioUSDKg": 5.13,
+      "valorKgBaseUSD": 5.06
+    },
+    {
+      "origem": "UY",
+      "sexo": "FEMEA",
+      "qtdCompra": 40,
+      "pesoMedioKg": 220.8,
+      "precoMedioUSDKg": 5.1
+    }
+  ],
+  "totals": {
+    "qtdCompra": 10518,
+    "pesoMedioKg": 291.81,
+    "precoMedioUSDKg": 4.69,
+    "valorKgBaseUSD": 4.57
+  },
+  "source": {
+    "module": "Compras Now",
+    "breadcrumb": "DUX > Minerva Reports > Relatorios de Controle > Compras Now"
+  },
+  "originTotals": {
+    "AR": {
+      "qtdCompra": 1956,
+      "pesoMedioKg": 525.39,
+      "precoMedioUSDKg": 4.73
+    },
+    "BR": {
+      "qtdCompra": 4713,
+      "pesoMedioKg": 270.13,
+      "precoMedioUSDKg": 4.31,
+      "valorKgBaseUSD": 4.27
+    },
+    "PY": {
+      "qtdCompra": 3809,
+      "pesoMedioKg": 199.44,
+      "precoMedioUSDKg": 5.06,
+      "valorKgBaseUSD": 4.99
+    }
+  },
+  "period": "today",
+  "periodFrom": "2026-06-29T00:00:00-03:00",
+  "periodTo": "2026-06-29T23:59:59-03:00",
+  "periodLabel": "Hoje (29/06)",
+  "screenshotPath": "data/screenshots/today.png"
+}
