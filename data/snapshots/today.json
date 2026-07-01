@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-07-01T13:01:33-03:00",
+  "capturedAt": "2026-07-01T13:31:34-03:00",
   "rows": [
     {
       "origem": "AR",
@@ -18,18 +18,18 @@
     {
       "origem": "BR",
       "sexo": "FEMEA",
-      "qtdCompra": 1507,
-      "pesoMedioKg": 228.59,
+      "qtdCompra": 1624,
+      "pesoMedioKg": 228.32,
       "precoMedioUSDKg": 4.21,
-      "valorKgBaseUSD": 4.15
+      "valorKgBaseUSD": 4.16
     },
     {
       "origem": "BR",
       "sexo": "MACHO",
-      "qtdCompra": 3994,
-      "pesoMedioKg": 285.76,
-      "precoMedioUSDKg": 4.65,
-      "valorKgBaseUSD": 4.58
+      "qtdCompra": 4268,
+      "pesoMedioKg": 285.77,
+      "precoMedioUSDKg": 4.64,
+      "valorKgBaseUSD": 4.52
     },
     {
       "origem": "CO",
@@ -48,10 +48,10 @@
     {
       "origem": "PY",
       "sexo": "FEMEA",
-      "qtdCompra": 922,
-      "pesoMedioKg": 198.35,
+      "qtdCompra": 1347,
+      "pesoMedioKg": 200.04,
       "precoMedioUSDKg": 5.15,
-      "valorKgBaseUSD": 4.98
+      "valorKgBaseUSD": 5.0
     },
     {
       "origem": "PY",
@@ -77,10 +77,10 @@
     }
   ],
   "totals": {
-    "qtdCompra": 10093,
-    "pesoMedioKg": 295.34,
-    "precoMedioUSDKg": 20.4,
-    "valorKgBaseUSD": 4.68
+    "qtdCompra": 10909,
+    "pesoMedioKg": 290.78,
+    "precoMedioUSDKg": 19.64,
+    "valorKgBaseUSD": 4.66
   },
   "source": {
     "module": "Compras Now",
@@ -93,10 +93,10 @@
       "precoMedioUSDKg": 76.9
     },
     "BR": {
-      "qtdCompra": 5501,
-      "pesoMedioKg": 270.1,
-      "precoMedioUSDKg": 4.54,
-      "valorKgBaseUSD": 4.46
+      "qtdCompra": 5892,
+      "pesoMedioKg": 269.94,
+      "precoMedioUSDKg": 4.53,
+      "valorKgBaseUSD": 4.42
     },
     "CO": {
       "qtdCompra": 272,
@@ -104,10 +104,10 @@
       "precoMedioUSDKg": 4.93
     },
     "PY": {
-      "qtdCompra": 2202,
-      "pesoMedioKg": 205.07,
-      "precoMedioUSDKg": 5.21,
-      "valorKgBaseUSD": 5.02
+      "qtdCompra": 2627,
+      "pesoMedioKg": 204.85,
+      "precoMedioUSDKg": 5.2,
+      "valorKgBaseUSD": 5.03
     },
     "UY": {
       "qtdCompra": 326,
